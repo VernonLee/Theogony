@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_primary">#F5F5F5</color>
+    <color name="md_primary_dark">#E0E0E0</color>
+    <color name="md_accent">#B71C1C</color>
+    <color name="md_background">#FAFAFA</color>
+    <color name="md_settings_background">#EEEEEE</color>
+
+    <color name="text_dark">#DE000000</color>
+    <color name="secondary_text_dark">#8A000000</color>
+    <color name="text_disabled">#61000000</color>
+    <color name="text_hint">#61000000</color>
+    <color name="list_divider">#1F000000</color>
+    <color name="text_light_background">#757575</color>
+    <color name="list_item_disabled">#E0E0E0</color>
+</resources>

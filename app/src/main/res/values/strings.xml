@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">英雄谱</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_collections">collections</string>
+    <string name="menu_search">search</string>
+    <string name="menu_more">more</string>
+    <string name="menu_share">share</string>
+    <string name="menu_skins">skins</string>
+    <string name="menu_download">download</string>
+    <string name="menu_wallpaper">wallpaper</string>
+    <string name="menu_send">send</string>
+
+    <string name="request_data_progress_message">初始化...</string>
+    <string name="download_data_progress_message">下载数据...</string>
+    <string name="parse_data_progress_message">解析数据中...</string>
+    <string name="save_data_progress_message">保存数据...</string>
+    <string name="init_successful_progress_message">初始化完成</string>
+    <string name="init_failed_progress_message">初始化失败</string>
+
+    <string name="okay_button">确认</string>
+    <string name="cancel_button">取消</string>
+    <string name="download_button">开始下载</string>
+
+    <string name="collections_title">我的收藏</string>
+    <string name="settings_title">设置</string>
+    <string name="about_app_title">关于应用</string>
+    <string name="search_title">搜索</string>
+    <string name="search_label">搜索英雄</string>
+    <string name="search_hint">请输入英雄名称</string>
+
+    <string name="pref_lol_static_data_title">数据源</string>
+    <string name="pref_locale_key">locale</string>
+    <string name="pref_locale_title">语言设置</string>
+    <string name="pref_version_key">ddragon_data_version</string>
+    <string name="pref_version_title">数据版本</string>
+    <string name="pref_about_title">关于</string>
+    <string name="pref_about_app_key">about_app</string>
+    <string name="pref_about_app_title">关于应用</string>
+
+    <string name="about_app_message">
+        &#160;&#160;英雄谱(Theogony)是一款和英雄联盟有关的应用，
+        在这里既可以阅读英雄们的背景故事也可以欣赏精美的插画。\n\n
+
+        目前该应用已经在Github开源，项目地址: \n
+        https://github.com/VernonLee/ChampionLore
+    </string>
+
+    <string name="warning_dialog_title">警告</string>
+
+    <string name="miss_app_key_message">APP_KEY丢失，无法正常运行应用</string>
+</resources>

@@ -1,0 +1,91 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/md_primary</item>
+        <item name="colorPrimaryDark">@color/md_primary_dark</item>
+        <item name="colorAccent">@color/md_accent</item>
+        <item name="android:textViewStyle">@style/NotoSansTextViewStyle</item>
+        <item name="android:windowBackground">@color/md_background</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Settings">
+        <item name="android:windowBackground">@color/md_settings_background</item>
+        <item name="android:preferenceCategoryStyle">@style/PreferenceCategory</item>
+        <item name="android:preferenceStyle">@style/Preference</item>
+        <item name="android:dialogPreferenceStyle">@style/Preference</item>
+    </style>
+
+    <style name="PreferenceCategory">
+        <item name="android:layout">@layout/preference_category</item>
+    </style>
+
+    <style name="Preference">
+        <item name="android:layout">@layout/preference</item>
+    </style>
+    
+    <style name="NotoSansTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">NotoSans-Regular</item>
+    </style>
+
+    <style name="NotoSansBoldTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">NotoSans-Bold</item>
+    </style>
+
+    <style name="NotoSerifTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">NotoSerif-Regular</item>
+    </style>
+
+    <style name="NotoSerifBoldTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">NotoSerif-Bold</item>
+    </style>
+
+    <style name="MarqueeTextView" parent="android:Widget.TextView">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+    </style>
+
+    <style name="ToolbarTitle" parent="MarqueeTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">@dimen/headline</item>
+    </style>
+
+    <style name="ChampionNameTextView" parent="MarqueeTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/body</item>
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+
+    <style name="ChampionNameTextView.Large">
+        <item name="android:textSize">@dimen/headline</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ChampionLoreTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/body</item>
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+
+    <style name="SkinNameTextView" parent="MarqueeTextView">
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/text_light_background</item>
+    </style>
+
+    <!--TODO add setting style -->
+
+</resources>

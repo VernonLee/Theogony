@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="headline">24sp</dimen>
+    <dimen name="title">21sp</dimen>
+    <dimen name="subheading">17sp</dimen>
+    <dimen name="body">15sp</dimen>
+    <dimen name="caption">13sp</dimen>
+    <dimen name="button">15sp</dimen>
+
+    <dimen name="divider_height">1px</dimen>
+    <dimen name="container_left_padding">16dp</dimen>
+    <dimen name="container_right_padding">16dp</dimen>
+    <dimen name="appbar_height_expanded">192dp</dimen>
+</resources>

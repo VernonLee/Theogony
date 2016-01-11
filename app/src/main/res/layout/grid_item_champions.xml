@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    
+    <ImageView
+        android:id="@+id/img_champion_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_default_avatar"
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/txt_champion_name"
+        style="@style/ChampionNameTextView"
+        android:text="xxx"/>
+</LinearLayout>

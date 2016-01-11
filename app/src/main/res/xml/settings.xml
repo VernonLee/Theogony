@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_lol_static_data_title">
+        <Preference
+            android:key="@string/pref_locale_key"
+            android:summary="暂不支持"
+            android:title="@string/pref_locale_title" />
+
+        <Preference
+            android:key="@string/pref_version_key"
+            android:summary="5.22.1"
+            android:title="@string/pref_version_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_about_title">
+        <Preference
+            android:key="@string/pref_about_app_key"
+            android:title="@string/pref_about_app_title" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
