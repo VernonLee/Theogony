@@ -29,8 +29,10 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.nodlee.riotgames.Locale;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.task.InitLolStaticDataTask;
 import com.nodlee.theogony.utils.Constants;
@@ -44,6 +46,7 @@ import com.nodlee.theogony.utils.UserUtils;
  * Created by Vernon Lee on 15-11-27.
  */
 public class WelcomeToSummonerRift extends AppCompatActivity {
+    private static final String TAG = WelcomeToSummonerRift.class.getName();
     private static final int TOTAL_MILLIS = 2500;
     private static final int INTERVAL = 1000;
 
@@ -70,10 +73,36 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
                     .create().show();
             // 检查是否第一次打开应用
         } else if (UserUtils.isFirstBlood(this)) {
-            new FirstBloodTask(this).execute();
+            selectLocale();
         } else {
             startCountDown();
         }
+    }
+
+    private void selectLocale() {
+        final String[] selectedLocale = {Locale.getDefaultLocaleCode()};
+
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(R.string.select_locale_dialog_title)
+                .setSingleChoiceItems(Locale.sLocaleNames, Locale.DEFAULT_LOCALE,
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedLocale[0] = Locale.getLocaleCode(which);
+                        Log.i(TAG, "选择语言：" + which + " " + selectedLocale[0]);
+                    }
+                })
+                .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startTask(selectedLocale[0]);
+                    }
+                }).show();
+    }
+
+    private void startTask(String locale) {
+        new FirstBloodTask(this.getApplicationContext(), locale).execute();
     }
 
     private void startCountDown() {
@@ -102,8 +131,8 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
 
     private class FirstBloodTask extends InitLolStaticDataTask {
 
-        public FirstBloodTask(Context context) {
-            super(context);
+        public FirstBloodTask(Context context, String locale) {
+            super(context, locale);
         }
 
         @Override

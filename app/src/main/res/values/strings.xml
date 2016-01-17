@@ -17,6 +17,9 @@
     <string name="save_data_progress_message">保存数据...</string>
     <string name="init_successful_progress_message">初始化完成</string>
     <string name="init_failed_progress_message">初始化失败</string>
+    <string name="task_moved_to_background">任务移至后台进行</string>
+    <string name="reselect_locale_message">重新选择语言</string>
+    <string name="switch_locale_process_message">切换语言中...</string>
 
     <string name="okay_button">确认</string>
     <string name="cancel_button">取消</string>
@@ -28,6 +31,7 @@
     <string name="search_title">搜索</string>
     <string name="search_label">搜索英雄</string>
     <string name="search_hint">请输入英雄名称</string>
+    <string name="switch_success_notification_title">语言切换成功</string>
 
     <string name="pref_lol_static_data_title">数据源</string>
     <string name="pref_locale_key">locale</string>
@@ -43,10 +47,11 @@
         在这里既可以阅读英雄们的背景故事也可以欣赏精美的插画。\n\n
 
         目前该应用已经在Github开源，项目地址: \n
-        https://github.com/VernonLee/ChampionLore
+        https://github.com/VernonLee/Theogony
     </string>
 
     <string name="warning_dialog_title">警告</string>
+    <string name="select_locale_dialog_title">选择语言</string>
 
     <string name="miss_app_key_message">APP_KEY丢失，无法正常运行应用</string>
 </resources>

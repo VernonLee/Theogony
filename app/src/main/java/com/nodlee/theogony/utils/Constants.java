@@ -27,10 +27,18 @@ import android.net.Uri;
  * Created by Vernon Lee on 15-11-23.
  */
 public class Constants {
+    /**
+     * 拳头公司APP_KEY，需开发者自行提供
+     */
     public static final String RIOT_APP_KEY = "";
 
     public static class Favorite {
         public static final Uri CONTENT_URI = Uri.parse("content://com.nodlee.thogony").buildUpon()
                 .appendPath("favorite").build();
+    }
+
+    public static class Champions {
+        public static final Uri CONTENT_URI = Uri.parse("content://com.nodlee.thogony").buildUpon()
+                .appendPath("champion").build();
     }
 }

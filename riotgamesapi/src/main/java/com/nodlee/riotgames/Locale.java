@@ -41,15 +41,19 @@ public class Locale {
      * 조선말
      */
     public static final int KR = 3;
+    /**
+     * 默认语言为中文
+     */
+    public static final int DEFAULT_LOCALE = CN;
 
-    private static String[] sLocaleCodes = {
+    public static String[] sLocaleCodes = {
             "zh_CN",
             "zh_TW",
             "en_US",
             "ko_KR"
     };
 
-    private static String[] sLocaleNames = {
+    public static String[] sLocaleNames = {
             "中文简体",
             "中文繁体",
             "English",
@@ -62,7 +66,7 @@ public class Locale {
      * @return
      */
     public static String getDefaultLocaleCode() {
-        return getLocaleCode(0);
+        return getLocaleCode(DEFAULT_LOCALE);
     }
 
     public static String getLocaleCode(int localeTypeId) {

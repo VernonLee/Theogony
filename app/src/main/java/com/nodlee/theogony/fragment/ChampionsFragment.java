@@ -22,8 +22,10 @@
 package com.nodlee.theogony.fragment;
 
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -45,6 +47,7 @@ import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
 import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.ChampionsLoader;
+import com.nodlee.theogony.utils.Constants;
 
 import java.io.Serializable;
 
@@ -53,7 +56,8 @@ import java.io.Serializable;
  * Created by Vernon Lee on 15-11-24.
  */
 public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String EXTRA_TAG_KEY = "championTagKey";
+    private static final String EXTRA_TAG_KEY = ChampionsFragment.class.getName();
+    private static final int LOADER_CHAMPIONS = 0;
     private static int SPAN_COUNT = 4;
 
     private SwipeRefreshLayout mRefreshView;
@@ -102,7 +106,9 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getLoaderManager().initLoader(0, getArguments(), mLoaderCallback);
+        getLoaderManager().initLoader(LOADER_CHAMPIONS, getArguments(), mLoaderCallback);
+        getActivity().getContentResolver().registerContentObserver(Constants.Champions.CONTENT_URI
+            , true, mObserver);
     }
 
     private LoaderManager.LoaderCallbacks mLoaderCallback = new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -128,6 +134,26 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
-        getLoaderManager().restartLoader(0, getArguments(), mLoaderCallback);
+        Loader loader = getLoaderManager().getLoader(LOADER_CHAMPIONS);
+        if (loader != null) {
+            loader.forceLoad();
+        }
+    }
+
+    private ContentObserver mObserver = new ContentObserver(new Handler()) {
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            Loader loader = getLoaderManager().getLoader(LOADER_CHAMPIONS);
+            if (loader != null) {
+                loader.forceLoad();
+            }
+        }
+    };
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().getContentResolver().unregisterContentObserver(mObserver);
     }
 }

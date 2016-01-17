@@ -57,7 +57,7 @@ public class ChampionAdapter extends BaseCursorAdapter<ChampionAdapter.ViewHolde
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
         Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
         if (champion != null) {
-            viewHolder.nameTv.setText(champion.getTitle());
+            viewHolder.nameTv.setText(champion.getName());
             mImageLoader.displayImage(champion.getAvatar(), viewHolder.avatarIv);
         }
     }

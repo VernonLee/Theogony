@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="championTags">
+        <item>全部</item>
         <item>战士</item>
         <item>坦克</item>
         <item>辅助</item>
@@ -10,6 +11,7 @@
     </string-array>
 
     <string-array name="championTagKeys">
+        <item></item>
         <item>Fighter</item>
         <item>Tank</item>
         <item>Support</item>

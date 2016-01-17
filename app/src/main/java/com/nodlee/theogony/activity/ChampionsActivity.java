@@ -66,7 +66,6 @@ public class ChampionsActivity extends BaseActivity {
 
     private void setupPager(ViewPager pager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(ChampionsFragment.newInstance(""), "全部");
         for (int i = 0; i < championTags.length; i++) {
             String tagKey = championTagKeys[i];
             String tag = championTags[i];

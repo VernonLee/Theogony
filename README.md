@@ -15,7 +15,10 @@
 ####应用截图
 |                             |                           |                     |                         |
 |:---------------------------:|:-------------------------:|:-------------------:|:-----------------------:|
-| [![champions](screenshot/champions.png)] | ![champion](screenshot/champion.png) | ![skins](screenshot/skins.png) | ![desktop](screenshot/desktop.png) |
+| ![champions](screenshot/champions.png) | ![champion](screenshot/champion.png) | ![skins](screenshot/skins.png) | ![desktop](screenshot/desktop.png) |
+
+####关于APP_KEY
+APP_KEY是由拳头公司提供，属于非公开的。所以为了保证应用的正常使用，使用者需移步[拳头开发者中心](https://developer.riotgames.com/)拿到测试APP_KEY，加到Constants RIOT_APP_KEY中。
 
 ####感谢
 

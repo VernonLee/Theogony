@@ -53,12 +53,12 @@ public class InitLolStaticDataTask extends AsyncTask<Void, Integer, Boolean> {
     private static final String TAG = "FetchAndSaveTask";
     private static final boolean DEBUG = false;
 
-    private Context mCtx;
-    private String mLocale;
+    protected Context mCtx;
+    protected String mLocale;
     private String mVersion;
 
-    public InitLolStaticDataTask(Context context) {
-        mLocale = Locale.getDefaultLocaleCode();
+    public InitLolStaticDataTask(Context context, String locale) {
+        mLocale = locale;
         mCtx = context;
     }
 
