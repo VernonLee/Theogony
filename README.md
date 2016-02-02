@@ -22,9 +22,9 @@ APP_KEY是由拳头公司提供，属于非公开的。所以为了保证应用�
 
 ####感谢
 
-[CursorRecyclerViewAdapter](https://gist.github.com/skyfishjy/443b7448f59be978bc59) -skyfishjy
-[PhotoView](https://github.com/chrisbanes/PhotoView) -chrisbanes
-[Android-Universal-Image-Loader](https://github.com/nostra13/Android-Universal-Image-Loader) -nostra13
+[CursorRecyclerViewAdapter](https://gist.github.com/skyfishjy/443b7448f59be978bc59) -skyfishjy  
+[PhotoView](https://github.com/chrisbanes/PhotoView) -chrisbanes  
+[Android-Universal-Image-Loader](https://github.com/nostra13/Android-Universal-Image-Loader) -nostra13  
 
 ####License
 

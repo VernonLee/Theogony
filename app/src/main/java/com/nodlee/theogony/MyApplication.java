@@ -29,6 +29,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 /**
  * Created by Vernon Lee on 15-11-19.
@@ -48,6 +49,7 @@ public class MyApplication extends Application {
                 .build();
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(appContext);
+        config.imageDownloader(new BaseImageDownloader(appContext, 10 * 1000, 20 * 1000));
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());

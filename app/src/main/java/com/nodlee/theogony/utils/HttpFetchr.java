@@ -31,11 +31,13 @@ import java.net.URL;
  * Created by Vernon Lee on 15-11-23.
  */
 public class HttpFetchr {
+    private static final int SOCKET_TIME_OUT = 10 * 1000;
 
     private byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
+        connection.setConnectTimeout(SOCKET_TIME_OUT);
+        connection.setReadTimeout(SOCKET_TIME_OUT);
         try {
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 return null;
