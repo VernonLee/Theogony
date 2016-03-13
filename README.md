@@ -10,12 +10,12 @@
 * 支持插画下载
 * 设置插画为桌面壁纸
 
-[APK下载](apk/theogony.apk)
+<a href="https://play.google.com/store/apps/details?id=com.nodlee.theogony&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" height="64" width="204"/></a>
 
 ####应用截图
-|                             |                           |                     |                         |
-|:---------------------------:|:-------------------------:|:-------------------:|:-----------------------:|
-| ![champions](screenshot/champions.png) | ![champion](screenshot/champion.png) | ![skins](screenshot/skins.png) | ![desktop](screenshot/desktop.png) |
+|                                   |                                        |                                      |                                |                                    |
+|:---------------------------------:|:--------------------------------------:|:------------------------------------:|:------------------------------:|:----------------------------------:|
+|![welcome](screenshot/welcome.png) | ![champions](screenshot/champions.png) | ![champion](screenshot/champion.png) | ![skins](screenshot/skins.png) | ![skin](screenshot/skin.png) |
 
 ####关于APP_KEY
 APP_KEY是由拳头公司提供，属于非公开的。所以为了保证应用的正常使用，使用者需移步[拳头开发者中心](https://developer.riotgames.com/)拿到测试APP_KEY，加到Constants RIOT_APP_KEY中。
@@ -31,7 +31,7 @@ APP_KEY是由拳头公司提供，属于非公开的。所以为了保证应用�
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 Vernon Lee
+Copyright (c) 2016 Vernon Lee
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
