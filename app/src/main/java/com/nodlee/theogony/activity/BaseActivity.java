@@ -4,14 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.utils.AndroidUtils;
 
 /**
  * Created by Vernon Lee on 15-11-24.
  */
 public class BaseActivity extends AppCompatActivity {
-    private Toolbar mToolbar;
-
+    protected Toolbar mToolbar;
 
     protected Toolbar initToolbar() {
         return mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -30,6 +28,10 @@ public class BaseActivity extends AppCompatActivity {
             mToolbar.setTitle(title);
         }
         setSupportActionBar(mToolbar);
+        return mToolbar;
+    }
+
+    public Toolbar getToolbar() {
         return mToolbar;
     }
 }

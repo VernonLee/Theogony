@@ -6,6 +6,7 @@
     <dimen name="body">15sp</dimen>
     <dimen name="caption">13sp</dimen>
     <dimen name="button">15sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="divider_height">1px</dimen>
     <dimen name="container_left_padding">16dp</dimen>

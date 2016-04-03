@@ -36,7 +36,7 @@ public class MyApplication extends Application {
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.defaultDisplayImageOptions(options);
-        // config.writeDebugLogs();
+//        config.writeDebugLogs();
 
         ImageLoader.getInstance().init(config.build());
     }

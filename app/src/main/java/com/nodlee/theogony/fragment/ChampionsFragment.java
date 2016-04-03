@@ -10,16 +10,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.activity.BaseActivity;
 import com.nodlee.theogony.activity.ChampionActivity;
 import com.nodlee.theogony.adapter.ChampionAdapter;
 import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
@@ -27,8 +26,7 @@ import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.ChampionsLoader;
 import com.nodlee.theogony.utils.Constants;
-
-import java.io.Serializable;
+import com.nodlee.theogony.view.RecyclerViewScrollListener;
 
 
 /**
@@ -60,11 +58,6 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
         mRefreshView.setOnRefreshListener(this);
         mRefreshView.setColorSchemeResources(R.color.md_accent);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recy_view_champions);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), SPAN_COUNT));
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(SPAN_COUNT,
-                (int) AndroidUtils.dpToPx(5, getActivity()), true));
         mAdapter = new ChampionAdapter(getActivity(), null);
         mAdapter.setOnItemClickedListener(new ChampionAdapter.OnItemClickedListener() {
             @Override
@@ -75,6 +68,24 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
                     intent.putExtra(ChampionActivity.EXTRA_CHAMPION, champion);
                     startActivity(intent);
                 }
+            }
+        });
+
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recy_view_champions);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), SPAN_COUNT));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(SPAN_COUNT,
+                (int) AndroidUtils.dpToPx(5, getActivity()), true));
+        recyclerView.addOnScrollListener(new RecyclerViewScrollListener(getActivity()) {
+
+            @Override
+            public void scrollingUp() {
+                hideToolbar();
+            }
+
+            @Override
+            public void scrollingDown() {
+                showToolbar();
             }
         });
         recyclerView.setAdapter(mAdapter);
@@ -116,6 +127,20 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
         Loader loader = getLoaderManager().getLoader(LOADER_CHAMPIONS);
         if (loader != null) {
             loader.forceLoad();
+        }
+    }
+
+    private void hideToolbar() {
+        ActionBar actionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+    }
+
+    private void showToolbar() {
+        ActionBar actionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.show();
         }
     }
 
