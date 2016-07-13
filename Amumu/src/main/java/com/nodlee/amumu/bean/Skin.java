@@ -6,10 +6,15 @@ import java.io.Serializable;
  * Created by Vernon Lee on 15-11-22.
  */
 public class Skin implements Serializable {
+    // 皮肤ID，如4000001
     private int id;
+    // 英雄ID，如254
     private int cid;
+    // 皮肤标号，如1，2，3等
     private int num;
+    // 皮肤名称，如长者之森
     private String name;
+    // 皮肤图片URL
     private String cover;
 
     public Skin() {

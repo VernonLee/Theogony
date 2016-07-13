@@ -1,23 +1,45 @@
 package com.nodlee.amumu.champions;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+import com.nodlee.amumu.bean.Champion;
+
 import java.util.ArrayList;
 
 /**
+ * 异步数据请求回调接口
  * Created by nodlee on 16/6/15.
  */
-public interface RequestCallback {
+public abstract class RequestCallback extends Handler {
+
+    public RequestCallback() {
+        super(Looper.getMainLooper());
+    }
 
     /**
-     * 在成功获取所有英雄数据调用
+     * 在成功获取数据时调用
+     *
      * @param champions
      */
-    public void onSuccess (ArrayList<Champion> champions);
+    public void onSuccess(ArrayList<Champion> champions) {
+    }
 
     /**
-     * 在获取数据异常的时候调用
+     * 在获取数据异常时调用
+     *
      * @param errCode 错误码
-     * @param errorMsg 错误消息
      */
-    public void onFailed(int errCode, String errorMsg);
+    public void onFailed(int errCode) {
+    }
 
+    @Override
+    public void handleMessage(Message msg) {
+        if (msg.what == ChampionsRequester.SUCCESS) {
+            onSuccess((ArrayList<Champion>) msg.obj);
+        } else {
+            onFailed(msg.arg1);
+        }
+    }
 }

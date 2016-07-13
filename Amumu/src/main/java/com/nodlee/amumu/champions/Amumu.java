@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
 /**
+ * 英雄联盟英雄数据库入口，用来处理APPKEY逻辑，
  * Created by nodlee on 16/6/15.
  */
 public class Amumu {
