@@ -1,4 +1,4 @@
-package com.nodlee.theogony.bean;
+package com.nodlee.amumu.bean;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Vernon Lee on 15-11-22.
  */
 public class Skin implements Serializable {
-    private int sid;
+    private int id;
     private int cid;
     private int num;
     private String name;
@@ -15,20 +15,20 @@ public class Skin implements Serializable {
     public Skin() {
     }
 
-    public Skin(int sid, int cid, int num, String name, String cover) {
-        this.sid = sid;
+    public Skin(int id, int cid, int num, String name, String cover) {
+        this.id = id;
         this.cid = cid;
         this.num = num;
         this.name = name;
         this.cover = cover;
     }
 
-    public int getSid() {
-        return sid;
+    public int getId() {
+        return id;
     }
 
-    public void setSid(int rid) {
-        this.sid = rid;
+    public void setId(int rid) {
+        this.id = rid;
     }
 
     public int getCid() {
@@ -65,7 +65,7 @@ public class Skin implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("sid:%d,cid:%d,num:%d,name:%s,cover:%s"
-        , sid, cid, num, name, cover);
+        return String.format("id:%d,cid:%d,num:%d,name:%s,cover:%s"
+        , id, cid, num, name, cover);
     }
 }
