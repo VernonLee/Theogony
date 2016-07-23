@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ChampionAdapter;
 import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
-import com.nodlee.theogony.bean.Champion;
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.ChampionsLoader;
+import com.nodlee.theogony.loader.ChampionsLoader;
 
 /**
  * Created by Vernon Lee on 15-12-10.

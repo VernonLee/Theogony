@@ -1,8 +1,8 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.loader;
 
 import android.content.Context;
 
-import com.nodlee.theogony.bean.Champion;
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.db.ChampionManager;
 
 /**
@@ -20,6 +20,6 @@ public class ChampionLoader extends DataLoader<Champion> {
 
     @Override
     public Champion loadInBackground() {
-        return ChampionManager.getInstance(mCtx).getChampion(mCid);
+        return ChampionManager.getInstance(mCtx).get(mCid);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="md_primary">#F5F5F5</color>
-    <color name="md_primary_dark">#E0E0E0</color>
+    <color name="md_primary_dark">#bbb</color>
     <color name="md_accent">#B71C1C</color>
     <color name="md_background">#FAFAFA</color>
     <color name="md_settings_background">#EEEEEE</color>

@@ -20,17 +20,10 @@ import java.util.ArrayList;
 public class ChampionsActivity extends BaseActivity {
     private static final boolean DEBUG = true;
 
-    private String[] championTags = null;
-    private String[] championTagKeys = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_champions);
-
-        Resources res = getResources();
-        championTags = res.getStringArray(R.array.championTags);
-        championTagKeys = res.getStringArray(R.array.championTagKeys);
 
         Toolbar toolbar = initToolbar();
         toolbar.setLogo(R.mipmap.app_logo_transparent);
@@ -44,6 +37,10 @@ public class ChampionsActivity extends BaseActivity {
     }
 
     private void setupPager(ViewPager pager) {
+        Resources res = getResources();
+        String[] championTags = res.getStringArray(R.array.championTags);
+        String[]championTagKeys = res.getStringArray(R.array.championTagKeys);
+
         Adapter adapter = new Adapter(getSupportFragmentManager());
         for (int i = 0; i < championTags.length; i++) {
             String tagKey = championTagKeys[i];

@@ -14,9 +14,9 @@ import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.BaseCursorAdapter;
 import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
 import com.nodlee.theogony.adapter.SkinAdapter;
-import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.Skin;
-import com.nodlee.theogony.utils.SkinsLoader;
+import com.nodlee.amumu.bean.Champion;
+import com.nodlee.amumu.bean.Skin;
+import com.nodlee.theogony.loader.SkinsLoader;
 
 /**
  * Created by Vernon Lee on 15-11-27.
@@ -48,7 +48,7 @@ public class SkinsActivity extends BaseActivity {
                 Skin skin = mAdapter.getItem(position);
                 if (skin != null) {
                     Intent intent = new Intent(SkinsActivity.this, SkinActivity.class);
-                    intent.putExtra(SkinActivity.EXTRA_CHAMPION_ID, mChampion.getCid());
+                    intent.putExtra(SkinActivity.EXTRA_CHAMPION_ID, mChampion.getId());
                     intent.putExtra(SkinActivity.EXTRA_SKIN, skin);
                     startActivity(intent);
                 }
@@ -89,7 +89,7 @@ public class SkinsActivity extends BaseActivity {
     private LoaderManager.LoaderCallbacks mLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader onCreateLoader(int id, Bundle args) {
-            return new SkinsLoader(SkinsActivity.this, mChampion.getCid());
+            return new SkinsLoader(SkinsActivity.this, mChampion.getId());
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.loader;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -30,7 +30,7 @@ public class ChampionsLoader extends SQLiteCursorLoader {
         if (mCtx == null)
             return null;
 
-        return ChampionManager.getInstance(mCtx).getChampions(mSelection, mSelectionArgs);
+        return ChampionManager.getInstance(mCtx).getAll(mSelection, mSelectionArgs);
     }
 
     private String buildSelection(Query query) {

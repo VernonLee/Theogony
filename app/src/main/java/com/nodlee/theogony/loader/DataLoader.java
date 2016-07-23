@@ -1,4 +1,4 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.loader;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;

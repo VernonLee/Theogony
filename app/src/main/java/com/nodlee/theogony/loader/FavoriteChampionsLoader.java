@@ -1,4 +1,4 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.loader;
 
 import android.content.Context;
 
@@ -18,6 +18,6 @@ public class FavoriteChampionsLoader extends SQLiteCursorLoader {
 
     @Override
     public DatabaseOpenHelper.ChampionCursor loadCursor() {
-        return FavoriteChampionManager.getInstance(mCtx).getFavorites();
+        return (DatabaseOpenHelper.ChampionCursor) FavoriteChampionManager.getInstance(mCtx).getAll();
     }
 }

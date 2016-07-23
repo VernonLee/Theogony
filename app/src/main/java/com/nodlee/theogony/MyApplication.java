@@ -3,6 +3,7 @@ package com.nodlee.theogony;
 import android.app.Application;
 import android.content.Context;
 
+import com.nodlee.amumu.champions.Amumu;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -18,6 +19,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Amumu.init(this);
+
         initImageLoader(getApplicationContext());
     }
 

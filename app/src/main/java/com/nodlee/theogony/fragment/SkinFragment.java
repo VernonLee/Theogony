@@ -28,9 +28,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.bean.Skin;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.SkinLoader;
+import com.nodlee.theogony.loader.SkinLoader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 

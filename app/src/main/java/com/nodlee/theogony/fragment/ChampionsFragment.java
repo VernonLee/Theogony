@@ -22,9 +22,9 @@ import com.nodlee.theogony.activity.BaseActivity;
 import com.nodlee.theogony.activity.ChampionActivity;
 import com.nodlee.theogony.adapter.ChampionAdapter;
 import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
-import com.nodlee.theogony.bean.Champion;
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.ChampionsLoader;
+import com.nodlee.theogony.loader.ChampionsLoader;
 import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.view.RecyclerViewScrollListener;
 

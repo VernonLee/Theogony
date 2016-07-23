@@ -3,9 +3,6 @@ package com.nodlee.theogony.utils;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
 /**
  * Created by Vernon Lee on 15-11-22.
  */
@@ -27,15 +24,15 @@ public class UserUtils {
                 .getBoolean(PREF_FIRST_BLOOD, true);
     }
 
-    public static void setLolStaticDataVersion(Context context, String version) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(PREF_LOL_STATIC_DATA_VERSION, version).commit();
-    }
-
-    public static String getLolStaticDataVersion(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(PREF_LOL_STATIC_DATA_VERSION, null);
-    }
+//    public static void setLolStaticDataVersion(Context context, String version) {
+//        PreferenceManager.getDefaultSharedPreferences(context)
+//                .edit().putString(PREF_LOL_STATIC_DATA_VERSION, version).commit();
+//    }
+//
+//    public static String getLolStaticDataVersion(Context context) {
+//        return PreferenceManager.getDefaultSharedPreferences(context)
+//                .getString(PREF_LOL_STATIC_DATA_VERSION, null);
+//    }
 
     public static void setLolStaticDataLocal(Context context, String locale) {
         PreferenceManager.getDefaultSharedPreferences(context)

@@ -9,23 +9,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nodlee.riotgames.Locale;
+import com.nodlee.amumu.util.LocaleLibrary;
+import com.nodlee.amumu.bean.Champion;
+import com.nodlee.amumu.champions.ChampionsRequester;
+import com.nodlee.amumu.champions.RequestCallback;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.activity.AboutAppActivity;
 import com.nodlee.theogony.activity.ChampionsActivity;
-import com.nodlee.theogony.task.InitLolStaticDataTask;
+import com.nodlee.theogony.db.ChampionManager;
+import com.nodlee.theogony.db.SkinManager;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.utils.UserUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by Vernon Lee on 15-11-25.
@@ -34,6 +39,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private static final String TAG = SettingsFragment.class.getName();
     private Preference mLocalePref, mVersionPref, mAboutPref;
     private static String sPrefLocaleKey, sPrefVersionKey, sPrefAboutKey;
+
+    // 重试次数
+    private int retryTimes = 3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,14 +68,14 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String staticDataVersion = UserUtils.getLolStaticDataVersion(getActivity());
-        if (!TextUtils.isEmpty(staticDataVersion)) {
-            mVersionPref.setSummary(staticDataVersion);
-        }
+//        String staticDataVersion = UserUtils.getLolStaticDataVersion(getActivity());
+//        if (!TextUtils.isEmpty(staticDataVersion)) {
+//            mVersionPref.setSummary(staticDataVersion);
+//        }
 
         String staticDataLocaleCode = UserUtils.getLolStaticDataLocale(getActivity());
         if (!TextUtils.isEmpty(staticDataLocaleCode)) {
-            mLocalePref.setSummary(Locale.getLocalName(staticDataLocaleCode));
+            // mLocalePref.setSummary(LocaleLibrary.getLocalName(staticDataLocaleCode));
         }
     }
 
@@ -84,102 +92,91 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     }
 
     private void selectLocale() {
-        final String[] selectedLocale = {Locale.getDefaultLocaleCode()};
+        final LocaleLibrary locale = LocaleLibrary.getInstance();
+        // 选中的语言
+        final int defaultLocaleIndex = 0;
+        final LocaleLibrary.Entry[] selectedLocale = {locale.get(defaultLocaleIndex)};
 
         new AlertDialog.Builder(getActivity())
+                .setCancelable(false)
                 .setTitle(R.string.select_locale_dialog_title)
-                .setSingleChoiceItems(Locale.sLocaleNames, Locale.DEFAULT_LOCALE,
+                .setSingleChoiceItems(locale.toKeyArray(), defaultLocaleIndex,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                selectedLocale[0] = Locale.getLocaleCode(which);
+                                selectedLocale[0] = locale.get(which);
                                 Log.i(TAG, "选择语言：" + which + " " + selectedLocale[0]);
                             }
-                        }
-                )
+                        })
                 .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String localeLocale = UserUtils.getLolStaticDataLocale(getActivity());
-                        if (selectedLocale[0].equals(localeLocale)) {
-                            AndroidUtils.showToast(getActivity(), R.string.reselect_locale_message);
-                            return;
-                        }
-
                         switchLocale(selectedLocale[0]);
                     }
-                })
-                .setNegativeButton(R.string.cancel_button, null)
-                .show();
+                }).show();
     }
 
-    private void switchLocale(String locale) {
-        new FetchStaticDataTask(getActivity().getApplicationContext(), locale).execute();
+    private void switchLocale(final LocaleLibrary.Entry locale) {
+        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("请求数据中...");
+        dialog.setCancelable(false);
+        dialog.show();
+
+        new ChampionsRequester().asyncRequest(locale, new RequestCallback() {
+            @Override
+            public void onSuccess(ArrayList<Champion> champions) {
+                dialog.dismiss();
+                writeToDatabase(champions);
+                UserUtils.setLolStaticDataLocal(getActivity(), locale.value);
+            }
+
+            @Override
+            public void onFailed(int errCode) {
+                retry(dialog, locale);
+            }
+        });
     }
 
-    private class FetchStaticDataTask extends InitLolStaticDataTask {
-        private ProgressDialog mDialog;
-
-        public FetchStaticDataTask(Context context, String locale) {
-            super(context, locale);
+    private void retry(ProgressDialog dialog, LocaleLibrary.Entry locale) {
+        if (retryTimes > 0) {
+            Log.d("xxx", "请求失败，第" + retryTimes +"次重试");
+            switchLocale(locale);
+            retryTimes--;
+        } else {
+            dialog.dismiss();
+            AndroidUtils.showToast(getActivity(), "请求失败");
         }
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mDialog = new ProgressDialog(getActivity());
-            mDialog.setMessage(getString(R.string.switch_locale_process_message));
-            mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    AndroidUtils.showSnackBar(getView(), R.string.task_moved_to_background);
+    private void writeToDatabase(final ArrayList<Champion> champions) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<Skin> skins = new ArrayList<Skin>();
+                ChampionManager.getInstance(getActivity()).add(champions);
+                for (Champion champion : champions) {
+                    skins.addAll(champion.getSkins());
                 }
-            });
-            mDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            mDialog.dismiss();
-
-//            if (isAdded()) {
-//                sendSwitchSuccessNotification(mCtx);
-//            }
-
-            if (mLocalePref != null) {
-                String locale = Locale.getLocalName(mLocale);
-                mLocalePref.setSummary(locale);
+                SkinManager.getInstance(getActivity()).add(skins);
+                sendSwitchSuccessNotification(getActivity());
             }
-
-            mCtx.getContentResolver().notifyChange(Constants.Champions.CONTENT_URI,
-                    null, false);
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            if (mDialog != null && mDialog.isShowing()) {
-                String processMessage = getString(values[0]);
-                mDialog.setMessage(processMessage);
-            }
-        }
+        }).start();
     }
 
-//
-//    private void sendSwitchSuccessNotification(Context context) {
-//        Intent resultIntent = new Intent(context, ChampionsActivity.class);
-//        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
-//                PendingIntent.FLAG_CANCEL_CURRENT);
-//
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-//        builder.setSmallIcon(R.mipmap.app_logo);
-//        builder.setContentTitle(getString(R.string.switch_success_notification_title));
-//        builder.setContentText(getString(R.string.switch_success_notification_title));
-//        builder.setContentIntent(resultPendingIntent);
-//
-//        NotificationManager mNotificationManager =
-//                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//        mNotificationManager.notify(0, builder.build());
-//    }
+
+    private void sendSwitchSuccessNotification(Context context) {
+        Intent resultIntent = new Intent(context, ChampionsActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setSmallIcon(R.mipmap.app_logo);
+        builder.setContentTitle(getString(R.string.switch_success_notification_title));
+        builder.setContentText(getString(R.string.switch_success_notification_title));
+        builder.setContentIntent(resultPendingIntent);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, builder.build());
+    }
 }

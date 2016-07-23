@@ -7,12 +7,10 @@ import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
-import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.Skin;
+import com.nodlee.amumu.bean.Champion;
+import com.nodlee.amumu.bean.Skin;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -113,11 +111,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             // 添加新的英雄数据
             for (Champion champion : champions) {
                 insertStmt.bindNull(1);
-                insertStmt.bindLong(2, champion.getCid());
+                insertStmt.bindLong(2, champion.getId());
                 insertStmt.bindString(3, champion.getKey());
                 insertStmt.bindString(4, champion.getName());
                 insertStmt.bindString(5, champion.getTitle());
-                insertStmt.bindString(6, champion.getTags());
+                insertStmt.bindString(6, champion.getDummyTags());
                 insertStmt.bindString(7, champion.getLore());
                 insertStmt.bindString(8, champion.getAvatar());
                 insertStmt.execute();
@@ -136,18 +134,18 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     public long insertChampion(Champion champion) {
         ContentValues values = new ContentValues();
-        values.put(CHAMPION_COLUMN_CID, champion.getCid());
+        values.put(CHAMPION_COLUMN_CID, champion.getId());
         values.put(CHAMPION_COLUMN_KEY, champion.getKey());
         values.put(CHAMPION_COLUMN_NAME, champion.getName());
         values.put(CHAMPION_COLUMN_TITLE, champion.getTitle());
-        values.put(CHAMPION_COLUMN_TAGS, champion.getTags());
+        values.put(CHAMPION_COLUMN_TAGS, champion.getDummyTags());
         values.put(CHAMPION_COLUMN_LORE, champion.getLore());
         values.put(CHAMPION_COLUMN_AVATAR, champion.getAvatar());
 
         return getWritableDatabase().insert(TABLE_CHAMPION, null, values);
     }
 
-    public ChampionCursor queryChampions(int cid) {
+    public ChampionCursor queryChampion(int cid) {
         Cursor cursor = getReadableDatabase().query(TABLE_CHAMPION, new String[]{"*"},
                 CHAMPION_COLUMN_CID + "=?", new String[]{String.valueOf(cid)}, null, null, null);
         return new ChampionCursor(cursor);
@@ -157,6 +155,23 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query(TABLE_CHAMPION, new String[]{"*"},
                 selection, selectionArgs, null, null, CHAMPION_DEFAULT_ORDER);
         return new ChampionCursor(cursor);
+    }
+
+    public int deleteChampion(int cid) {
+        return getWritableDatabase().delete(TABLE_CHAMPION, CHAMPION_COLUMN_CID + "=?",
+                new String[]{String.valueOf(cid)});
+    }
+
+    public void deleteChampions() {
+        SQLiteStatement delStmt = null;
+        try {
+            delStmt = getWritableDatabase().compileStatement("delete from " + TABLE_CHAMPION);
+            delStmt.execute();
+        } finally {
+            if (delStmt != null) {
+                delStmt.close();
+            }
+        }
     }
 
     public void insertSkins(ArrayList<Skin> skins) {
@@ -175,7 +190,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             // 添加新的皮肤数据
             for (Skin role : skins) {
                 insertStmt.bindNull(1);
-                insertStmt.bindLong(2, role.getSid());
+                insertStmt.bindLong(2, role.getId());
                 insertStmt.bindLong(3, role.getCid());
                 insertStmt.bindLong(4, role.getNum());
                 insertStmt.bindString(5, role.getName());
@@ -196,7 +211,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     public long insertSkin(Skin skin) {
         ContentValues values = new ContentValues();
-        values.put(SKIN_COLUMN_SID, skin.getSid());
+        values.put(SKIN_COLUMN_SID, skin.getId());
         values.put(SKIN_COLUMN_CID, skin.getCid());
         values.put(SKIN_COLUMN_NUM, skin.getNum());
         values.put(SKIN_COLUMN_NAME, skin.getNum());
@@ -224,6 +239,29 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return new SkinCursor(cursor);
     }
 
+    public SkinCursor querySkins() {
+        Cursor cursor = getReadableDatabase().query(TABLE_SKIN, new String[]{"*"},
+                null, null, null, null, null);
+        return new SkinCursor(cursor);
+    }
+
+    public int deleteSkin(int sid) {
+        return getWritableDatabase().delete(TABLE_SKIN, SKIN_COLUMN_SID + "=?",
+                new String[]{String.valueOf(sid)});
+    }
+
+    public void deleteSkins() {
+        SQLiteStatement delStmt = null;
+        try {
+            delStmt = getWritableDatabase().compileStatement("delete from " + TABLE_SKIN);
+            delStmt.execute();
+        } finally {
+            if (delStmt != null) {
+                delStmt.close();
+            }
+        }
+    }
+
     public long insertFavorite(int cid) {
         ContentValues values = new ContentValues();
         values.put(FAVORITES_COLUMN_CID, cid);
@@ -235,6 +273,18 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public int deleteFavorite(int cid) {
         return getWritableDatabase().delete(TABLE_FAVORITES, FAVORITES_COLUMN_CID + "=?",
                 new String[]{String.valueOf(cid)});
+    }
+
+    public void deleteFavorites() {
+        SQLiteStatement delStmt = null;
+        try {
+            delStmt = getWritableDatabase().compileStatement("delete from " + TABLE_FAVORITES);
+            delStmt.execute();
+        } finally {
+            if (delStmt != null) {
+                delStmt.close();
+            }
+        }
     }
 
     public Cursor getFavorite(int cid) {
@@ -271,7 +321,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 return null;
 
             Champion champion = new Champion();
-            champion.setCid(getInt(getColumnIndex(CHAMPION_COLUMN_CID)));
+            champion.setId(getInt(getColumnIndex(CHAMPION_COLUMN_CID)));
             champion.setKey(getString(getColumnIndex(CHAMPION_COLUMN_KEY)));
             champion.setName(getString(getColumnIndex(CHAMPION_COLUMN_NAME)));
             champion.setTitle(getString(getColumnIndex(CHAMPION_COLUMN_TITLE)));
@@ -297,7 +347,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 return null;
 
             Skin skin = new Skin();
-            skin.setSid(getInt(getColumnIndex(SKIN_COLUMN_SID)));
+            skin.setId(getInt(getColumnIndex(SKIN_COLUMN_SID)));
             skin.setCid(getInt(getColumnIndex(SKIN_COLUMN_CID)));
             skin.setNum(getInt(getColumnIndex(SKIN_COLUMN_NUM)));
             skin.setName(getString(getColumnIndex(SKIN_COLUMN_NAME)));

@@ -1,4 +1,4 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.loader;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,6 +23,6 @@ public class SkinsLoader extends SQLiteCursorLoader {
         if (mCtx == null || mCid == 0)
             return null;
 
-        return SkinManager.getInstance(mCtx).getSkins(mCid);
+        return SkinManager.getInstance(mCtx).getAll(mCid);
     }
 }

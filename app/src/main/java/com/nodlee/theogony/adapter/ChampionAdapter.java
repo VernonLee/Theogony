@@ -9,11 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.bean.Champion;
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.db.DatabaseOpenHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.ArrayList;
 
 /**
  * Created by Vernon Lee on 15-11-24.

@@ -5,14 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.widget.Adapter;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.bean.Skin;
-import com.nodlee.theogony.db.DatabaseOpenHelper;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.db.SkinManager;
 import com.nodlee.theogony.fragment.SkinFragment;
 

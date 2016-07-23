@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.Skin;
+import com.nodlee.amumu.bean.Champion;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.db.FavoriteChampionManager;
 import com.nodlee.theogony.db.SkinManager;
 import com.nodlee.theogony.view.AppBarOffsetChangedListener;
@@ -84,7 +84,7 @@ public class ChampionActivity extends BaseActivity {
             setLore(mChampion.getLore());
             mFavoriteBtn.setSelected(isFavorite());
 
-            Skin skin = SkinManager.getInstance(this).getDefaultSkin(mChampion.getCid());
+            Skin skin = SkinManager.getInstance(this).getDefaultSkin(mChampion.getId());
             if (skin != null) {
                 ImageLoader.getInstance().displayImage(skin.getCover(), mCoverIv);
             }
@@ -150,7 +150,7 @@ public class ChampionActivity extends BaseActivity {
         if (mChampion == null) {
             return false;
         } else {
-            return FavoriteChampionManager.getInstance(this).isFavorite(mChampion.getCid());
+            return FavoriteChampionManager.getInstance(this).isFavorite(mChampion.getId());
         }
     }
 
@@ -159,11 +159,11 @@ public class ChampionActivity extends BaseActivity {
 
         FavoriteChampionManager favoriteChampionManager = FavoriteChampionManager.getInstance(this);
         if (isFavorite) {
-            if (favoriteChampionManager.addFavorite(mChampion.getCid())) {
+            if (favoriteChampionManager.add(mChampion)) {
                 mFavoriteBtn.setSelected(true);
             }
         } else {
-            if (favoriteChampionManager.deleteFavorite(mChampion.getCid())) {
+            if (favoriteChampionManager.delete(mChampion)) {
                 mFavoriteBtn.setSelected(false);
             }
         }

@@ -1,15 +1,18 @@
 package com.nodlee.theogony.db;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.util.Log;
 
-import com.nodlee.theogony.bean.Champion;
+import com.nodlee.amumu.bean.Champion;
 
 import java.util.ArrayList;
 
 /**
  * Created by Vernon Lee on 15-11-22.
  */
-public class ChampionManager {
+public class ChampionManager implements Manager<Champion> {
+    private static final String TAG = ChampionManager.class.getName();
     private static ChampionManager sManager;
     private static DatabaseOpenHelper sHelper;
 
@@ -24,29 +27,46 @@ public class ChampionManager {
         sHelper = new DatabaseOpenHelper(appContext);
     }
 
-    public void insertChampions(ArrayList<Champion> champions) {
-        if (champions == null || champions.size() == 0)
-            return;
-
-        sHelper.insertChampions(champions);
-    }
-
-//    public ArrayList<Champion> getChampions() {
-//        ArrayList<Champion> champions = new ArrayList<>();
-//
-//        DatabaseOpenHelper.ChampionCursor cursor = sHelper.queryChampions();
-//        while (cursor.moveToNext()) {
-//            champions.add(cursor.getChampion());
-//        }
-//        return champions;
-//    }
-
-    public DatabaseOpenHelper.ChampionCursor getChampions(String selection, String[] selectionArgs) {
+    public DatabaseOpenHelper.ChampionCursor getAll(String selection, String[] selectionArgs) {
         return sHelper.queryChampions(selection, selectionArgs);
     }
 
-    public Champion getChampion(int cid) {
-        DatabaseOpenHelper.ChampionCursor cursor = sHelper.queryChampions(cid);
+    @Override
+    public boolean add(Champion champion) {
+        return sHelper.insertChampion(champion) > 0;
+    }
+
+    @Override
+    public boolean add(ArrayList<Champion> champions) {
+        if (champions == null || champions.size() == 0)
+            return false;
+
+        sHelper.insertChampions(champions);
+        return true;
+    }
+
+    @Override
+    public boolean delete(Champion champion) {
+        if (get(champion.getId()) == null) {
+            Log.d(TAG, "数据 champion id=" + champion.getId() + "不存在");
+            return false;
+        }
+        return sHelper.deleteChampion(champion.getId()) > 0;
+    }
+
+    @Override
+    public void deleteAll() {
+        sHelper.deleteChampions();
+    }
+
+    @Override
+    public Cursor getAll() {
+        return sHelper.queryChampions(null, null);
+    }
+
+    @Override
+    public Champion get(int cid) {
+        DatabaseOpenHelper.ChampionCursor cursor = sHelper.queryChampion(cid);
         if (cursor.moveToFirst()) {
             return cursor.getChampion();
         }

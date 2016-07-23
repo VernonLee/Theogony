@@ -2,7 +2,6 @@ package com.nodlee.theogony.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.Skin;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.db.DatabaseOpenHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

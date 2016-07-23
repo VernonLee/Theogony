@@ -1,8 +1,8 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.loader;
 
 import android.content.Context;
 
-import com.nodlee.theogony.bean.Skin;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.db.SkinManager;
 
 /**

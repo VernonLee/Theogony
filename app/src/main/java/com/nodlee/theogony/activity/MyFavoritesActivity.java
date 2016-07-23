@@ -9,16 +9,15 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ChampionAdapter;
 import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
-import com.nodlee.theogony.bean.Champion;
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.Constants;
-import com.nodlee.theogony.utils.FavoriteChampionsLoader;
+import com.nodlee.theogony.loader.FavoriteChampionsLoader;
 
 /**
  * Created by Vernon Lee on 15-11-25.
