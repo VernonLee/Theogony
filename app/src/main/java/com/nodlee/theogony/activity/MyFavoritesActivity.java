@@ -11,13 +11,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ChampionAdapter;
-import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
-import com.nodlee.amumu.bean.Champion;
-import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.loader.FavoriteChampionsLoader;
+import com.nodlee.theogony.utils.Constants;
+import com.nodlee.theogony.view.MarginDecoration;
 
 /**
  * Created by Vernon Lee on 15-11-25.
@@ -43,13 +42,12 @@ public class MyFavoritesActivity extends BaseActivity implements LoaderManager.L
     }
 
     private void initView() {
-        initToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back_black, null);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_view_favorite_champions);
         recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(SPAN_COUNT,
-                (int) AndroidUtils.dpToPx(SPACING, this), true));
+        recyclerView.addItemDecoration(new MarginDecoration(this));
         mAdapter = new ChampionAdapter(this, null);
         mAdapter.setOnItemClickedListener(new ChampionAdapter.OnItemClickedListener() {
             @Override

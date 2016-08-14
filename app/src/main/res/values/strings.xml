@@ -54,4 +54,16 @@
     <string name="select_locale_dialog_title">选择语言</string>
 
     <string name="miss_app_key_message">APP_KEY丢失，无法正常运行应用</string>
+
+    <!-- new strings -->
+
+    <string name="navigation_item_champion_list">英雄列表</string>
+    <string name="navigation_item_collection_list">我的收藏</string>
+    <string name="navigation_item_wallpaper">壁纸</string>
+    <string name="navigation_item_night_mode">夜间模式</string>
+    <string name="navigation_item_settings">设置</string>
+    <string name="navigation_item_exit_to_app">退出应用</string>
+
+    <string name="viewpager_title_lore">英雄故事</string>
+    <string name="viewpager_title_skins">图片墙</string>
 </resources>

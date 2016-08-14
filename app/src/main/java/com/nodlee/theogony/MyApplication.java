@@ -21,7 +21,6 @@ public class MyApplication extends Application {
         super.onCreate();
 
         Amumu.init(this);
-
         initImageLoader(getApplicationContext());
     }
 

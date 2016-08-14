@@ -1,70 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/view_appbar"
+        style="@style/Base.Widget.AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/appbar_height_expanded">
+        android:layout_height="wrap_content">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/view_collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/md_accent"
-            app:expandedTitleTextAppearance="?android:attr/textAppearanceLarge"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
 
-            <ImageView
-                android:id="@+id/img_champion_cover"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/appbar_height_expanded"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_champion_avatar"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/app_name"/>
+                android:src="@mipmap/img_default_avatar"
+                app:civ_border_color="#333"
+                app:civ_border_width="2dp"/>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+            <TextView
+                android:id="@+id/txt_champion_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_champion_avatar"
+                android:layout_centerHorizontal="true"
+                android:padding="8dp"
+                android:textColor="@color/primary_text_default_light"
+                android:textSize="22sp"/>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            style="@style/Base.Widget.TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_champion_desc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/txt_champion_lore"
-            style="@style/NotoSerifTextViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:lineSpacingMultiplier="1.2"
-            android:padding="@dimen/container_right_padding"
-            android:textColor="@color/text_dark"
-            android:textSize="@dimen/body" />
-
-    </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:src="@drawable/favorite_selector"
-        android:tint="@color/md_accent"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:layout_behavior="com.nodlee.theogony.view.ScrollAwareFABBehavior"/>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
 

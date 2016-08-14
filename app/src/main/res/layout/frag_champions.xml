@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.nodlee.theogony.view.AutoFitRecyclerView
         android:id="@+id/recy_view_champions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
+        android:paddingRight="8dp"
+        android:columnWidth="118dp"/>
 
 </android.support.v4.widget.SwipeRefreshLayout>

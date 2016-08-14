@@ -12,12 +12,11 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ChampionAdapter;
-import com.nodlee.theogony.adapter.GridSpacingItemDecoration;
-import com.nodlee.amumu.bean.Champion;
-import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.loader.ChampionsLoader;
+import com.nodlee.theogony.view.MarginDecoration;
 
 /**
  * Created by Vernon Lee on 15-12-10.
@@ -37,7 +36,7 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        initToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back_black, null);
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
         setupSearchView();
@@ -45,8 +44,7 @@ public class SearchActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_view_champions);
         recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(SPAN_COUNT,
-                (int) AndroidUtils.dpToPx(SPACING, this), true));
+        recyclerView.addItemDecoration(new MarginDecoration(this));
         mAdapter = new ChampionAdapter(this, null);
         mAdapter.setOnItemClickedListener(new ChampionAdapter.OnItemClickedListener() {
             @Override

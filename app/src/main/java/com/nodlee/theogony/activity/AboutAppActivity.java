@@ -15,7 +15,7 @@ public class AboutAppActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
 
-        initToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back_black, null);
     }
 
     @Override

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/recy_view_skins"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/favorite_selector"
+        android:tint="@color/md_accent"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:layout_behavior="com.nodlee.theogony.view.ScrollAwareFABBehavior"/>
+
+</FrameLayout>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- old dimens -->
     <dimen name="headline">24sp</dimen>
     <dimen name="title">21sp</dimen>
     <dimen name="subheading">17sp</dimen>
@@ -12,4 +14,20 @@
     <dimen name="container_left_padding">16dp</dimen>
     <dimen name="container_right_padding">16dp</dimen>
     <dimen name="appbar_height_expanded">192dp</dimen>
+
+    <!-- new dimens -->
+    <dimen name="tab_text_size">14sp</dimen>
+
+    <dimen name="navigation_text_size">14sp</dimen>
+    <dimen name="navigation_icon_size">24dp</dimen>
+    <dimen name="navigation_top_height">168dp</dimen>
+    <dimen name="navigation_width">302dp</dimen> <!--296-->
+    <dimen name="navigation_max_width">320dp</dimen>
+
+    <dimen name="image_preview_menu_text_size">12sp</dimen>
+    <dimen name="image_preview_text_size">22sp</dimen>
+    <dimen name="image_small_size">75dp</dimen>
+    <dimen name="image_large_size">204dp</dimen>
+
+    <dimen name="item_margin">8dp</dimen>
 </resources>

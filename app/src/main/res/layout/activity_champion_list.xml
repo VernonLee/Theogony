@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/champion_list"/>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        style="@style/Base.Widget.NavigationView"
+        android:layout_width="@dimen/navigation_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header_view"
+        app:itemIconTint="@color/color_accent"
+        app:itemTextColor="@color/primary_text_default_light"
+        app:menu="@menu/menu_navigation_items"/>
+
+</android.support.v4.widget.DrawerLayout>

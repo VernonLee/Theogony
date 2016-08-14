@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         app:tabSelectedTextColor="@color/md_accent"
         app:tabIndicatorColor="@color/md_accent"
-        app:tabTextColor="@color/text_dark"
         app:tabMode="scrollable"
         app:tabGravity="center" />
 

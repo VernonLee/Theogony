@@ -1,3 +1,12 @@
 <resources>>
 
+    <style name="Base.AppCompat" parent="Theme.AppCompat.Light"/>
+
+    <style name="Base.AppCompat.Light">
+        <item name="android:colorAccent">@color/color_accent</item>
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
 </resources>

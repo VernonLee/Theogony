@@ -17,14 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nodlee.amumu.util.LocaleLibrary;
 import com.nodlee.amumu.bean.Champion;
+import com.nodlee.amumu.bean.Skin;
 import com.nodlee.amumu.champions.ChampionsRequester;
 import com.nodlee.amumu.champions.RequestCallback;
-import com.nodlee.amumu.bean.Skin;
+import com.nodlee.amumu.util.LocaleLibrary;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.activity.AboutAppActivity;
-import com.nodlee.theogony.activity.ChampionsActivity;
+import com.nodlee.theogony.activity.ChampionListActivity;
 import com.nodlee.theogony.db.ChampionManager;
 import com.nodlee.theogony.db.SkinManager;
 import com.nodlee.theogony.utils.AndroidUtils;
@@ -165,7 +165,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
 
     private void sendSwitchSuccessNotification(Context context) {
-        Intent resultIntent = new Intent(context, ChampionsActivity.class);
+        Intent resultIntent = new Intent(context, ChampionListActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 

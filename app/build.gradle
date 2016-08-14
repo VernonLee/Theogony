@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
@@ -6,10 +7,10 @@ android {
 
     defaultConfig {
         applicationId "com.nodlee.theogony"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.2.0"
     }
     buildTypes {
         release {
@@ -22,10 +23,15 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.github.chrisbanes:PhotoView:1.2.7'
+
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile files('libs/universal-image-loader-1.9.5.jar')
-    compile 'com.commit451:PhotoView:1.2.4'
+
     compile project(':Amumu')
 }

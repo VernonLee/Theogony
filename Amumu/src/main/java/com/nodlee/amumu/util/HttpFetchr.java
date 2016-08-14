@@ -15,7 +15,7 @@ import java.net.URL;
 public class HttpFetchr {
     private static final int SOCKET_TIME_OUT = 10 * 1000;
 
-    private byte[] getUrlBytes(Uri urlSpec) throws IOException {
+    public byte[] getUrlBytes(Uri urlSpec) throws IOException {
         URL url = new URL(urlSpec.toString());
         HttpURLConnection connection = null;
 

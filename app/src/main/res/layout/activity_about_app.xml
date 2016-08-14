@@ -21,7 +21,6 @@
         android:gravity="left|center"
         android:text="@string/about_app_message"
         android:textSize="@dimen/body"
-        android:textColor="@color/text_dark"
         android:drawablePadding="20dp"
         android:padding="@dimen/container_right_padding"/>
 

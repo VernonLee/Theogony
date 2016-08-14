@@ -17,7 +17,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        initToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back_black, null);
 
         Fragment fragment = new SettingsFragment();
         getFragmentManager().beginTransaction()

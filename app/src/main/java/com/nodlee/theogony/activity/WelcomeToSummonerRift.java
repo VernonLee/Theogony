@@ -138,7 +138,7 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
     }
 
     private void welcomeToSummerRift() {
-        startActivity(new Intent(this, ChampionsActivity.class));
+        startActivity(new Intent(this, ChampionListActivity.class));
         finish();
     }
 

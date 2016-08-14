@@ -38,18 +38,6 @@ public class SkinManager implements Manager<Skin> {
         return null;
     }
 
-    public Skin getDefaultSkin(int cid) {
-        return getSkin(cid, 0);
-    }
-
-    public int getSkinCount(int cid) {
-        DatabaseOpenHelper.SkinCursor cursor = (DatabaseOpenHelper.SkinCursor) getAll(cid);
-        if (cursor != null) {
-            return cursor.getCount();
-        }
-        return 0;
-    }
-
     @Override
     public boolean add(Skin skin) {
         return sHelper.insertSkin(skin) > 0;
@@ -83,7 +71,7 @@ public class SkinManager implements Manager<Skin> {
     }
 
     public Cursor getAll(int cid) {
-        return sHelper.querySkins(cid);
+       return sHelper.querySkins(cid);
     }
 
     @Override

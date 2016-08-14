@@ -1,1 +1,1 @@
-include ':app', ':riotgamesapi'
+include ':app', ':Amumu'
