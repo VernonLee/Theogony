@@ -60,7 +60,7 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
         mUnbinder = ButterKnife.bind(this, rootView);
 
         mRefreshView.setOnRefreshListener(this);
-        mRefreshView.setColorSchemeResources(R.color.md_accent);
+        mRefreshView.setColorSchemeResources(R.color.color_accent);
         mAdapter = new ChampionAdapter(getActivity(), null);
         mAdapter.setOnItemClickedListener(this);
         mRecyclerView.setHasFixedSize(true);

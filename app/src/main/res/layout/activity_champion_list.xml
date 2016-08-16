@@ -11,7 +11,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
-        style="@style/Base.Widget.NavigationView"
+        style="@style/NavigationView"
         android:layout_width="@dimen/navigation_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

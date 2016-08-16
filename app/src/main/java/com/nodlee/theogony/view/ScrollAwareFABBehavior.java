@@ -37,7 +37,7 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
     }
 
     private void hideFab(FloatingActionButton fab) {
-        int fabMargin = (int) mCtx.getResources().getDimension(R.dimen.fab_margin);
+        int fabMargin = (int) mCtx.getResources().getDimension(R.dimen.margin_normal);
         int bottom = fab.getHeight() + fabMargin;
         fab.animate()
            .translationY(bottom)

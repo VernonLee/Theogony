@@ -11,7 +11,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,19 +27,27 @@ import com.nodlee.theogony.activity.ChampionListActivity;
 import com.nodlee.theogony.db.ChampionManager;
 import com.nodlee.theogony.db.SkinManager;
 import com.nodlee.theogony.utils.AndroidUtils;
+import com.nodlee.theogony.utils.CacheManager;
 import com.nodlee.theogony.utils.UserUtils;
+import com.nodlee.theogony.view.LicenseDialog;
 
 import java.util.ArrayList;
 
 /**
  * Created by Vernon Lee on 15-11-25.
+ * ButterKnife截止2016/8/14不支持Preference绑定
  */
 public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
     private static final String TAG = SettingsFragment.class.getName();
-    private Preference mLocalePref, mVersionPref, mAboutPref;
-    private static String sPrefLocaleKey, sPrefVersionKey, sPrefAboutKey;
 
-    // 重试次数
+    private Preference mLocalePref, mCacheSizePref;
+    private Preference mAboutPref, mOpenSourcePref, mAppVersionPref;
+    private Preference mFeedbackPref;
+
+    private String sLocalPrefKey, sCacheSizePrefKey, sAboutAppPrefKey,
+                   mOSLPrefKey, mAppVersionPrefKey, mFeedbackPrefKey;
+
+    // 请求联盟数据重试次数
     private int retryTimes = 3;
 
     @Override
@@ -48,16 +55,27 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
-        sPrefLocaleKey = getString(R.string.pref_locale_key);
-        sPrefVersionKey = getString(R.string.pref_version_key);
-        sPrefAboutKey = getString(R.string.pref_about_app_key);
+        sLocalPrefKey = getString(R.string.pref_key_locale);
+        sCacheSizePrefKey = getString(R.string.pref_key_cache_size);
+        sAboutAppPrefKey = getString(R.string.pref_key_about_app);
+        mOSLPrefKey = getString(R.string.pref_key_open_source_license);
+        mAppVersionPrefKey = getString(R.string.pref_key_app_version);
+        mFeedbackPrefKey = getString(R.string.pref_key_feedback);
 
-        mLocalePref = findPreference(sPrefLocaleKey);
+        mLocalePref = findPreference(sLocalPrefKey);
         mLocalePref.setOnPreferenceClickListener(this);
-        mVersionPref = findPreference(sPrefVersionKey);
-        mVersionPref.setOnPreferenceClickListener(this);
-        mAboutPref = findPreference(sPrefAboutKey);
+        mCacheSizePref = findPreference(sCacheSizePrefKey);
+        mCacheSizePref.setOnPreferenceClickListener(this);
+
+        mAboutPref = findPreference(sAboutAppPrefKey);
         mAboutPref.setOnPreferenceClickListener(this);
+        mOpenSourcePref = findPreference(mOSLPrefKey);
+        mOpenSourcePref.setOnPreferenceClickListener(this);
+        mAppVersionPref = findPreference(mAppVersionPrefKey);
+        mAppVersionPref.setOnPreferenceClickListener(this);
+
+        mFeedbackPref = findPreference(mFeedbackPrefKey);
+        mFeedbackPref.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -68,27 +86,54 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        String staticDataVersion = UserUtils.getLolStaticDataVersion(getActivity());
-//        if (!TextUtils.isEmpty(staticDataVersion)) {
-//            mVersionPref.setSummary(staticDataVersion);
-//        }
+        String localeName = UserUtils.getLolStaticDataLocale(getActivity());
+        mLocalePref.setSummary(localeName);
 
-        String staticDataLocaleCode = UserUtils.getLolStaticDataLocale(getActivity());
-        if (!TextUtils.isEmpty(staticDataLocaleCode)) {
-            // mLocalePref.setSummary(LocaleLibrary.getLocalName(staticDataLocaleCode));
-        }
+        String appVersion = AndroidUtils.getAppVersion(getActivity());
+        mAppVersionPref.setSummary(appVersion);
+
+        String cacheSize = CacheManager.getCacheSize(getActivity());
+        mCacheSizePref.setSummary(cacheSize);
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
         final String preferenceKey = preference.getKey();
 
-        if (preferenceKey.equals(sPrefAboutKey)) {
+        if (preferenceKey.equals(sLocalPrefKey)) { // 切换语言
+
+             selectLocale();
+
+        } else if (preferenceKey.equals(sCacheSizePrefKey)) { // 清除缓存
+
+            cleanCache();
+
+        } else if (preferenceKey.equals(sAboutAppPrefKey)) { // 关于应用
+
             startActivity(new Intent(getActivity(), AboutAppActivity.class));
-        } else if (preferenceKey.equals(sPrefLocaleKey)) {
-            selectLocale();
+
+        } else if (preferenceKey.equals(mOSLPrefKey)) { // 阅读开源许可证
+
+            new LicenseDialog(getActivity()).create();
+
+        } else if (preferenceKey.equals(mFeedbackPrefKey)) { // 意见反馈
+
+            new AlertDialog.Builder(getActivity())
+                           .setTitle("意见反馈")
+                           .setMessage(R.string.feedback_message)
+                           .setPositiveButton("确定", null)
+                           .create().show();
+
         }
+
         return true;
+    }
+
+    private void cleanCache() {
+        boolean success = CacheManager.clean(getActivity());
+        String cacheSize = CacheManager.getCacheSize(getActivity());
+        mCacheSizePref.setSummary(cacheSize);
+        AndroidUtils.showToast(getActivity(), success ? "清除成功" : "清除失败");
     }
 
     private void selectLocale() {
@@ -98,7 +143,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         final LocaleLibrary.Entry[] selectedLocale = {locale.get(defaultLocaleIndex)};
 
         new AlertDialog.Builder(getActivity())
-                .setCancelable(false)
                 .setTitle(R.string.select_locale_dialog_title)
                 .setSingleChoiceItems(locale.toKeyArray(), defaultLocaleIndex,
                         new DialogInterface.OnClickListener() {
@@ -162,7 +206,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             }
         }).start();
     }
-
 
     private void sendSwitchSuccessNotification(Context context) {
         Intent resultIntent = new Intent(context, ChampionListActivity.class);

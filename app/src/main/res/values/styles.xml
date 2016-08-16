@@ -1,24 +1,20 @@
 <resources>
-
-    <!-- old style -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/md_primary</item>
-        <item name="colorPrimaryDark">@color/md_primary_dark</item>
-        <item name="colorAccent">@color/md_accent</item>
-        <item name="android:textViewStyle">@style/NotoSansTextViewStyle</item>
-        <item name="android:windowBackground">@color/md_background</item>
+    <style name="AppCompat" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorAccent">@color/color_accent</item>
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppCompat.HalfTranslucent">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.Settings">
-        <item name="android:windowBackground">@color/md_settings_background</item>
+    <style name="AppCompat.Settings">
         <item name="android:preferenceCategoryStyle">@style/PreferenceCategory</item>
         <item name="android:preferenceStyle">@style/Preference</item>
-        <item name="android:dialogPreferenceStyle">@style/Preference</item>
     </style>
 
     <style name="PreferenceCategory">
@@ -29,109 +25,45 @@
         <item name="android:layout">@layout/preference</item>
     </style>
 
-    <style name="NotoSansTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">NotoSans-Regular</item>
-    </style>
-
-    <style name="NotoSansBoldTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">NotoSans-Bold</item>
-    </style>
-
-    <style name="NotoSerifTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">NotoSerif-Regular</item>
-    </style>
-
-    <style name="NotoSerifBoldTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">NotoSerif-Bold</item>
-    </style>
-
-    <style name="ToolbarTitle" parent="MarqueeTextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:textColor">@color/primary_text_default_light</item>
-        <item name="android:textSize">@dimen/headline</item>
-    </style>
-
-    <style name="ChampionNameTextView" parent="MarqueeTextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/body</item>
-        <item name="android:textColor">@color/primary_text_default_light</item>
-    </style>
-
-    <style name="ChampionNameTextView.Large">
-        <item name="android:textSize">@dimen/headline</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="ChampionLoreTextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/body</item>
-        <item name="android:textColor">@color/primary_text_default_light</item>
-    </style>
-
-    <style name="SkinNameTextView" parent="MarqueeTextView">
-        <item name="android:textSize">@dimen/title</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@color/text_light_background</item>
-    </style>
-
-    <!-- new style -->
-    <style name="Base.AppCompat" parent="Theme.AppCompat.Light"/>
-
-    <style name="Base.AppCompat.Light">
-        <item name="android:colorAccent">@color/color_accent</item>
-        <item name="android:colorPrimary">@color/color_primary</item>
-        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="android:windowBackground">@color/window_background</item>
-    </style>
-
-    <style name="Base.AppCompat.HalfTranslucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="Base.Widget.TabLayout" parent="@style/Widget.Design.TabLayout">
+    <style name="TabLayout" parent="@style/Widget.Design.TabLayout">
         <item name="tabGravity">center</item>
         <item name="tabMode">scrollable</item>
         <item name="tabIndicatorColor">@color/color_accent</item>
         <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabTextAppearance">@style/Base.AppTheme.Widget.TabLayout.TabTextAppearance</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
         <item name="tabSelectedTextColor">@color/color_accent</item>
         <item name="tabPaddingStart">0.0dip</item>
         <item name="tabPaddingEnd">0.0dip</item>
     </style>
 
-    <style name="Base.AppTheme.Widget.TabLayout.TabTextAppearance" parent="@style/TextAppearance.Design.Tab">
+    <style name="TabTextAppearance" parent="@style/TextAppearance.Design.Tab">
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/tab_normal_text_color</item>
         <item name="android:singleLine">true</item>
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="Base.Widget.AppBarLayout" parent="Widget.Design.AppBarLayout">
+    <style name="AppBarLayout" parent="Widget.Design.AppBarLayout">
         <item name="elevation">@dimen/design_appbar_elevation</item>
         <item name="android:shadowColor">@color/appbar_shadow</item>
         <item name="android:background">@color/tab_background</item>
     </style>
 
-    <style name="Base.Widget.NavigationView" parent="Widget.Design.NavigationView">
+    <style name="NavigationView" parent="Widget.Design.NavigationView">
         <item name="elevation">@dimen/design_navigation_elevation</item>
         <item name="android:background">@color/navigation_background</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:maxWidth">@dimen/navigation_max_width</item>
     </style>
 
-    <style name="Base.Widget.FabBtn" parent="Widget.Design.FloatingActionButton">
+    <style name="FabBtn" parent="Widget.Design.FloatingActionButton">
         <item name="fabSize">normal</item>
-        <item name="rippleColor">?attr/colorAccent</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+
+    <style name="FloatingActionMenuItemText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="MarqueeTextView">
@@ -146,26 +78,32 @@
 
     <style name="SettingsGroup" parent="">
         <item name="android:background">@color/color_primary</item>
-        <item name="android:padding">16dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="SettingsItemView" parent="">
-        <item name="android:minHeight">56dp</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/color_primary</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="SettingsGroupTitleTv">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingBottom">8dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/secondary_text_disabled_light</item>
         <item name="android:singleLine">true</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">8dp</item>
     </style>
 
     <style name="SettingsTitleTv">

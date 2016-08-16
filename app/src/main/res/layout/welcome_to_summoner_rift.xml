@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="T h e o g o n y"
-            android:textColor="@color/md_accent"
+            android:textColor="@color/color_accent"
             android:textSize="35sp"
             android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="- 品味英雄故事 -"
-            android:textColor="@color/text_disabled"
+            android:textColor="@color/secondary_text_default_light"
             android:textSize="@dimen/title" />
     </LinearLayout>
 

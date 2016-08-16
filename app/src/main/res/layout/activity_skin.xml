@@ -14,7 +14,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_above="@+id/view_skin_toolbox"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/txt_skin_num"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/image_preview_text_color"
+            android:textSize="@dimen/image_preview_text_size"/>
+
+        <TextView
+            android:id="@+id/txt_skin_cover_name"
+            style="@style/MarqueeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/image_preview_text_color"
+            android:textSize="@dimen/image_preview_text_size"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/view_skin_toolbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingTop="8dp">
 
         <Button
             android:id="@+id/btn_wallpaper"
@@ -29,33 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="下载到手机"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:minHeight="120dp"
-        android:orientation="horizontal"
-        android:padding="32dp">
-
-        <TextView
-            android:id="@+id/txt_skin_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/image_preview_text_color"
-            android:textSize="@dimen/image_preview_text_size"/>
-
-        <TextView
-            android:id="@+id/txt_skin_cover_name"
-            style="@style/MarqueeTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:textColor="@color/image_preview_text_color"
-            android:textSize="@dimen/image_preview_text_size"/>
 
     </LinearLayout>
 

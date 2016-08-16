@@ -1,1 +1,1 @@
-include ':app', ':Amumu'
+include ':app', ':Amumu', ':fabmenu'

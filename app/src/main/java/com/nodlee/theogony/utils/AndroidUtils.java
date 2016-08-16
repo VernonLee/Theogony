@@ -1,6 +1,8 @@
 package com.nodlee.theogony.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
@@ -41,5 +43,17 @@ public class AndroidUtils {
         Resources res = context.getResources();
         DisplayMetrics metrics = res.getDisplayMetrics();
         return dp * metrics.density;
+    }
+
+    public static String getAppVersion(Context context) {
+        String appVersion = "<未知版本>";
+        try {
+            PackageInfo info = context.getPackageManager()
+                                      .getPackageInfo(context.getPackageName(), 0);
+            appVersion = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appVersion;
     }
 }

@@ -1,5 +1,6 @@
 package com.nodlee.theogony.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -102,7 +103,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
                 AndroidUtils.showToast(ChampionListActivity.this, "英雄列表");
                 break;
             case R.id.menu_item_collection_list:
-                AndroidUtils.showToast(ChampionListActivity.this, "收藏列表");
+                startActivity(new Intent(ChampionListActivity.this, MyFavoritesActivity.class));
                 break;
             case R.id.menu_item_wallpaper:
                 AndroidUtils.showToast(ChampionListActivity.this, "壁纸");
@@ -111,7 +112,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
                 AndroidUtils.showToast(ChampionListActivity.this, "夜间模式");
                 break;
             case R.id.menu_item_settings:
-                AndroidUtils.showToast(ChampionListActivity.this, "设置");
+                startActivity(new Intent(ChampionListActivity.this, SettingsActivity.class));
                 break;
             case R.id.menu_item_exit_to_app:
                 AndroidUtils.showToast(ChampionListActivity.this, "退出应用");

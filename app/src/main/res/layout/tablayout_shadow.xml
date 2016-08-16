@@ -10,8 +10,8 @@
         android:id="@+id/view_tab_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/md_accent"
-        app:tabIndicatorColor="@color/md_accent"
+        app:tabSelectedTextColor="@color/color_accent"
+        app:tabIndicatorColor="@color/color_accent"
         app:tabMode="scrollable"
         app:tabGravity="center" />
 

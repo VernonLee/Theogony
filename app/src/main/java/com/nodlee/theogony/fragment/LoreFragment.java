@@ -57,7 +57,7 @@ public class LoreFragment extends Fragment {
 
         mChampion = (Champion) getArguments().getSerializable("champion");
 
-        int fabBackgroundColor = getResources().getColor(R.color.md_primary);
+        int fabBackgroundColor = getResources().getColor(R.color.color_primary);
         mFavoriteBtn.setBackgroundTintList(ColorStateList.valueOf(fabBackgroundColor));
         mFavoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override

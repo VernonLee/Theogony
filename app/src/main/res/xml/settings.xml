@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/pref_lol_static_data_title">
-        <Preference
-            android:key="@string/pref_locale_key"
-            android:summary="暂不支持"
-            android:title="@string/pref_locale_title" />
+    <PreferenceCategory android:title="@string/pref_group_title_static_data">
 
         <Preference
-            android:key="@string/pref_version_key"
-            android:summary="5.22.1"
-            android:title="@string/pref_version_title" />
-    </PreferenceCategory>
+            android:key="@string/pref_key_locale"
+            android:title="@string/pref_title_locale"/>
 
-    <PreferenceCategory android:title="@string/pref_about_title">
         <Preference
-            android:key="@string/pref_about_app_key"
-            android:title="@string/pref_about_app_title" />
+            android:key="@string/pref_key_cache_size"
+            android:title="@string/pref_title_cache_size"/>
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_group_title_about">
+
+        <Preference
+            android:key="@string/pref_key_about_app"
+            android:title="@string/pref_title_about_app"/>
+
+        <Preference
+            android:key="@string/pref_key_open_source_license"
+            android:title="@string/pref_title_open_source_license"/>
+
+        <Preference
+            android:key="@string/pref_key_app_version"
+            android:title="@string/pref_title_app_version"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+
+        <Preference
+            android:key="@string/pref_key_feedback"
+            android:title="@string/pref_title_feedback"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

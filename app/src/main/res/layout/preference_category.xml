@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    style="@style/SettingsGroup"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:clickable="false">
+    android:clickable="false"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/md_settings_background"/>
+        android:layout_height="12dp"
+        android:background="@color/window_background"/>
 
     <TextView
         android:id="@android:id/title"
+        style="@style/SettingsGroupTitleTv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:paddingBottom="8dp"
-        android:paddingLeft="@dimen/container_right_padding"
-        android:paddingTop="8dp"
-        android:textAppearance="@android:style/TextAppearance.Small"
-        android:textColor="@color/secondary_text_dark" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

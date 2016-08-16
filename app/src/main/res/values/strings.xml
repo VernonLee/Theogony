@@ -7,9 +7,9 @@
     <string name="menu_more">more</string>
     <string name="menu_share">share</string>
     <string name="menu_skins">skins</string>
-    <string name="menu_download">download</string>
-    <string name="menu_wallpaper">wallpaper</string>
     <string name="menu_send">send</string>
+    <string name="menu_title_download_skin">下载皮肤</string>
+    <string name="menu_title_wallpaper">设为壁纸</string>
 
     <string name="request_data_progress_message">初始化...</string>
     <string name="download_data_progress_message">下载数据...</string>
@@ -33,14 +33,22 @@
     <string name="search_hint">请输入英雄名称</string>
     <string name="switch_success_notification_title">语言切换成功</string>
 
-    <string name="pref_lol_static_data_title">数据源</string>
-    <string name="pref_locale_key">locale</string>
-    <string name="pref_locale_title">语言设置</string>
-    <string name="pref_version_key">ddragon_data_version</string>
-    <string name="pref_version_title">数据版本</string>
-    <string name="pref_about_title">关于</string>
-    <string name="pref_about_app_key">about_app</string>
-    <string name="pref_about_app_title">关于应用</string>
+    <string name="pref_group_title_static_data">数据</string>
+    <string name="pref_key_locale">locale</string>
+    <string name="pref_key_cache_size">cache_size</string>
+    <string name="pref_title_locale">切换语言</string>
+    <string name="pref_title_cache_size">缓存</string>
+
+    <string name="pref_group_title_about">关于</string>
+    <string name="pref_key_about_app">about_app</string>
+    <string name="pref_key_open_source_license">osl</string>
+    <string name="pref_key_app_version">app_version</string>
+    <string name="pref_title_about_app">关于应用</string>
+    <string name="pref_title_open_source_license">开源许可证</string>
+    <string name="pref_title_app_version">版本</string>
+
+    <string name="pref_key_feedback">feedback</string>
+    <string name="pref_title_feedback">意见反馈</string>
 
     <string name="about_app_message">
         &#160;&#160;英雄谱(Theogony)是一款和英雄联盟有关的应用，
@@ -48,6 +56,10 @@
 
         目前该应用已经在Github开源，项目地址: \n
         https://github.com/VernonLee/Theogony
+    </string>
+
+    <string name="feedback_message">
+        如果你喜欢这个APP或者想一起参与改进，欢迎联系我：1516lee@gmail.com
     </string>
 
     <string name="warning_dialog_title">警告</string>

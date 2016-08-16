@@ -22,6 +22,6 @@
         android:text="@string/about_app_message"
         android:textSize="@dimen/body"
         android:drawablePadding="20dp"
-        android:padding="@dimen/container_right_padding"/>
+        android:padding="@dimen/padding_normal"/>
 
 </LinearLayout>

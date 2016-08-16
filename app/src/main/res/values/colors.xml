@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- old color -->
-    <color name="md_primary">#F5F5F5</color>
-    <color name="md_primary_dark">#bbb</color>
-    <color name="md_accent">#B71C1C</color>
-    <color name="md_background">#FAFAFA</color>
-    <color name="md_settings_background">#EEEEEE</color>
-
-    <color name="text_disabled">#61000000</color>
-    <color name="text_hint">#61000000</color>
-    <color name="list_divider">#1F000000</color>
-    <color name="text_light_background">#757575</color>
-    <color name="list_item_disabled">#E0E0E0</color>
-
-    <!-- new color -->
     <color name="color_accent">#ffce3d3a</color>
     <color name="color_primary">#fffdfdfd</color>
     <color name="color_primary_dark">#ffd1d1d1</color>
@@ -30,7 +15,7 @@
     <color name="primary_text_default_light"> #de000000</color>
     <color name="primary_text_disabled_light">#39000000</color>
     <color name="secondary_text_default_light">#8a000000</color>
-    <color name="secondary_text_disabled_light">#24000000</color>
+    <color name="secondary_text_disabled_light">#66000000</color>
     <color name="secondary_text_dark">#ff999999</color>
 
     <color name="navigation_top_background">#ffe1e1e1</color>
@@ -41,8 +26,11 @@
     <color name="image_preview_text_color">#ffdddddd</color>
     <color name="image_preview_menu_text_color">#ffdddddd</color>
 
-    <color name="menuPressed">#ff1d1d1d</color>
-    <color name="menu_icon">#ff000000</color>
+    <color name="menu_pressed">#ffd2d2d2</color>
+    <color name="menu_normal">#fffdfdfd</color>
+    <color name="menu_icon">@color/color_accent</color>
+
     <color name="line_color">#19000000</color>
+    <color name="list_item_disabled">#19000000</color>
 
 </resources>

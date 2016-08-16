@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
-        style="@style/Base.Widget.AppBarLayout"
+        style="@style/AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -30,7 +30,7 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/view_tab_container"
-            style="@style/Base.Widget.TabLayout"
+            style="@style/TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

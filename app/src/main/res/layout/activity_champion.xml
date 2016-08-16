@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/view_appbar"
-        style="@style/Base.Widget.AppBarLayout"
+        style="@style/AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,7 +43,7 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
-            style="@style/Base.Widget.TabLayout"
+            style="@style/TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"

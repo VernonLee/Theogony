@@ -4,4 +4,4 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="@color/list_divider"/>
+    android:background="@color/line_color"/>

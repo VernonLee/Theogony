@@ -40,6 +40,7 @@ public class SkinActivity extends BaseActivity implements ViewPager.OnPageChange
     TextView mNameTv;
     @BindView(R.id.txt_skin_num)
     TextView mSkinNumTv;
+
     @BindView(R.id.btn_download)
     Button mDownloadBtn;
     @BindView(R.id.btn_wallpaper)

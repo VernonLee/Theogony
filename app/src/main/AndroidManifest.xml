@@ -12,44 +12,39 @@
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppCompat">
 
-        <activity
-            android:name=".activity.ChampionListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".activity.WelcomeToSummonerRift">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.ChampionActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ChampionListActivity"/>
+
+        <activity android:name=".activity.ChampionActivity"/>
 
         <activity
             android:name=".activity.SkinActivity"
-            android:theme="@style/Base.AppCompat.HalfTranslucent"/>
+            android:theme="@style/AppCompat.HalfTranslucent"/>
 
         <activity
             android:name=".activity.MyFavoritesActivity"
-            android:label="@string/collections_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/collections_title" />
 
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/settings_title"
-            android:theme="@style/AppTheme.NoActionBar.Settings" />
+            android:theme="@style/AppCompat.Settings" />
 
         <activity
             android:name=".activity.AboutAppActivity"
-            android:label="@string/about_app_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/about_app_title"/>
 
         <activity
             android:name=".activity.SearchActivity"
             android:label="@string/search_title"
-            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -59,7 +54,9 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <meta-data android:name="app_key" android:value="e0af5cdf-caab-44c2-a692-dea1d712f8ab"/>
+        <meta-data
+            android:name="app_key"
+            android:value="e0af5cdf-caab-44c2-a692-dea1d712f8ab"/>
 
     </application>
 
