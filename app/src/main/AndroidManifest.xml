@@ -25,6 +25,8 @@
 
         <activity android:name=".activity.ChampionActivity"/>
 
+        <activity android:name=".activity.SkinListActivity"/>
+
         <activity
             android:name=".activity.SkinActivity"
             android:theme="@style/AppCompat.HalfTranslucent"/>

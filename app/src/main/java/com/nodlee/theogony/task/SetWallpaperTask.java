@@ -41,8 +41,11 @@ public class SetWallpaperTask extends AsyncTask<String, Void, Boolean> {
             }
 
             Bitmap wallPaperBitmap = BitmapFactory.decodeByteArray(dataBytes, 0, dataBytes.length);
-            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-            wallpaperManager.setBitmap(wallPaperBitmap);
+            if (wallPaperBitmap != null) {
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+                wallpaperManager.setBitmap(wallPaperBitmap);
+
+            }
             return true;
         } catch (IOException e) {
             e.printStackTrace();

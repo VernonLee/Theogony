@@ -7,49 +7,41 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ChampionAdapter;
+import com.nodlee.theogony.adapter.ChampionCursorAdapter;
+import com.nodlee.theogony.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.FavoriteChampionsLoader;
 import com.nodlee.theogony.utils.Constants;
+import com.nodlee.theogony.view.AutoFitRecyclerView;
 import com.nodlee.theogony.view.MarginDecoration;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Vernon Lee on 15-11-25.
  */
 public class MyFavoritesActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final int SPAN_COUNT = 4;
-    private static final int SPACING = 5;
     private static final int LOADER_FAVORITE_CHAMPIONS = 4;
 
-    private ChampionAdapter mAdapter;
+    @BindView(R.id.recy_view_favorite_champions)
+    AutoFitRecyclerView mFavoriteChampionsRecyView;
+
+    private ChampionCursorAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_favorites);
+        ButterKnife.bind(this);
 
-        initView();
-
-        getSupportLoaderManager().initLoader(LOADER_FAVORITE_CHAMPIONS, null, this);
-
-        getContentResolver().registerContentObserver(
-                Constants.Favorite.CONTENT_URI, true, mObserver);
-    }
-
-    private void initView() {
         getToolbar(R.drawable.ic_arrow_back_black, null);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_view_favorite_champions);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new MarginDecoration(this));
-        mAdapter = new ChampionAdapter(this, null);
-        mAdapter.setOnItemClickedListener(new ChampionAdapter.OnItemClickedListener() {
+        mAdapter = new ChampionCursorAdapter(this, null);
+        mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
             public void onItemClicked(int position) {
                 Champion champion = mAdapter.getItem(position);
@@ -60,7 +52,12 @@ public class MyFavoritesActivity extends BaseActivity implements LoaderManager.L
                 }
             }
         });
-        recyclerView.setAdapter(mAdapter);
+        mFavoriteChampionsRecyView.setHasFixedSize(true);
+        mFavoriteChampionsRecyView.addItemDecoration(new MarginDecoration(this));
+        mFavoriteChampionsRecyView.setAdapter(mAdapter);
+
+        getSupportLoaderManager().initLoader(LOADER_FAVORITE_CHAMPIONS, null, this);
+        getContentResolver().registerContentObserver(Constants.Favorite.CONTENT_URI, true, mObserver);
     }
 
     @Override

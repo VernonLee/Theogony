@@ -14,7 +14,8 @@ import android.view.MenuItem;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ChampionAdapter;
+import com.nodlee.theogony.adapter.ChampionCursorAdapter;
+import com.nodlee.theogony.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.ChampionsLoader;
 import com.nodlee.theogony.view.MarginDecoration;
 
@@ -27,7 +28,7 @@ public class SearchActivity extends BaseActivity {
     private static final int LOADER_CHAMPIONS = 1;
     private static final String EXTRA_QUERY = "query";
 
-    private ChampionAdapter mAdapter;
+    private ChampionCursorAdapter mAdapter;
     private SearchView mSearchView;
     private String mQuery = "";
 
@@ -45,8 +46,8 @@ public class SearchActivity extends BaseActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new MarginDecoration(this));
-        mAdapter = new ChampionAdapter(this, null);
-        mAdapter.setOnItemClickedListener(new ChampionAdapter.OnItemClickedListener() {
+        mAdapter = new ChampionCursorAdapter(this, null);
+        mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
             public void onItemClicked(int position) {
                 Champion champion = mAdapter.getItem(position);

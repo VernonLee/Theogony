@@ -19,8 +19,8 @@ import com.nodlee.amumu.bean.Champion;
 import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.activity.SkinActivity;
-import com.nodlee.theogony.adapter.BaseCursorAdapter;
-import com.nodlee.theogony.adapter.SkinAdapter;
+import com.nodlee.theogony.adapter.OnItemClickedListener;
+import com.nodlee.theogony.adapter.SkinCursorAdapter;
 import com.nodlee.theogony.db.FavoriteChampionManager;
 import com.nodlee.theogony.loader.SkinsLoader;
 
@@ -41,7 +41,7 @@ public class SkinsFragment extends Fragment {
     FloatingActionButton mFavoriteBtn;
 
     private Unbinder mUnbinder;
-    private SkinAdapter mSkinAdapter;
+    private SkinCursorAdapter mSkinCursorAdapter;
     private Champion mChampion;
 
     public static SkinsFragment getInstance(Champion champion) {
@@ -59,11 +59,11 @@ public class SkinsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.frag_skins, container, false);
         mUnbinder = ButterKnife.bind(this, rootView);
 
-        mSkinAdapter = new SkinAdapter(getActivity(), null);
-        mSkinAdapter.setOnItemClickedListener(new BaseCursorAdapter.OnItemClickedListener() {
+        mSkinCursorAdapter = new SkinCursorAdapter(getActivity(), null);
+        mSkinCursorAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
             public void onItemClicked(int position) {
-                Skin skin = mSkinAdapter.getItem(position);
+                Skin skin = mSkinCursorAdapter.getItem(position);
                 if (skin != null && mChampion != null) {
                     Intent intent = new Intent(getActivity(), SkinActivity.class);
                     intent.putExtra(SkinActivity.EXTRA_CHAMPION_ID, mChampion.getId());
@@ -74,7 +74,7 @@ public class SkinsFragment extends Fragment {
         });
         mSkinsRecyclerView.setHasFixedSize(true);
         mSkinsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mSkinsRecyclerView.setAdapter(mSkinAdapter);
+        mSkinsRecyclerView.setAdapter(mSkinCursorAdapter);
 
         int fabBackgroundColor = getResources().getColor(R.color.color_primary);
         mFavoriteBtn.setBackgroundTintList(ColorStateList.valueOf(fabBackgroundColor));
@@ -128,12 +128,12 @@ public class SkinsFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader loader, Cursor cursor) {
-            mSkinAdapter.swapCursor(cursor);
+            mSkinCursorAdapter.swapCursor(cursor);
         }
 
         @Override
         public void onLoaderReset(Loader loader) {
-            mSkinAdapter.swapCursor(null);
+            mSkinCursorAdapter.swapCursor(null);
         }
     };
 

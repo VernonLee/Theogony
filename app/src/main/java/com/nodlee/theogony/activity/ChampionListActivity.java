@@ -85,6 +85,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
             case android.R.id.home:
                 break;
             case R.id.menu_item_search:
+                startActivity(new Intent(ChampionListActivity.this, SearchActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -106,7 +107,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
                 startActivity(new Intent(ChampionListActivity.this, MyFavoritesActivity.class));
                 break;
             case R.id.menu_item_wallpaper:
-                AndroidUtils.showToast(ChampionListActivity.this, "壁纸");
+                startActivity(new Intent(ChampionListActivity.this, SkinListActivity.class));
                 break;
             case R.id.menu_item_night_mode:
                 AndroidUtils.showToast(ChampionListActivity.this, "夜间模式");

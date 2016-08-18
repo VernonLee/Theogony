@@ -1,48 +1,61 @@
 package com.nodlee.theogony.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nodlee.theogony.R;
 import com.nodlee.amumu.bean.Skin;
-import com.nodlee.theogony.db.DatabaseOpenHelper;
+import com.nodlee.theogony.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-/**
- * Created by Vernon Lee on 15-11-27.
- */
-public class SkinAdapter extends BaseCursorAdapter<SkinAdapter.ViewHolder> {
-    private static ImageLoader mImageLoader;
+import java.util.ArrayList;
 
-    public SkinAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+/**
+ * 作者：nodlee
+ * 时间：16/8/18
+ * 说明：
+ */
+public class SkinAdapter extends RecyclerView.Adapter<SkinAdapter.ViewHolder> {
+    private ImageLoader mImageLoader;
+    private ArrayList<Skin> mSkins;
+    private OnItemClickedListener mOnItemClickedListener;
+
+    public SkinAdapter(Context context, ArrayList<Skin> skins) {
         mImageLoader = ImageLoader.getInstance();
+        mSkins = skins;
+    }
+
+    public void setOnItemClickedListener(OnItemClickedListener listener) {
+        mOnItemClickedListener = listener;
     }
 
     @Override
-    public SkinAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.grid_item_skins, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
-        Skin skin = ((DatabaseOpenHelper.SkinCursor) cursor).getSkin();
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Skin skin = getItem(position);
         if (skin != null) {
-            viewHolder.nameIv.setText(skin.getName());
-            mImageLoader.displayImage(skin.getCover(), viewHolder.coverIv);
+            mImageLoader.displayImage(skin.getCover(), holder.coverIv);
+            holder.nameIv.setText(skin.getName());
         }
     }
 
+    @Override
+    public int getItemCount() {
+        return mSkins == null ? 0 : mSkins.size();
+    }
+
     public Skin getItem(int position) {
-        DatabaseOpenHelper.SkinCursor cursor = (DatabaseOpenHelper.SkinCursor) getCursor();
-        if (cursor != null && cursor.moveToPosition(position)) {
-            return cursor.getSkin();
+        if (position >= 0 && position < mSkins.size()) {
+            return mSkins.get(position);
         }
         return null;
     }
@@ -59,7 +72,7 @@ public class SkinAdapter extends BaseCursorAdapter<SkinAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            onItemClickedListener.onItemClicked(getAdapterPosition());
+            mOnItemClickedListener.onItemClicked(getAdapterPosition());
         }
     }
 }

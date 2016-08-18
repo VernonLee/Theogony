@@ -21,7 +21,7 @@ public class CacheManager {
         if (cacheFile.exists()) {
             size = (float) Math.ceil(getFileSize(cacheFile));
         }
-        return size > 0 ? String.format("%.1fM", size) : "";
+        return size > 0 ? String.format("%fM", size) : "";
     }
 
     /**

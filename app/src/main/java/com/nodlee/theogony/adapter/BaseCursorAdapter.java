@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.Objects;
-
 
 public abstract class BaseCursorAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
@@ -17,15 +15,6 @@ public abstract class BaseCursorAdapter<VH extends RecyclerView.ViewHolder>
     private DataSetObserver mDataSetObserver;
 
     protected OnItemClickedListener onItemClickedListener;
-
-    public interface OnItemClickedListener {
-        /**
-         * 在单元格被点击的时候调用
-         *
-         * @param position
-         */
-        void onItemClicked(int position);
-    }
 
     public void setOnItemClickedListener(OnItemClickedListener listener) {
         onItemClickedListener = listener;

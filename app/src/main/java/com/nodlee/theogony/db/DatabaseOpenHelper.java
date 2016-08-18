@@ -245,6 +245,19 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return new SkinCursor(cursor);
     }
 
+    /**
+     * 分页查询
+     * @param offset 偏移量
+     * @param limit 数据条数
+     * @return
+     */
+    public SkinCursor querySkins(int offset, int limit) {
+        String limitStr = String.format("%d,%d", offset, limit);
+        Cursor cursor = getReadableDatabase().query(TABLE_SKIN,
+                null, null, null, null, null, null, limitStr);
+        return new SkinCursor(cursor);
+    }
+
     public int deleteSkin(int sid) {
         return getWritableDatabase().delete(TABLE_SKIN, SKIN_COLUMN_SID + "=?",
                 new String[]{String.valueOf(sid)});

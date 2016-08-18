@@ -1,7 +1,6 @@
 package com.nodlee.theogony.db;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.nodlee.amumu.bean.Skin;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 public class SkinManager implements Manager<Skin> {
     private static final String TAG = "SkinManager";
     private static final boolean DEBUG = false;
+    private static final int PAGE_COUNT = 10;
 
     private static SkinManager sManager;
     private static DatabaseOpenHelper sHelper;
@@ -66,11 +66,11 @@ public class SkinManager implements Manager<Skin> {
     }
 
     @Override
-    public Cursor getAll() {
+    public DatabaseOpenHelper.SkinCursor getAll() {
         return sHelper.querySkins();
     }
 
-    public Cursor getAll(int cid) {
+    public DatabaseOpenHelper.SkinCursor getAll(int cid) {
        return sHelper.querySkins(cid);
     }
 
@@ -82,4 +82,50 @@ public class SkinManager implements Manager<Skin> {
         }
         return null;
     }
+
+    /**
+     * 分页获取数据
+     * @param pageId
+     * @return
+     */
+    public DatabaseOpenHelper.SkinCursor getSkins(int pageId) {
+        final int totalPage = getTotalPage();
+        if (totalPage > 0) {
+            if (pageId <= 0 || pageId > totalPage) {
+                Log.d(TAG, "页码pageId错误,pageId=" + pageId);
+                return null;
+            }
+            final int offset = (pageId - 1) * PAGE_COUNT;
+            return sHelper.querySkins(offset, PAGE_COUNT);
+        }
+        return null;
+    }
+
+    /**
+     * 获取数据总页数
+     * @return
+     */
+    public int getTotalPage() {
+        int totalPage = -1;
+        ArrayList<Skin> skins = cursorToArrayList(getAll());
+        if (skins != null && skins.size() > 0) {
+            final int total = skins.size();
+            totalPage = (int) Math.ceil((double) total / PAGE_COUNT);
+        }
+        return totalPage;
+    }
+
+    public static ArrayList<Skin> cursorToArrayList(DatabaseOpenHelper.SkinCursor cursor) {
+        ArrayList<Skin> skins = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            skins = new ArrayList<>();
+            do {
+                skins.add(cursor.getSkin());
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        return skins;
+    }
+
 }

@@ -17,7 +17,8 @@ import android.view.ViewGroup;
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.activity.ChampionActivity;
-import com.nodlee.theogony.adapter.ChampionAdapter;
+import com.nodlee.theogony.adapter.ChampionCursorAdapter;
+import com.nodlee.theogony.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.ChampionsLoader;
 import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.view.AutoFitRecyclerView;
@@ -31,7 +32,7 @@ import butterknife.Unbinder;
 /**
  * Created by Vernon Lee on 15-11-24.
  */
-public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ChampionAdapter.OnItemClickedListener {
+public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnItemClickedListener {
     private static final String EXTRA_TAG_KEY = "extra_tag";
     // LoaderID
     private static final int CHAMPIONS_LOADER_ID = 0;
@@ -41,7 +42,7 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
     @BindView(R.id.recy_view_champions)
     AutoFitRecyclerView mRecyclerView;
 
-    private ChampionAdapter mAdapter;
+    private ChampionCursorAdapter mAdapter;
     private Unbinder mUnbinder;
 
     public static ChampionsFragment newInstance(String championTagKey) {
@@ -61,7 +62,7 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
 
         mRefreshView.setOnRefreshListener(this);
         mRefreshView.setColorSchemeResources(R.color.color_accent);
-        mAdapter = new ChampionAdapter(getActivity(), null);
+        mAdapter = new ChampionCursorAdapter(getActivity(), null);
         mAdapter.setOnItemClickedListener(this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
