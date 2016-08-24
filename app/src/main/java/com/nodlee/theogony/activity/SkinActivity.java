@@ -8,18 +8,23 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.SimpleViewPagerAdapter;
 import com.nodlee.theogony.db.DatabaseOpenHelper;
-import com.nodlee.theogony.fragment.SkinFragment;
 import com.nodlee.theogony.loader.SkinsLoader;
 import com.nodlee.theogony.task.InsertGalleryTask;
 import com.nodlee.theogony.task.SetWallpaperTask;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -30,85 +35,75 @@ import butterknife.OnClick;
 /**
  * Created by Vernon Lee on 15-11-27.
  */
-public class SkinActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    public static final String EXTRA_CHAMPION_ID = "extra_cid";
+public class SkinActivity extends BaseActivity {
     public static final String EXTRA_SKIN = "extra_skin";
 
-    @BindView(R.id.vp_skins)
-    ViewPager mSkinsVp;
-    @BindView(R.id.txt_skin_cover_name)
+    @BindView(R.id.txt_skin_name)
     TextView mNameTv;
-    @BindView(R.id.txt_skin_num)
-    TextView mSkinNumTv;
+    @BindView(R.id.iv_cover)
+    ImageView mCoverIv;
 
-    @BindView(R.id.btn_download)
-    Button mDownloadBtn;
-    @BindView(R.id.btn_wallpaper)
-    Button mWallPaperBtn;
-
-    private Skin mCurrentSkin;
-    private ArrayList<Skin> skinList;
+    private Skin mSkin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skin);
         ButterKnife.bind(this);
-        getSkins();
-        mSkinsVp.addOnPageChangeListener(this);
+
+        getToolbar(R.drawable.ic_arrow_back_black, null);
+
+        mSkin = getSkin();
+        updateUi(mSkin);
     }
 
-    private void getSkins() {
-        Intent intent = getIntent();
-        int cid = -1;
-        if (intent.hasExtra(EXTRA_CHAMPION_ID)
-                && (cid = intent.getIntExtra(EXTRA_CHAMPION_ID, -1)) > 0) {
-            Bundle args = new Bundle();
-            args.putSerializable(EXTRA_CHAMPION_ID, cid);
-            getSupportLoaderManager().initLoader(1, args, mLoaderCallbacks);
+    private Skin getSkin() {
+        Skin skin = null;
+        if (getIntent().hasExtra(EXTRA_SKIN)) {
+            skin = (Skin) getIntent().getSerializableExtra(EXTRA_SKIN);
         }
+        return skin;
     }
 
     private void updateUi(Skin skin) {
-        if (skinList != null && skinList.size() > 0 && skin != null) {
+        if (skin != null) {
+//            String[] names = skin.getName().split(" ");
+//            String html="<big>%s</big>  <small>%s<small>";
+//            String title = String.format(html, names[0], names[1]);
+//            mNameTv.setText(Html.fromHtml(title));
             mNameTv.setText(skin.getName());
-            mSkinNumTv.setText(String.format("%d/%d", skin.getNum()+1, skinList.size()));
+            ImageLoader.getInstance().displayImage(skin.getCover(), mCoverIv);
         }
     }
 
-    private void setupViewPager(ViewPager viewPager, ArrayList<Skin> skins) {
-        if (skins != null && skins.size() >= 0) {
-            SimpleViewPagerAdapter adapter = new SimpleViewPagerAdapter(getSupportFragmentManager());
-            for (Skin skin : skins) {
-                adapter.add(SkinFragment.newInstance(skin));
-            }
-            viewPager.setAdapter(adapter);
-
-            // 设置ViewPager默认选中页面
-            Skin targetSkin = null;
-            if (getIntent().hasExtra(EXTRA_SKIN)
-                    && (targetSkin = (Skin) getIntent().getSerializableExtra(EXTRA_SKIN)) != null) {
-                viewPager.setCurrentItem(targetSkin.getNum());
-                updateUi(targetSkin);
-                mCurrentSkin = targetSkin;
-            }
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_skin, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick({R.id.btn_wallpaper, R.id.btn_download}) void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_wallpaper:
-                setWallPaper();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finishAfterTransition();
                 break;
-            case R.id.btn_download:
-                downLoad();
+            case R.id.menu_item_wallpaper:
+                setWallPaper(mSkin);
+                break;
+            case R.id.menu_item_download:
+                downLoad(mSkin);
                 break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    // 设置手机壁纸  skin url -> WallPaper
-    private void setWallPaper() {
-        if (mCurrentSkin == null) return;
+    /**
+     * 设置皮肤为桌面壁纸
+     * @param skin
+     */
+    private void setWallPaper(final Skin skin) {
+        if (skin == null) return;
 
         new AlertDialog.Builder(this)
             .setMessage("要设置为壁纸吗?")
@@ -116,15 +111,18 @@ public class SkinActivity extends BaseActivity implements ViewPager.OnPageChange
             .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    new SetWallpaperTask(SkinActivity.this)
-                        .execute(mCurrentSkin.getCover());
-                }
+                new SetWallpaperTask(SkinActivity.this)
+                        .execute(skin.getCover());
+            }
             }).create().show();
     }
 
-    // 下载照片到手机相册 skin url -> gallery
-    private void downLoad() {
-        if (mCurrentSkin == null) return;
+    /**
+     * 下载皮肤到本地相册
+     * @param skin
+     */
+    private void downLoad(final Skin skin) {
+        if (skin == null) return;
 
         new AlertDialog.Builder(this)
             .setMessage("要下载到手机吗?")
@@ -133,64 +131,8 @@ public class SkinActivity extends BaseActivity implements ViewPager.OnPageChange
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     new InsertGalleryTask(SkinActivity.this)
-                        .execute(mCurrentSkin.getCover());
+                            .execute(skin.getCover());
                 }
             }).create().show();
     }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-         // do nothing
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        if (skinList != null && position < skinList.size()) {
-            mCurrentSkin = skinList.get(position);
-            updateUi(mCurrentSkin);
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        // 滑动状态不能进行下载或设置壁纸操作
-        if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-           enableMenu(false);
-        } else if (state == ViewPager.SCROLL_STATE_SETTLING) {
-           enableMenu(true);
-        }
-    }
-
-    private void enableMenu(boolean flag) {
-       mDownloadBtn.setClickable(flag);
-       mDownloadBtn.setEnabled(flag);
-       mWallPaperBtn.setClickable(flag);
-       mWallPaperBtn.setEnabled(flag);
-    }
-
-    private LoaderManager.LoaderCallbacks mLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader onCreateLoader(int id, Bundle args) {
-            int cid = args.getInt(EXTRA_CHAMPION_ID);
-            return new SkinsLoader(SkinActivity.this, cid);
-        }
-
-        @Override
-        public void onLoadFinished(Loader loader, Cursor data) {
-            ArrayList<Skin> skins = new ArrayList<>();
-            if (data != null && data.moveToFirst()) {
-                do {
-                    skins.add(((DatabaseOpenHelper.SkinCursor)data).getSkin());
-                } while (data.moveToNext());
-            }
-
-            skinList = skins;
-            setupViewPager(mSkinsVp, skins);
-        }
-
-        @Override
-        public void onLoaderReset(Loader loader) {
-            // do nothing
-        }
-    };
 }

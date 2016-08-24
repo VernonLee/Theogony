@@ -1,27 +1,31 @@
 package com.nodlee.theogony.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.GridLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.OnItemClickedListener;
-import com.nodlee.theogony.adapter.SkinAdapter;
+import com.nodlee.theogony.adapter.SkinWithLoadMoreAdapter;
 import com.nodlee.theogony.db.DatabaseOpenHelper;
 import com.nodlee.theogony.db.SkinManager;
 import com.nodlee.theogony.utils.AndroidUtils;
+import com.nodlee.theogony.view.AutoFitRecyclerView;
+import com.nodlee.theogony.view.MarginDecoration;
 import com.nodlee.theogony.view.OnScrolledToBottomListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,22 +33,20 @@ import butterknife.ButterKnife;
 /**
  * 作者：nodlee
  * 时间：16/8/17
- * 说明：
+ * 说明：皮肤库
  */
-public class SkinListActivity extends BaseActivity {
+public class SkinListActivity extends BaseActivity implements OnItemClickedListener  {
     private static final int MESSAGE_SUCCESS = 1;
     private static final int MESSAGE_FAILED = 0;
 
     @BindView(R.id.recy_view_skin_list)
-    RecyclerView mSkinListRecyclerView;
-    @BindView(R.id.txt_load_more)
-    TextView mLoadMoreTv;
+    AutoFitRecyclerView mSkinListRecyclerView;
 
-    private boolean isLoading; // 加载中状态
+    private SkinWithLoadMoreAdapter mSkinAdapter;
+    private ArrayList<Skin> mSkins = new ArrayList<>();
+
     private int currentPage = 1; // 当前页码
     private int totalPage = 0; // 总页数
-    private SkinAdapter mSkinAdapter;
-    private ArrayList<Skin> mSkins = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,70 +55,76 @@ public class SkinListActivity extends BaseActivity {
         ButterKnife.bind(this);
         getToolbar(R.drawable.ic_arrow_back_black, null);
 
-        mSkinAdapter = new SkinAdapter(this, mSkins);
+        mSkinAdapter = new SkinWithLoadMoreAdapter(mSkins);
         mSkinListRecyclerView.setHasFixedSize(true);
-        mSkinListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mSkinListRecyclerView.addItemDecoration(new MarginDecoration(this));
         mSkinListRecyclerView.setAdapter(mSkinAdapter);
+        mSkinAdapter.setOnItemClickedListener(this);
         mSkinListRecyclerView.addOnScrollListener(new OnScrolledToBottomListener() {
             @Override
             public void onScrolledToBottom() {
-                 loadMore();
+                loadMore();
             }
         });
-        mSkinAdapter.setOnItemClickedListener(new OnItemClickedListener() {
+        GridLayoutManager manager = mSkinListRecyclerView.getLayoutManager();
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
-            public void onItemClicked(int position) {
-                Skin skin = mSkins.get(position);
-                if (skin != null) {
-                    Intent intent = new Intent(SkinListActivity.this, SkinActivity.class);
-                    intent.putExtra(SkinActivity.EXTRA_SKIN, skin);
-                    intent.putExtra(SkinActivity.EXTRA_CHAMPION_ID, skin.getCid());
-                    startActivity(intent);
-                }
+            public int getSpanSize(int position) {
+                return mSkinAdapter.isLoadMoreView(position) ? 2 : 1;
             }
         });
 
         totalPage = SkinManager.getInstance(this).getTotalPage();
-        requestSkins();
+        mHandler.post(mRunnable);
     }
 
     private void loadMore() {
-        if (isLoading) return;
-
-        boolean isLastPage = currentPage == totalPage;
-        isLoading = true;
-        String loadMoreDesc = isLastPage ? "全部数据加载完毕" : String.format("加载%d/%d", currentPage, totalPage);
-        mLoadMoreTv.setText(loadMoreDesc);
-        mLoadMoreTv.setVisibility(View.VISIBLE);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha_in);
-        mLoadMoreTv.setAnimation(animation);
-        animation.start();
-
-        if (!isLastPage && totalPage > 0) {
+        if (totalPage > 0 && currentPage < totalPage && !mSkinAdapter.isLoading()) {
+            mSkinAdapter.startLoading();
+            // 计算下一页页码
             currentPage += 1;
-            requestSkins();
-        } else {
-            finishLoadMore();
+            mHandler.postDelayed(mRunnable, 1500);
         }
     }
 
-    private void finishLoadMore() {
-        if (!isLoading) return;
-
-        isLoading = false;
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha_out);
-        mLoadMoreTv.setAnimation(animation);
-        mLoadMoreTv.setVisibility(View.GONE);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private void requestSkins() {
-        new Thread(mRunnable).start();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.menu_item_search:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClicked(View view, int position) {
+        Skin skin = mSkinAdapter.getItem(position);
+        Intent intent = new Intent(SkinListActivity.this, SkinActivity.class);
+        intent.putExtra(SkinActivity.EXTRA_SKIN, skin);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View coverIv = view.findViewById(R.id.img_skin_cover_small);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    SkinListActivity.this, coverIv, getString(R.string.shared_element_name_skin_cover));
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            finishLoadMore();
+            mSkinAdapter.setLoaded();
 
             switch (msg.what) {
                 case MESSAGE_FAILED:
@@ -136,8 +144,7 @@ public class SkinListActivity extends BaseActivity {
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            DatabaseOpenHelper.SkinCursor cursor = SkinManager.getInstance(SkinListActivity.this)
-                                                              .getSkins(currentPage);
+            DatabaseOpenHelper.SkinCursor cursor = SkinManager.getInstance(SkinListActivity.this).getSkins(currentPage);
             if (cursor != null) {
                 ArrayList<Skin> skins = SkinManager.cursorToArrayList(cursor);
                 Message msg = new Message();
@@ -149,12 +156,4 @@ public class SkinListActivity extends BaseActivity {
             }
         }
     };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mLoadMoreTv.getAnimation() != null) {
-            mLoadMoreTv.clearAnimation();
-        }
-    }
 }

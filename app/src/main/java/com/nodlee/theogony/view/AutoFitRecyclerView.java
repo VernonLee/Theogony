@@ -45,6 +45,10 @@ public class AutoFitRecyclerView extends RecyclerView {
         setLayoutManager(mGridLayoutManager);
     }
 
+    public GridLayoutManager getLayoutManager() {
+        return mGridLayoutManager;
+    }
+
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
         super.onMeasure(widthSpec, heightSpec);

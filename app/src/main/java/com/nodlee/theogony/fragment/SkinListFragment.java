@@ -1,8 +1,10 @@
 package com.nodlee.theogony.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +13,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +36,7 @@ import butterknife.Unbinder;
  * 时间：16/8/11
  * 说明：
  */
-public class SkinsFragment extends Fragment {
+public class SkinListFragment extends Fragment implements OnItemClickedListener {
 
     @BindView(R.id.recy_view_skins)
     RecyclerView mSkinsRecyclerView;
@@ -44,34 +47,23 @@ public class SkinsFragment extends Fragment {
     private SkinCursorAdapter mSkinCursorAdapter;
     private Champion mChampion;
 
-    public static SkinsFragment getInstance(Champion champion) {
+    public static SkinListFragment getInstance(Champion champion) {
         Bundle args = new Bundle();
         args.putSerializable("champion", champion);
 
-        SkinsFragment fragment = new SkinsFragment();
+        SkinListFragment fragment = new SkinListFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag_skins, container, false);
         mUnbinder = ButterKnife.bind(this, rootView);
 
         mSkinCursorAdapter = new SkinCursorAdapter(getActivity(), null);
-        mSkinCursorAdapter.setOnItemClickedListener(new OnItemClickedListener() {
-            @Override
-            public void onItemClicked(int position) {
-                Skin skin = mSkinCursorAdapter.getItem(position);
-                if (skin != null && mChampion != null) {
-                    Intent intent = new Intent(getActivity(), SkinActivity.class);
-                    intent.putExtra(SkinActivity.EXTRA_CHAMPION_ID, mChampion.getId());
-                    intent.putExtra(SkinActivity.EXTRA_SKIN, skin);
-                    startActivity(intent);
-                }
-            }
-        });
+        mSkinCursorAdapter.setOnItemClickedListener(this);
         mSkinsRecyclerView.setHasFixedSize(true);
         mSkinsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSkinsRecyclerView.setAdapter(mSkinCursorAdapter);
@@ -86,6 +78,26 @@ public class SkinsFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onItemClicked(View view, int position) {
+        Skin skin = mSkinCursorAdapter.getItem(position);
+        if (skin != null) {
+            Intent intent = new Intent(getActivity(), SkinActivity.class);
+            intent.putExtra(SkinActivity.EXTRA_SKIN, skin);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                View coverIv = view.findViewById(R.id.img_skin_cover_small);
+                View nameTv = view.findViewById(R.id.txt_skin_name);
+                Pair<View, String> p1 = Pair.create(coverIv, getString(R.string.shared_element_name_skin_cover));
+                Pair<View, String> p2 = Pair.create(nameTv, getString(R.string.shared_element_name_skin_name));
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), p1, p2);
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
+        }
     }
 
     @Override

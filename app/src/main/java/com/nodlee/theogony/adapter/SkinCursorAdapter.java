@@ -27,7 +27,7 @@ public class SkinCursorAdapter extends BaseCursorAdapter<SkinCursorAdapter.ViewH
     @Override
     public SkinCursorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.grid_item_skins, parent, false));
+                .inflate(R.layout.grid_item_skin_big, parent, false));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SkinCursorAdapter extends BaseCursorAdapter<SkinCursorAdapter.ViewH
 
         @Override
         public void onClick(View v) {
-            onItemClickedListener.onItemClicked(getAdapterPosition());
+            onItemClickedListener.onItemClicked(v, getAdapterPosition());
         }
     }
 }

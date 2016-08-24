@@ -1,71 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/image_preview_background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_skins"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        style="@style/AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/view_skin_toolbox"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingLeft="@dimen/padding_normal"
-        android:paddingRight="@dimen/padding_normal"
-        android:paddingTop="8dp">
+        android:minHeight="?attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/txt_skin_num"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:textColor="@color/image_preview_text_color"
-            android:textSize="@dimen/image_preview_text_size"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/txt_skin_cover_name"
-            style="@style/MarqueeTextView"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/image_preview_text_color"
-            android:textSize="@dimen/image_preview_text_size"/>
+            android:layout_height="?attr/actionBarSize"/>
 
-    </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:id="@id/view_skin_toolbox"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/img_default_avatar"
+            android:transitionName="@string/shared_element_name_skin_cover"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"/>
+
+    <TextView
+        android:id="@+id/txt_skin_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingLeft="@dimen/padding_normal"
-        android:paddingRight="@dimen/padding_normal"
-        android:paddingTop="8dp">
+        android:padding="16dp"
+        android:textSize="@dimen/image_preview_text_size"
+        android:transitionName="@string/shared_element_name_skin_name"/>
 
-        <Button
-            android:id="@+id/btn_wallpaper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="设为手机壁纸"/>
-
-        <Button
-            android:id="@+id/btn_download"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="下载到手机"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

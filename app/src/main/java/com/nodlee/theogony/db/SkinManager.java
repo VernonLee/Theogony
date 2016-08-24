@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class SkinManager implements Manager<Skin> {
     private static final String TAG = "SkinManager";
     private static final boolean DEBUG = false;
-    private static final int PAGE_COUNT = 10;
+    private static final int PAGE_COUNT = 20;
 
     private static SkinManager sManager;
     private static DatabaseOpenHelper sHelper;

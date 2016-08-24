@@ -13,10 +13,16 @@ import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.db.DatabaseOpenHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Vernon Lee on 15-11-24.
  */
-public class ChampionCursorAdapter extends BaseCursorAdapter<ChampionCursorAdapter.ViewHolder> {
+public class ChampionCursorAdapter extends BaseCursorAdapter<BaseViewHolder> {
+    private static final int VIEW_TYPE_FOOTER = 1;
+    private static final int VIEW_TYPE_NORMAL = 2;
+
     private static ImageLoader mImageLoader;
 
     public ChampionCursorAdapter(Context context, Cursor cursor) {
@@ -25,18 +31,46 @@ public class ChampionCursorAdapter extends BaseCursorAdapter<ChampionCursorAdapt
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.grid_item_champions, parent, false));
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_FOOTER) {
+            return new FooterViewHolder(LayoutInflater.from(parent.getContext())
+                       .inflate(R.layout.count_panel, parent, false));
+        } else {
+            return new ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.grid_item_champions, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
-        Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
-        if (champion != null) {
-            viewHolder.nameTv.setText(champion.getName());
-            mImageLoader.displayImage(champion.getAvatar(), viewHolder.avatarIv);
+    public void onBindViewHolder(BaseViewHolder viewHolder, Cursor cursor) {
+        if (viewHolder instanceof FooterViewHolder) {
+            int count = getItemCount() - 1;
+            ((FooterViewHolder)viewHolder).mCountTv.setText(String.format("%d位", count));
+        } else {
+            Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
+            if (champion != null) {
+                ViewHolder holder = (ViewHolder) viewHolder;
+                holder.nameTv.setText(champion.getName());
+                mImageLoader.displayImage(champion.getAvatar(), holder.avatarIv);
+            }
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        if (super.getItemCount() != 0) {
+            return super.getItemCount() + 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return isFooter(position) ? VIEW_TYPE_FOOTER : VIEW_TYPE_NORMAL;
+    }
+
+    public boolean isFooter(int position) {
+        return position == getItemCount() - 1;
     }
 
     public Champion getItem(int position) {
@@ -48,18 +82,32 @@ public class ChampionCursorAdapter extends BaseCursorAdapter<ChampionCursorAdapt
     }
 
     public class ViewHolder extends BaseViewHolder {
-        private ImageView avatarIv;
-        private TextView nameTv;
+        @BindView(R.id.img_champion_avatar)
+        public ImageView avatarIv;
+        @BindView(R.id.txt_champion_name)
+        public TextView nameTv;
 
         public ViewHolder(View view) {
             super(view);
-            avatarIv = (ImageView) view.findViewById(R.id.img_champion_avatar);
-            nameTv = (TextView) view.findViewById(R.id.txt_champion_name);
+            ButterKnife.bind(this, view);
         }
 
         @Override
         public void onClick(View v) {
-            onItemClickedListener.onItemClicked(getAdapterPosition());
+            onItemClickedListener.onItemClicked(v, getAdapterPosition());
         }
+    }
+
+    public class FooterViewHolder extends BaseViewHolder {
+        @BindView(R.id.txt_count)
+        public TextView mCountTv;
+
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View v) { }
     }
 }

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
@@ -43,7 +45,7 @@ public class MyFavoritesActivity extends BaseActivity implements LoaderManager.L
         mAdapter = new ChampionCursorAdapter(this, null);
         mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onItemClicked(int position) {
+            public void onItemClicked(View view, int position) {
                 Champion champion = mAdapter.getItem(position);
                 if (champion != null) {
                     Intent intent = new Intent(MyFavoritesActivity.this, ChampionActivity.class);
@@ -58,6 +60,12 @@ public class MyFavoritesActivity extends BaseActivity implements LoaderManager.L
 
         getSupportLoaderManager().initLoader(LOADER_FAVORITE_CHAMPIONS, null, this);
         getContentResolver().registerContentObserver(Constants.Favorite.CONTENT_URI, true, mObserver);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

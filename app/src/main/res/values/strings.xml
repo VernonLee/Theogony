@@ -8,7 +8,7 @@
     <string name="menu_share">share</string>
     <string name="menu_skins">skins</string>
     <string name="menu_send">send</string>
-    <string name="menu_title_download_skin">下载皮肤</string>
+    <string name="menu_title_download">下载</string>
     <string name="menu_title_wallpaper">设为壁纸</string>
 
     <string name="request_data_progress_message">初始化...</string>
@@ -71,11 +71,15 @@
 
     <string name="navigation_item_champion_list">英雄列表</string>
     <string name="navigation_item_collection_list">收藏夹</string>
-    <string name="navigation_item_wallpaper">壁纸</string>
+    <string name="navigation_item_skin_list">皮肤库</string>
     <string name="navigation_item_night_mode">夜间模式</string>
     <string name="navigation_item_settings">设置</string>
     <string name="navigation_item_exit_to_app">退出应用</string>
 
     <string name="viewpager_title_lore">英雄故事</string>
     <string name="viewpager_title_skins">图片墙</string>
+
+    <string name="shared_element_name_avatar">avatar</string>
+    <string name="shared_element_name_skin_cover">skin_cover</string>
+    <string name="shared_element_name_skin_name">skin_name</string>
 </resources>

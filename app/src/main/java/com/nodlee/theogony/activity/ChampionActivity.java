@@ -10,7 +10,7 @@ import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ViewPagerWithTitleAdapter;
 import com.nodlee.theogony.fragment.LoreFragment;
-import com.nodlee.theogony.fragment.SkinsFragment;
+import com.nodlee.theogony.fragment.SkinListFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
@@ -52,7 +52,7 @@ public class ChampionActivity extends BaseActivity {
     private void setupViewPager(ViewPager pager) {
         ViewPagerWithTitleAdapter adapter = new ViewPagerWithTitleAdapter(getSupportFragmentManager());
         adapter.add(LoreFragment.getInstance(mChampion), getString(R.string.viewpager_title_lore));
-        adapter.add(SkinsFragment.getInstance(mChampion), getString(R.string.viewpager_title_skins));
+        adapter.add(SkinListFragment.getInstance(mChampion), getString(R.string.viewpager_title_skins));
         pager.setAdapter(adapter);
     }
 

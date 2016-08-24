@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
@@ -49,7 +50,7 @@ public class SearchActivity extends BaseActivity {
         mAdapter = new ChampionCursorAdapter(this, null);
         mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onItemClicked(int position) {
+            public void onItemClicked(View view, int position) {
                 Champion champion = mAdapter.getItem(position);
                 if (champion != null) {
                     Intent intent = new Intent(SearchActivity.this, ChampionActivity.class);

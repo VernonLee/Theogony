@@ -15,7 +15,7 @@ import android.view.View;
 
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ViewPagerWithTitleAdapter;
-import com.nodlee.theogony.fragment.ChampionsFragment;
+import com.nodlee.theogony.fragment.ChampionListFragment;
 import com.nodlee.theogony.utils.AndroidUtils;
 
 import butterknife.BindView;
@@ -68,14 +68,14 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
         for (int i = 0; i < championTags.length; i++) {
             String tagKey = championTagKeys[i];
             String tag = championTags[i];
-            adapter.add(ChampionsFragment.newInstance(tagKey), tag);
+            adapter.add(ChampionListFragment.newInstance(tagKey), tag);
         }
         pager.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_champion_list, menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         return true;
     }
 

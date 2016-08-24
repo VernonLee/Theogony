@@ -10,7 +10,7 @@ public abstract class BaseCursorAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
     private Context mContext;
     private Cursor mCursor;
-    private boolean mDataValid;
+    protected boolean mDataValid;
     private int mRowIdColumn;
     private DataSetObserver mDataSetObserver;
 
@@ -63,8 +63,13 @@ public abstract class BaseCursorAdapter<VH extends RecyclerView.ViewHolder>
         if (!mDataValid) {
             throw new IllegalStateException("this should only be called when the cursor is valid");
         }
-        if (!mCursor.moveToPosition(position)) {
-            throw new IllegalStateException("couldn't move cursor to position " + position);
+//        if (!mCursor.moveToPosition(position)) {
+//            throw new IllegalStateException("couldn't move cursor to position " + position);
+//        }
+        try {
+            mCursor.moveToPosition(position);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         onBindViewHolder(viewHolder, mCursor);
     }

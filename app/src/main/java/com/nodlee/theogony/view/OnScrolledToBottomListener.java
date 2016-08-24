@@ -1,6 +1,9 @@
 package com.nodlee.theogony.view;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -23,17 +26,17 @@ public class OnScrolledToBottomListener extends RecyclerView.OnScrollListener {
     }
 
     private boolean isScrolledToBottom(RecyclerView view) {
+        int lastCompleteVisiblePos = -1;
+
         RecyclerView.LayoutManager manager = view.getLayoutManager();
-        View lastChildView = manager.getChildAt(view.getChildCount() - 1);
-        int lastChildBottom = lastChildView.getBottom();
-        int recyclerViewBottom = view.getBottom() - view.getPaddingBottom();
-        int lastChildPosition = manager.getPosition(lastChildView);
+        if (manager instanceof GridLayoutManager) {
+            lastCompleteVisiblePos = ((GridLayoutManager)manager).findLastCompletelyVisibleItemPosition();
+        } else if (manager instanceof LinearLayoutManager) {
+            lastCompleteVisiblePos = ((LinearLayoutManager)manager).findLastCompletelyVisibleItemPosition();
+        }
 
-        return lastChildBottom == recyclerViewBottom
-                     && (lastChildPosition == manager.getItemCount() - 1);
+        return lastCompleteVisiblePos > 0 && lastCompleteVisiblePos == manager.getItemCount() - 1 - 1; // footer除外
     }
 
-    public void onScrolledToBottom() {
-
-    }
+    public void onScrolledToBottom() { }
 }

@@ -25,11 +25,11 @@
 
         <activity android:name=".activity.ChampionActivity"/>
 
-        <activity android:name=".activity.SkinListActivity"/>
-
         <activity
-            android:name=".activity.SkinActivity"
-            android:theme="@style/AppCompat.HalfTranslucent"/>
+            android:name=".activity.SkinListActivity"
+            android:label="@string/navigation_item_skin_list"/>
+
+        <activity android:name=".activity.SkinActivity"/>
 
         <activity
             android:name=".activity.MyFavoritesActivity"

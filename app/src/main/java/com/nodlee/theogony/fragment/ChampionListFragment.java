@@ -1,8 +1,10 @@
 package com.nodlee.theogony.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,9 +12,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
@@ -31,8 +37,9 @@ import butterknife.Unbinder;
 
 /**
  * Created by Vernon Lee on 15-11-24.
+ * 备注：SpanSize代表跨度，即item占多少单元格，三表示item占三个格子，而1表示一个格子
  */
-public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnItemClickedListener {
+public class ChampionListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnItemClickedListener {
     private static final String EXTRA_TAG_KEY = "extra_tag";
     // LoaderID
     private static final int CHAMPIONS_LOADER_ID = 0;
@@ -45,11 +52,11 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
     private ChampionCursorAdapter mAdapter;
     private Unbinder mUnbinder;
 
-    public static ChampionsFragment newInstance(String championTagKey) {
+    public static ChampionListFragment newInstance(String championTagKey) {
         Bundle args = new Bundle();
         args.putString(EXTRA_TAG_KEY, championTagKey);
 
-        ChampionsFragment fragment = new ChampionsFragment();
+        ChampionListFragment fragment = new ChampionListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,17 +74,35 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
+        // reset item span size
+        final GridLayoutManager manager = mRecyclerView.getLayoutManager();
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return mAdapter.isFooter(position) ? manager.getSpanCount() : 1;
+            }
+        });
 
         return rootView;
     }
 
     @Override
-    public void onItemClicked(int position) {
+    public void onItemClicked(View itemView, int position) {
         Champion champion = mAdapter.getItem(position);
         if (champion != null) {
             Intent intent = new Intent(getActivity(), ChampionActivity.class);
             intent.putExtra(ChampionActivity.EXTRA_CHAMPION, champion);
-            startActivity(intent);
+            // 共享元素转场动画
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ImageView avatarIv = (ImageView) itemView.findViewById(R.id.img_champion_avatar);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                                        getActivity(),
+                                        avatarIv,
+                                        getString(R.string.shared_element_name_avatar));
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
         }
     }
 
@@ -85,8 +110,7 @@ public class ChampionsFragment extends Fragment implements SwipeRefreshLayout.On
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getLoaderManager().initLoader(CHAMPIONS_LOADER_ID, getArguments(), mLoaderCallback);
-        getActivity().getContentResolver().registerContentObserver(Constants.Champions.CONTENT_URI
-            , true, mObserver);
+        getActivity().getContentResolver().registerContentObserver(Constants.Champions.CONTENT_URI, true, mObserver);
     }
 
     @Override

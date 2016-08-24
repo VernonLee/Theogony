@@ -15,7 +15,7 @@
         <item
             android:id="@+id/menu_item_wallpaper"
             android:icon="@drawable/ic_wallpaper"
-            android:title="@string/navigation_item_wallpaper"/>
+            android:title="@string/navigation_item_skin_list"/>
 
         <item
             android:id="@+id/menu_item_night_mode"

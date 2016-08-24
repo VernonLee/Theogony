@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/view_appbar"
@@ -27,7 +28,8 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/img_default_avatar"
                 app:civ_border_color="#333"
-                app:civ_border_width="2dp"/>
+                app:civ_border_width="2dp"
+                android:transitionName="@string/shared_element_name_avatar"/>
 
             <TextView
                 android:id="@+id/txt_champion_name"
@@ -54,7 +56,8 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_champion_desc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
 

@@ -2,6 +2,8 @@
 <resources>
     <dimen name="tab_text_size">14sp</dimen>
 
+    <dimen name="skin_group_title">14sp</dimen>
+
     <dimen name="navigation_text_size">14sp</dimen>
     <dimen name="navigation_icon_size">24dp</dimen>
     <dimen name="navigation_top_height">168dp</dimen>
@@ -9,11 +11,11 @@
     <dimen name="navigation_max_width">320dp</dimen>
 
     <dimen name="image_preview_menu_text_size">12sp</dimen>
-    <dimen name="image_preview_text_size">22sp</dimen>
+    <dimen name="image_preview_text_size">14sp</dimen>
     <dimen name="image_small_size">75dp</dimen>
     <dimen name="image_large_size">204dp</dimen>
 
-    <dimen name="item_margin">8dp</dimen>
+    <dimen name="item_margin">2dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
 </resources>
