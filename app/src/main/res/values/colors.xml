@@ -3,7 +3,7 @@
     <color name="color_accent">#ffce3d3a</color>
     <color name="color_primary">#fffdfdfd</color>
     <color name="color_primary_dark">#ffd1d1d1</color>
-    <color name="window_background">#fffafafa</color>
+    <color name="window_background">#ffefefef</color>
 
     <color name="appbar_text_normal_color">#ff333333</color>
     <color name="appbar_text_selected_color">@color/color_accent</color>

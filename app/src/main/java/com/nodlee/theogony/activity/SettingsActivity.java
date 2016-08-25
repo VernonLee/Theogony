@@ -24,14 +24,4 @@ public class SettingsActivity extends BaseActivity {
                 .replace(R.id.frag_container, fragment)
                 .commit();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

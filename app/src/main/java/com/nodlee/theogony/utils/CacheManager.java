@@ -16,12 +16,12 @@ public class CacheManager {
      * @return
      */
     public static String getCacheSize(Context context) {
-        float size = -1;
+        int size = -1;
         File cacheFile = context.getExternalCacheDir();
         if (cacheFile.exists()) {
-            size = (float) Math.ceil(getFileSize(cacheFile));
+            size = (int) Math.ceil(getFileSize(cacheFile));
         }
-        return size > 0 ? String.format("%fM", size) : "";
+        return size > 0 ? String.format("%dM", size) : "";
     }
 
     /**

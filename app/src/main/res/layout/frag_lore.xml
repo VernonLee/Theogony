@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v4.widget.NestedScrollView
+    <TextView
+        android:id="@+id/txt_champion_lore"
+        style="@style/ContentTv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/txt_champion_lore"
-            style="@style/ContentTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/margin_normal"
-        android:clickable="true"
-        android:src="@drawable/favorite_selector"
-        android:tint="@color/color_accent"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:layout_behavior="com.nodlee.theogony.view.ScrollAwareFABBehavior"/>
-
-</FrameLayout>
+</android.support.v4.widget.NestedScrollView>

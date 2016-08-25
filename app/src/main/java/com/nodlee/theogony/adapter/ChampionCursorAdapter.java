@@ -82,7 +82,7 @@ public class ChampionCursorAdapter extends BaseCursorAdapter<BaseViewHolder> {
     }
 
     public class ViewHolder extends BaseViewHolder {
-        @BindView(R.id.img_champion_avatar)
+        @BindView(R.id.iv_avatar)
         public ImageView avatarIv;
         @BindView(R.id.txt_champion_name)
         public TextView nameTv;

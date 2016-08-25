@@ -28,8 +28,6 @@ public class LoreFragment extends Fragment {
 
     @BindView(R.id.txt_champion_lore)
     TextView mLoreTv;
-    @BindView(R.id.btn_favorite)
-    FloatingActionButton mFavoriteBtn;
 
     private Champion mChampion;
     private Unbinder mUnbinder;
@@ -54,51 +52,14 @@ public class LoreFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mChampion = (Champion) getArguments().getSerializable("champion");
-
-        int fabBackgroundColor = getResources().getColor(R.color.color_primary);
-        mFavoriteBtn.setBackgroundTintList(ColorStateList.valueOf(fabBackgroundColor));
-        mFavoriteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFavorite(!isFavorite());
-            }
-        });
-
         if (mChampion != null) {
             setLore(mChampion.getLore());
-            mFavoriteBtn.setSelected(isFavorite());
-        } else {
-            mFavoriteBtn.hide();
         }
     }
 
     private void setLore(String lore) {
         mLoreTv.setText(Html.fromHtml("&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" + lore));
-    }
-
-    private boolean isFavorite() {
-        if (mChampion == null) {
-            return false;
-        } else {
-            return FavoriteChampionManager.getInstance(getActivity()).isFavorite(mChampion.getId());
-        }
-    }
-
-    private void setFavorite(boolean isFavorite) {
-        if (mChampion == null) return;
-
-        FavoriteChampionManager favoriteChampionManager = FavoriteChampionManager.getInstance(getActivity());
-        if (isFavorite) {
-            if (favoriteChampionManager.add(mChampion)) {
-                mFavoriteBtn.setSelected(true);
-            }
-        } else {
-            if (favoriteChampionManager.delete(mChampion)) {
-                mFavoriteBtn.setSelected(false);
-            }
-        }
     }
 
     @Override

@@ -40,8 +40,6 @@ public class SkinListFragment extends Fragment implements OnItemClickedListener 
 
     @BindView(R.id.recy_view_skins)
     RecyclerView mSkinsRecyclerView;
-    @BindView(R.id.btn_favorite)
-    FloatingActionButton mFavoriteBtn;
 
     private Unbinder mUnbinder;
     private SkinCursorAdapter mSkinCursorAdapter;
@@ -67,15 +65,6 @@ public class SkinListFragment extends Fragment implements OnItemClickedListener 
         mSkinsRecyclerView.setHasFixedSize(true);
         mSkinsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSkinsRecyclerView.setAdapter(mSkinCursorAdapter);
-
-        int fabBackgroundColor = getResources().getColor(R.color.color_primary);
-        mFavoriteBtn.setBackgroundTintList(ColorStateList.valueOf(fabBackgroundColor));
-        mFavoriteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFavorite(!isFavorite());
-            }
-        });
 
         return rootView;
     }
@@ -106,29 +95,6 @@ public class SkinListFragment extends Fragment implements OnItemClickedListener 
         mChampion = (Champion) getArguments().getSerializable("champion");
         if (mChampion != null) {
             getActivity().getSupportLoaderManager().initLoader(1, null, mLoaderCallbacks);
-        }
-    }
-
-    private boolean isFavorite() {
-        if (mChampion == null) {
-            return false;
-        } else {
-            return FavoriteChampionManager.getInstance(getActivity()).isFavorite(mChampion.getId());
-        }
-    }
-
-    private void setFavorite(boolean isFavorite) {
-        if (mChampion == null) return;
-
-        FavoriteChampionManager favoriteChampionManager = FavoriteChampionManager.getInstance(getActivity());
-        if (isFavorite) {
-            if (favoriteChampionManager.add(mChampion)) {
-                mFavoriteBtn.setSelected(true);
-            }
-        } else {
-            if (favoriteChampionManager.delete(mChampion)) {
-                mFavoriteBtn.setSelected(false);
-            }
         }
     }
 

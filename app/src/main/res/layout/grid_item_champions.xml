@@ -2,12 +2,12 @@
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center">
     
     <ImageView
-        android:id="@+id/img_champion_avatar"
+        android:id="@+id/iv_avatar"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"

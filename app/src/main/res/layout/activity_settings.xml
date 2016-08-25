@@ -6,12 +6,15 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize">
 
-        <include layout="@layout/toolbar" />
-
-        <include layout="@layout/view_horizontal_line" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -19,4 +22,5 @@
         android:id="@+id/frag_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
 </LinearLayout>
