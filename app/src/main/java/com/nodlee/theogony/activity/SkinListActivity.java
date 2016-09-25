@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.nodlee.amumu.bean.Skin;
@@ -24,8 +22,6 @@ import com.nodlee.theogony.view.MarginDecoration;
 import com.nodlee.theogony.view.OnScrolledToBottomListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,24 +84,6 @@ public class SkinListActivity extends BaseActivity implements OnItemClickedListe
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.menu_item_search:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onItemClicked(View view, int position) {
         Skin skin = mSkinAdapter.getItem(position);
         Intent intent = new Intent(SkinListActivity.this, SkinActivity.class);
@@ -118,6 +96,16 @@ public class SkinListActivity extends BaseActivity implements OnItemClickedListe
             startActivity(intent, options.toBundle());
         } else {
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        GridLayoutManager manager = mSkinListRecyclerView.getLayoutManager();
+        if (manager.findFirstCompletelyVisibleItemPosition() != 0) {
+            mSkinListRecyclerView.smoothScrollToPosition(0);
+        } else {
+            super.onBackPressed();
         }
     }
 

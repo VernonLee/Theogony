@@ -53,7 +53,7 @@ public class SkinCursorAdapter extends BaseCursorAdapter<SkinCursorAdapter.ViewH
 
         public ViewHolder(View view) {
             super(view);
-            coverIv = (ImageView) view.findViewById(R.id.img_skin_cover_small);
+            coverIv = (ImageView) view.findViewById(R.id.img_skin_cover_big);
             nameIv = (TextView) view.findViewById(R.id.txt_skin_name);
         }
 

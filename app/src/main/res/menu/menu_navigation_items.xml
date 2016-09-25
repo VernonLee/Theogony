@@ -18,20 +18,18 @@
             android:title="@string/navigation_item_skin_list"/>
 
         <item
-            android:id="@+id/menu_item_night_mode"
+            android:id="@+id/menu_item_dayNight"
             android:icon="@drawable/ic_night_mode"
             android:title="@string/navigation_item_night_mode"/>
+
     </group>
 
     <group android:id="@+id/grp2" android:checkableBehavior="single">
+
         <item
             android:id="@+id/menu_item_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/navigation_item_settings"/>
 
-        <item
-            android:id="@+id/menu_item_exit_to_app"
-            android:icon="@drawable/ic_exit_to_app"
-            android:title="@string/navigation_item_exit_to_app"/>
     </group>
 </menu>

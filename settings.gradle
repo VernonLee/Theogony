@@ -1,1 +1,1 @@
-include ':app', ':Amumu', ':pulltoload', ':mvpdemo', ':rxjavademo'
+include ':app', ':Amumu', ':daynight'

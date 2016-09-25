@@ -9,8 +9,7 @@
     <android.support.design.widget.AppBarLayout
         style="@style/AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,10 +23,10 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ImageView
+        <uk.co.senab.photoview.PhotoView
             android:id="@+id/iv_cover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:scaleType="centerInside"
             android:src="@mipmap/img_default_avatar"
@@ -46,6 +45,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="@dimen/image_preview_text_size"
-        android:transitionName="@string/shared_element_name_skin_name"/>
+        android:textColor="@color/primary_text_default_light"
+        android:background="@color/tab_background"/>
 
 </LinearLayout>

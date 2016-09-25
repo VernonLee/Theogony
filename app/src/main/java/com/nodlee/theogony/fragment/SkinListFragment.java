@@ -77,11 +77,9 @@ public class SkinListFragment extends Fragment implements OnItemClickedListener 
             intent.putExtra(SkinActivity.EXTRA_SKIN, skin);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                View coverIv = view.findViewById(R.id.img_skin_cover_small);
-                View nameTv = view.findViewById(R.id.txt_skin_name);
-                Pair<View, String> p1 = Pair.create(coverIv, getString(R.string.shared_element_name_skin_cover));
-                Pair<View, String> p2 = Pair.create(nameTv, getString(R.string.shared_element_name_skin_name));
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), p1, p2);
+                View coverIv = view.findViewById(R.id.img_skin_cover_big);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                        getActivity(), coverIv, getString(R.string.shared_element_name_skin_cover));
                 startActivity(intent, options.toBundle());
             } else {
                 startActivity(intent);

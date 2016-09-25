@@ -6,6 +6,7 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -23,14 +24,17 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <include layout="@layout/view_horizontal_line" />
-
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <com.nodlee.theogony.view.AutoFitRecyclerView
         android:id="@+id/recy_view_champions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:columnWidth="118dp"/>
+
 </LinearLayout>

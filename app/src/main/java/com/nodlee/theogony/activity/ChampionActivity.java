@@ -1,11 +1,13 @@
 package com.nodlee.theogony.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -75,6 +77,18 @@ public class ChampionActivity extends BaseActivity implements AppBarLayout.OnOff
         mAvatarIv.setAlpha(alphaFactor);
         // 浮动按钮位移动画
         mFavoriteBtn.setTranslationY(Math.abs(verticalOffset));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAfterTransition();
+            } else {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+        return true;
     }
 
     private void setupViewPager(ViewPager pager) {

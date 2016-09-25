@@ -22,7 +22,6 @@
         android:padding="8dp"
         android:textColor="@android:color/white"
         android:textSize="@dimen/caption"
-        android:transitionName="@string/shared_element_name_skin_name"
         android:visibility="gone"/>
 
 </FrameLayout>

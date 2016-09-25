@@ -73,6 +73,7 @@
     <string name="navigation_item_collection_list">收藏夹</string>
     <string name="navigation_item_skin_list">皮肤库</string>
     <string name="navigation_item_night_mode">夜间模式</string>
+    <string name="navigation_item_day_mode">白天模式</string>
     <string name="navigation_item_settings">设置</string>
     <string name="navigation_item_exit_to_app">退出应用</string>
 
@@ -81,5 +82,4 @@
 
     <string name="shared_element_name_avatar">avatar</string>
     <string name="shared_element_name_skin_cover">skin_cover</string>
-    <string name="shared_element_name_skin_name">skin_name</string>
 </resources>

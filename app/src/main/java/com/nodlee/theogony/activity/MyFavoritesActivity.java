@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ChampionCursorAdapter;
+import com.nodlee.theogony.adapter.ChampionCursorWithFooterAdapter;
 import com.nodlee.theogony.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.FavoriteChampionsLoader;
 import com.nodlee.theogony.utils.Constants;
@@ -32,7 +32,7 @@ public class MyFavoritesActivity extends BaseActivity implements LoaderManager.L
     @BindView(R.id.recy_view_favorite_champions)
     AutoFitRecyclerView mFavoriteChampionsRecyView;
 
-    private ChampionCursorAdapter mAdapter;
+    private ChampionCursorWithFooterAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MyFavoritesActivity extends BaseActivity implements LoaderManager.L
 
         getToolbar(R.drawable.ic_arrow_back_black, null);
 
-        mAdapter = new ChampionCursorAdapter(this, null);
+        mAdapter = new ChampionCursorWithFooterAdapter(this, null);
         mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
             public void onItemClicked(View view, int position) {

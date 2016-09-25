@@ -1,6 +1,7 @@
 package com.nodlee.theogony.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +54,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
         });
 
         mNavigationView.setNavigationItemSelectedListener(this);
+        // 二次创建的时候,重置Menu菜单
 
         ViewPager championsPager = (ViewPager) findViewById(R.id.vp_champions);
         setupPager(championsPager);
@@ -101,7 +104,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
     private void goToNavigationViewItem(int itemID) {
         switch (itemID) {
             case R.id.menu_item_champion_list:
-                AndroidUtils.showToast(ChampionListActivity.this, "英雄列表");
+                // do nothing
                 break;
             case R.id.menu_item_collection_list:
                 startActivity(new Intent(ChampionListActivity.this, MyFavoritesActivity.class));
@@ -109,14 +112,11 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
             case R.id.menu_item_wallpaper:
                 startActivity(new Intent(ChampionListActivity.this, SkinListActivity.class));
                 break;
-            case R.id.menu_item_night_mode:
-                AndroidUtils.showToast(ChampionListActivity.this, "夜间模式");
-                break;
             case R.id.menu_item_settings:
                 startActivity(new Intent(ChampionListActivity.this, SettingsActivity.class));
                 break;
-            case R.id.menu_item_exit_to_app:
-                AndroidUtils.showToast(ChampionListActivity.this, "退出应用");
+            case R.id.menu_item_dayNight:
+                toggleDayNightMode();
                 break;
         }
     }
@@ -136,9 +136,33 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
             mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
+    // TODO 夜间模式
+    private int getDayNightMode() {
+        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    }
+
+    // TODO 夜间模式
+    private void toggleDayNightMode() {
+        int currentDayNightMode = getDayNightMode();
+        switch (currentDayNightMode) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+        }
+
+        // 保存到本地
+    }
+
     @Override
     public void onBackPressed() {
-        closeDrawerLayout();
-        super.onBackPressed();
+        if (isDrawerLayoutOpen()) {
+            closeDrawerLayout();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

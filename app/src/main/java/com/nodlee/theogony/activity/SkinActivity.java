@@ -4,14 +4,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +28,8 @@ import com.nodlee.theogony.db.DatabaseOpenHelper;
 import com.nodlee.theogony.loader.SkinsLoader;
 import com.nodlee.theogony.task.InsertGalleryTask;
 import com.nodlee.theogony.task.SetWallpaperTask;
+import com.nodlee.theogony.utils.AndroidUtils;
+import com.nodlee.theogony.view.ZoomImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -31,6 +37,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by Vernon Lee on 15-11-27.
@@ -41,7 +49,7 @@ public class SkinActivity extends BaseActivity {
     @BindView(R.id.txt_skin_name)
     TextView mNameTv;
     @BindView(R.id.iv_cover)
-    ImageView mCoverIv;
+    PhotoView mCoverIv;
 
     private Skin mSkin;
 
@@ -50,7 +58,6 @@ public class SkinActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skin);
         ButterKnife.bind(this);
-
         getToolbar(R.drawable.ic_arrow_back_black, null);
 
         mSkin = getSkin();
@@ -67,10 +74,6 @@ public class SkinActivity extends BaseActivity {
 
     private void updateUi(Skin skin) {
         if (skin != null) {
-//            String[] names = skin.getName().split(" ");
-//            String html="<big>%s</big>  <small>%s<small>";
-//            String title = String.format(html, names[0], names[1]);
-//            mNameTv.setText(Html.fromHtml(title));
             mNameTv.setText(skin.getName());
             ImageLoader.getInstance().displayImage(skin.getCover(), mCoverIv);
         }
@@ -86,7 +89,11 @@ public class SkinActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finishAfterTransition();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                } else {
+                    return super.onOptionsItemSelected(item);
+                }
                 break;
             case R.id.menu_item_wallpaper:
                 setWallPaper(mSkin);
@@ -95,7 +102,7 @@ public class SkinActivity extends BaseActivity {
                 downLoad(mSkin);
                 break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     /**

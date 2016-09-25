@@ -11,7 +11,7 @@
     <dimen name="navigation_max_width">320dp</dimen>
 
     <dimen name="image_preview_menu_text_size">12sp</dimen>
-    <dimen name="image_preview_text_size">14sp</dimen>
+    <dimen name="image_preview_text_size">18sp</dimen>
     <dimen name="image_small_size">75dp</dimen>
     <dimen name="image_large_size">204dp</dimen>
 

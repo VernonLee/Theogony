@@ -7,9 +7,9 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
-        style="@style/AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="172dp">
+        android:layout_height="172dp"
+        style="@style/AppBarLayout">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -33,6 +33,9 @@
         android:columnWidth="118dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

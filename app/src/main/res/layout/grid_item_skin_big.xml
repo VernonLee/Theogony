@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/img_skin_cover_small"
+        android:id="@+id/img_skin_cover_big"
         android:layout_width="match_parent"
         android:layout_height="192dp"
         android:scaleType="centerCrop"
@@ -21,7 +21,6 @@
         android:gravity="left"
         android:padding="8dp"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/caption"
-        android:transitionName="@string/shared_element_name_skin_name"/>
+        android:textSize="@dimen/caption"/>
 
 </FrameLayout>

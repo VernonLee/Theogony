@@ -1,65 +1,58 @@
 package com.nodlee.theogony.activity;
 
+import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ChampionCursorAdapter;
+import com.nodlee.theogony.adapter.ChampionCursorWithFooterAdapter;
 import com.nodlee.theogony.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.ChampionsLoader;
+import com.nodlee.theogony.view.AutoFitRecyclerView;
 import com.nodlee.theogony.view.MarginDecoration;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Vernon Lee on 15-12-10.
  */
-public class SearchActivity extends BaseActivity {
-    private static final int SPAN_COUNT = 4;
-    private static final int SPACING = 5;
+public class SearchActivity extends BaseActivity implements OnItemClickedListener {
     private static final int LOADER_CHAMPIONS = 1;
     private static final String EXTRA_QUERY = "query";
 
+    @BindView(R.id.search_view)
+    SearchView mSearchView;
+    @BindView(R.id.recy_view_champions)
+    AutoFitRecyclerView mChampionListRecyclerView;
+
     private ChampionCursorAdapter mAdapter;
-    private SearchView mSearchView;
     private String mQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        ButterKnife.bind(this);
         getToolbar(R.drawable.ic_arrow_back_black, null);
 
-        mSearchView = (SearchView) findViewById(R.id.search_view);
         setupSearchView();
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_view_champions);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new MarginDecoration(this));
         mAdapter = new ChampionCursorAdapter(this, null);
-        mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                Champion champion = mAdapter.getItem(position);
-                if (champion != null) {
-                    Intent intent = new Intent(SearchActivity.this, ChampionActivity.class);
-                    intent.putExtra(ChampionActivity.EXTRA_CHAMPION, champion);
-                    startActivity(intent);
-                }
-            }
-        });
-        recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickedListener(this);
+        mChampionListRecyclerView.setHasFixedSize(true);
+        mChampionListRecyclerView.addItemDecoration(new MarginDecoration(this));
+        mChampionListRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -71,6 +64,22 @@ public class SearchActivity extends BaseActivity {
                 search(query);
                 mSearchView.setQuery(query, false);
             }
+        }
+    }
+
+    @Override
+    public void onItemClicked(View view, int position) {
+        Champion champion = mAdapter.getItem(position);
+        Intent intent = new Intent(this, ChampionActivity.class);
+        intent.putExtra(ChampionActivity.EXTRA_CHAMPION, champion);
+        // 共享元素转场动画
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View avatarIv = view.findViewById(R.id.iv_avatar);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    this, avatarIv, getString(R.string.shared_element_name_avatar));
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
         }
     }
 
@@ -97,15 +106,6 @@ public class SearchActivity extends BaseActivity {
                 return true;
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void search(String query) {
