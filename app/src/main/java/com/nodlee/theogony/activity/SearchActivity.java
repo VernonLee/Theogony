@@ -15,7 +15,6 @@ import android.view.View;
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ChampionCursorAdapter;
-import com.nodlee.theogony.adapter.ChampionCursorWithFooterAdapter;
 import com.nodlee.theogony.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.ChampionsLoader;
 import com.nodlee.theogony.view.AutoFitRecyclerView;
@@ -44,7 +43,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickedListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-        getToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back, null);
 
         setupSearchView();
 

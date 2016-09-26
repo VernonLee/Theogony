@@ -49,7 +49,7 @@ public class SkinListActivity extends BaseActivity implements OnItemClickedListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skin_list);
         ButterKnife.bind(this);
-        getToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back, null);
 
         mSkinAdapter = new SkinWithLoadMoreAdapter(mSkins);
         mSkinListRecyclerView.setHasFixedSize(true);

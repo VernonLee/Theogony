@@ -14,7 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.Toolbar"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -29,7 +30,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:scaleType="centerInside"
-            android:src="@mipmap/img_default_avatar"
+            android:src="@drawable/img_default_avatar"
             android:transitionName="@string/shared_element_name_skin_cover"/>
 
     </RelativeLayout>
@@ -45,7 +46,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="@dimen/image_preview_text_size"
-        android:textColor="@color/primary_text_default_light"
+        android:textColor="@color/primary_text_default_dark"
         android:background="@color/tab_background"/>
 
 </LinearLayout>

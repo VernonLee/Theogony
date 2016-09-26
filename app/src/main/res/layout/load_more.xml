@@ -19,7 +19,7 @@
         android:text="加载中..."
         android:padding="16dp"
         android:gravity="center"
-        android:textColor="@color/primary_text_default_light"
+        android:textColor="@color/primary_text_default_dark"
         android:textSize="12sp"
         android:layout_toRightOf="@id/progress_load_more"/>
 

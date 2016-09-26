@@ -18,7 +18,7 @@
         android:layout_centerInParent="true"
         android:padding="18dp"
         android:text="32位"
-        android:textColor="@color/secondary_text_default_light"
+        android:textColor="@color/secondary_text_default_dark"
         android:textSize="14sp"/>
 
     <View

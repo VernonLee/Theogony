@@ -34,7 +34,7 @@
         <activity android:name=".activity.SkinActivity"/>
 
         <activity
-            android:name=".activity.MyFavoritesActivity"
+            android:name=".activity.FavoritesActivity"
             android:label="@string/collections_title" />
 
         <activity

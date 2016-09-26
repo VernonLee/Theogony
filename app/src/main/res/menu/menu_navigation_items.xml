@@ -4,22 +4,22 @@
     <group android:id="@+id/grp1" android:checkableBehavior="single">
         <item
             android:id="@+id/menu_item_champion_list"
-            android:icon="@drawable/ic_champions"
+            android:icon="@drawable/nav_ic_list"
             android:title="@string/navigation_item_champion_list"/>
 
         <item
             android:id="@+id/menu_item_collection_list"
-            android:icon="@drawable/ic_collections"
+            android:icon="@drawable/nav_ic_favorites"
             android:title="@string/navigation_item_collection_list"/>
 
         <item
             android:id="@+id/menu_item_wallpaper"
-            android:icon="@drawable/ic_wallpaper"
+            android:icon="@drawable/nav_ic_wallpaper"
             android:title="@string/navigation_item_skin_list"/>
 
         <item
             android:id="@+id/menu_item_dayNight"
-            android:icon="@drawable/ic_night_mode"
+            android:icon="@drawable/nav_ic_daynight"
             android:title="@string/navigation_item_night_mode"/>
 
     </group>
@@ -28,7 +28,7 @@
 
         <item
             android:id="@+id/menu_item_settings"
-            android:icon="@drawable/ic_settings"
+            android:icon="@drawable/nav_ic_settings"
             android:title="@string/navigation_item_settings"/>
 
     </group>
