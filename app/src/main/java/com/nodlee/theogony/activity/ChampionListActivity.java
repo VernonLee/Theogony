@@ -18,6 +18,8 @@ import android.view.View;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ViewPagerWithTitleAdapter;
 import com.nodlee.theogony.fragment.ChampionListFragment;
+import com.nodlee.theogony.utils.AndroidUtils;
+import com.nodlee.theogony.utils.UserUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -135,22 +137,19 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
             mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    private int getDayNightMode() {
-        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    }
-
     private void toggleDayNightMode() {
-        int currentDayNightMode = getDayNightMode();
+        int currentDayNightMode = AndroidUtils.getDayNightMode(this);
         switch (currentDayNightMode) {
             case Configuration.UI_MODE_NIGHT_YES:
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                UserUtils.setNightMode(this, false);
                 break;
             case Configuration.UI_MODE_NIGHT_NO:
             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                UserUtils.setNightMode(this, true);
                 break;
         }
-        // 保存到本地
     }
 
     @Override
