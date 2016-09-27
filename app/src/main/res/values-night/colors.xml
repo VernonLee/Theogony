@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_accent">#ffce3d3a</color>
+    <color name="color_primary">#ff17181a</color>
+    <color name="color_primary_dark">@android:color/black</color>
+    <color name="window_background">#ff111214</color>
+
+    <color name="appbar_text_normal_color">#ff333333</color>
+    <color name="appbar_text_selected_color">@color/color_accent</color>
+    <color name="appbar_shadow">#33000000</color>
+
+    <color name="tab_background">#ff17181a</color>
+    <color name="tab_normal_text_color">#ff666666</color>
+
+    <color name="primary_text_default_light">#b3ffffff</color>
+    <color name="primary_text_default_dark"> #ff75777e</color>
+    <color name="primary_text_disabled_dark">#4dffffff</color>
+    <color name="secondary_text_default_dark">#b3ffffff</color>
+    <color name="secondary_text_disabled_dark">#36ffffff</color>
+
+    <color name="navigation_top_background">#ff212121</color>
+    <color name="navigation_background">#ff17181a</color>
+    <color name="navigation_text_color">#ff75777e</color>
+
+    <color name="image_preview_background">#e0000000</color>
+    <color name="image_preview_text_color">#ffdddddd</color>
+    <color name="image_preview_menu_text_color">#ffdddddd</color>
+
+    <color name="menu_pressed">#ffd2d2d2</color>
+    <color name="menu_normal">#fffdfdfd</color>
+    <color name="menu_icon">@color/color_accent</color>
+
+    <color name="skin_group_title">@color/secondary_text_disabled_dark</color>
+
+    <color name="line_color">#222</color>
+    <color name="list_item_disabled">#19000000</color>
+
+    <color name="fab_btn_background">#ff17181a</color>
+</resources>

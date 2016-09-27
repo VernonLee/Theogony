@@ -12,10 +12,11 @@
     <color name="tab_background">#fffdfdfd</color>
     <color name="tab_normal_text_color">#ff666666</color>
 
-    <color name="primary_text_default_light"> #de000000</color>
-    <color name="primary_text_disabled_light">#39000000</color>
-    <color name="secondary_text_default_light">#8a000000</color>
-    <color name="secondary_text_disabled_light">#66000000</color>
+    <color name="primary_text_default_light">@android:color/white</color>
+    <color name="primary_text_default_dark"> #de000000</color>
+    <color name="primary_text_disabled_dark">#39000000</color>
+    <color name="secondary_text_default_dark">#8a000000</color>
+    <color name="secondary_text_disabled_dark">#66000000</color>
     <color name="secondary_text_dark">#ff999999</color>
 
     <color name="navigation_top_background">#ffe1e1e1</color>
@@ -30,9 +31,11 @@
     <color name="menu_normal">#fffdfdfd</color>
     <color name="menu_icon">@color/color_accent</color>
 
-    <color name="skin_group_title">@color/secondary_text_disabled_light</color>
+    <color name="skin_group_title">@color/secondary_text_disabled_dark</color>
 
     <color name="line_color">#19000000</color>
     <color name="list_item_disabled">#19000000</color>
+
+    <color name="fab_btn_background">@android:color/white</color>
 
 </resources>

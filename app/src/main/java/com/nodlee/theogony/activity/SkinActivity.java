@@ -2,43 +2,21 @@ package com.nodlee.theogony.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.SimpleViewPagerAdapter;
-import com.nodlee.theogony.db.DatabaseOpenHelper;
-import com.nodlee.theogony.loader.SkinsLoader;
 import com.nodlee.theogony.task.InsertGalleryTask;
 import com.nodlee.theogony.task.SetWallpaperTask;
-import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.view.ZoomImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by Vernon Lee on 15-11-27.
@@ -58,7 +36,7 @@ public class SkinActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skin);
         ButterKnife.bind(this);
-        getToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back, null);
 
         mSkin = getSkin();
         updateUi(mSkin);

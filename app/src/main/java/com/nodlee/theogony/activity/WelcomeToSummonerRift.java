@@ -2,10 +2,12 @@ package com.nodlee.theogony.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.nodlee.amumu.champions.RequestCallback;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.db.ChampionManager;
 import com.nodlee.theogony.db.SkinManager;
+import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.UserUtils;
 
 import java.util.ArrayList;
@@ -44,6 +47,13 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
         setContentView(R.layout.welcome_to_summoner_rift);
 
         mProcessMsgTv = (TextView) findViewById(R.id.txt_progress_msg);
+
+        // 恢复夜间/日间模式
+        if (UserUtils.isNightMode(this)) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         // 检查是否第一次打开应用
         if (UserUtils.isFirstBlood(this)) {

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_default_avatar"
+        android:src="@drawable/img_default_avatar"
         android:transitionName="@string/shared_element_name_skin_cover"/>
 
     <TextView

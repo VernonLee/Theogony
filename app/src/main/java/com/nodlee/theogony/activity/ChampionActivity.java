@@ -49,7 +49,7 @@ public class ChampionActivity extends BaseActivity implements AppBarLayout.OnOff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_champion);
         ButterKnife.bind(this);
-        getToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back, null);
 
         mChampion = getChampion();
         if (mChampion != null) {

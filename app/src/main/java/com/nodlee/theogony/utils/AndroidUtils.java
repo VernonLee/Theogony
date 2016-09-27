@@ -3,6 +3,7 @@ package com.nodlee.theogony.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
@@ -55,5 +56,13 @@ public class AndroidUtils {
             e.printStackTrace();
         }
         return appVersion;
+    }
+
+    public static int getDayNightMode(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException("context must not be null");
+        }
+
+        return context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 }

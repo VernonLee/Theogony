@@ -31,7 +31,7 @@
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="- 品味英雄故事 -"
-            android:textColor="@color/secondary_text_default_light"
+            android:textColor="@color/secondary_text_default_dark"
             android:textSize="@dimen/title" />
     </LinearLayout>
 

@@ -2,7 +2,6 @@ package com.nodlee.theogony.activity;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.fragment.SettingsFragment;
@@ -17,7 +16,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        getToolbar(R.drawable.ic_arrow_back_black, null);
+        getToolbar(R.drawable.ic_arrow_back, null);
 
         Fragment fragment = new SettingsFragment();
         getFragmentManager().beginTransaction()

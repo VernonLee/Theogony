@@ -14,6 +14,8 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
+            app:collapsedTitleTextAppearance="@style/CollapsedTitleTextAppearance"
             app:layout_scrollFlags="scroll">
 
             <android.support.v7.widget.Toolbar

@@ -23,6 +23,7 @@
 
         <activity
             android:name=".activity.ChampionListActivity"
+            android:launchMode="singleTask"
             android:label=""/>
 
         <activity android:name=".activity.ChampionActivity"/>
@@ -34,7 +35,7 @@
         <activity android:name=".activity.SkinActivity"/>
 
         <activity
-            android:name=".activity.MyFavoritesActivity"
+            android:name=".activity.FavoritesActivity"
             android:label="@string/collections_title" />
 
         <activity
@@ -60,7 +61,7 @@
 
         <meta-data
             android:name="app_key"
-            android:value="e0af5cdf-caab-44c2-a692-dea1d712f8ab"/>
+            android:value=""/>
 
     </application>
 

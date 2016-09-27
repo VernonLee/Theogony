@@ -11,6 +11,8 @@ public class UserUtils {
     private static final String PREF_FIRST_BLOOD = "pref_first_blood";
     /** 当前源数据的语言 */
     private static final String PREF_LOL_STATIC_DATA_LOCALE = "pref_lol_static_data_locale";
+    /** 是否是夜间模式 */
+    private static final String PREF_NIGHT_YES = "pref_night_yes";
 
     public static void setFirstBlood(Context context, boolean isFirstBlood) {
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -32,5 +34,17 @@ public class UserUtils {
     public static String getLolStaticDataLocale(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                                 .getString(PREF_LOL_STATIC_DATA_LOCALE, "<未知语言>");
+    }
+
+    public static void setNightMode(Context context, boolean isNight) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                         .edit()
+                         .putBoolean(PREF_NIGHT_YES, isNight)
+                         .commit();
+    }
+
+    public static boolean isNightMode(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                                .getBoolean(PREF_NIGHT_YES, false);
     }
 }
