@@ -3,6 +3,7 @@ package com.nodlee.amumu.champions;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 /**
  * 英雄联盟英雄数据库入口，用来处理APPKEY逻辑，
@@ -20,7 +21,7 @@ public class Amumu {
                             PackageManager.GET_META_DATA);
 
             String appKey = appInfo.metaData.getString("app_key");
-            if (appKey == null) {
+            if (TextUtils.isEmpty(appKey)) {
                 throw new NullPointerException("APP KEY can not be null");
             }
 

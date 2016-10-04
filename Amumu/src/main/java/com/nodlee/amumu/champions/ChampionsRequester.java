@@ -15,19 +15,19 @@ import java.util.ArrayList;
  * 英雄数据请求者
  * Created by nodlee on 16/6/15.
  */
-public class ChampionsRequester implements Requester<ArrayList<Champion>> {
+public class ChampionsRequester implements Requester<ChampionParser> {
     private static final String TAG = ChampionsRequester.class.getName();
     private static final boolean DEBUG = true;
 
     @Override
-    public void asyncRequest(final LocaleLibrary.Entry locale, final RequestCallback callback) {
-        if (TextUtils.isEmpty(locale.value))
+    public void asyncRequest(final String locale, final RequestCallback callback) {
+        if (TextUtils.isEmpty(locale))
             throw new IllegalArgumentException("locale can not be null");
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Uri requestUrl = UriFactory.createChampionstUri(Amumu.sAppKey, locale.value);
+                final Uri requestUrl = UriFactory.createChampionstUri(Amumu.sAppKey, locale);
 
                 if (DEBUG) Log.d(TAG, "requestUrl:" + requestUrl);
 
@@ -42,7 +42,8 @@ public class ChampionsRequester implements Requester<ArrayList<Champion>> {
                 ChampionParser parser = new ChampionParser(response);
                 ArrayList<Champion> champions = parser.getData();
                 if (champions != null && champions.size() > 0) {
-                    callback.obtainMessage(SUCCESS, champions).sendToTarget();
+                    Object[] result = {parser.getVersion(), champions};
+                    callback.obtainMessage(SUCCESS, result).sendToTarget();
                 } else {
                     callback.obtainMessage(FAILED, -1).sendToTarget();
                 }
@@ -51,7 +52,7 @@ public class ChampionsRequester implements Requester<ArrayList<Champion>> {
     }
 
     @Override
-    public ArrayList<Champion> syncRequest(String locale) {
+    public ChampionParser syncRequest(String locale) {
         if (TextUtils.isEmpty(locale))
             throw new IllegalArgumentException("locale can not be null");
 
@@ -66,8 +67,6 @@ public class ChampionsRequester implements Requester<ArrayList<Champion>> {
 
         if (DEBUG) Log.d(TAG, "response:" + response);
 
-        ChampionParser parser = new ChampionParser(response);
-        ArrayList<Champion> champions = parser.getData();
-        return champions;
+        return new ChampionParser(response);
     }
 }

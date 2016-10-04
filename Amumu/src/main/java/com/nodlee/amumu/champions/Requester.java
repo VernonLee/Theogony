@@ -18,7 +18,7 @@ public interface Requester<T> {
      * @param locale 数据语言版本
      * @param callback 回调接口
      */
-    void asyncRequest (LocaleLibrary.Entry locale, RequestCallback callback);
+    void asyncRequest (String locale, RequestCallback callback);
 
     /**
      * 同步请求数据
