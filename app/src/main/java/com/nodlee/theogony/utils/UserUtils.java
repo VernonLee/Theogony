@@ -9,8 +9,10 @@ import android.preference.PreferenceManager;
 public class UserUtils {
     /** 第一次使用App标识 */
     private static final String PREF_FIRST_BLOOD = "pref_first_blood";
-    /** 当前源数据的语言 */
+    /** 当前源数据语言 */
     private static final String PREF_LOL_STATIC_DATA_LOCALE = "pref_lol_static_data_locale";
+    /** 当前元数据版本 */
+    private static final String PREF_LOL_STATIC_DATA_VERSION = "pref_lol_static_data_version";
     /** 是否是夜间模式 */
     private static final String PREF_NIGHT_YES = "pref_night_yes";
 
@@ -34,6 +36,18 @@ public class UserUtils {
     public static String getLolStaticDataLocale(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                                 .getString(PREF_LOL_STATIC_DATA_LOCALE, "<未知语言>");
+    }
+
+    public static String getLolStaticDataVersion(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                                .getString(PREF_LOL_STATIC_DATA_VERSION, null);
+    }
+
+    public static void setLolStaticDataVerion(Context context, String version) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_LOL_STATIC_DATA_VERSION, version)
+                .commit();
     }
 
     public static void setNightMode(Context context, boolean isNight) {

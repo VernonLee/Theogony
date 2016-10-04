@@ -1,24 +1,25 @@
 package com.nodlee.theogony.activity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.adapter.ViewPagerWithTitleAdapter;
 import com.nodlee.theogony.fragment.ChampionListFragment;
-import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.UserUtils;
 
 import butterknife.BindView;
@@ -35,6 +36,8 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
     DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation_view)
     NavigationView mNavigationView;
+
+    private SwitchCompat mSwitchCompat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,13 +57,35 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
             }
         });
 
-        mNavigationView.setNavigationItemSelectedListener(this);
-        // 二次创建的时候,重置Menu菜单
+        initNavigationView();
 
         ViewPager championsPager = (ViewPager) findViewById(R.id.vp_champions);
         setupPager(championsPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.view_tab_container);
         tabLayout.setupWithViewPager(championsPager);
+    }
+
+    private void initNavigationView() {
+        mNavigationView.setNavigationItemSelectedListener(this);
+        MenuItem dayNightMenuItem = mNavigationView.getMenu().findItem(R.id.menu_item_dayNight);
+        View view = MenuItemCompat.getActionView(dayNightMenuItem);
+        mSwitchCompat = ButterKnife.findById(view, R.id.switch_view);
+        mSwitchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setNightMode(isChecked);
+            }
+        });
+        mSwitchCompat.setChecked(UserUtils.isNightMode(this));
+    }
+
+    private void setNightMode(final boolean isNightMode) {
+        if (isNightMode) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        UserUtils.setNightMode(ChampionListActivity.this, isNightMode);
     }
 
     private void setupPager(ViewPager pager) {
@@ -85,39 +110,39 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                break;
-            case R.id.menu_item_search:
-                startActivity(new Intent(ChampionListActivity.this, SearchActivity.class));
-                break;
+        if (item.getItemId() == R.id.menu_item_search) {
+            startActivity(new Intent(ChampionListActivity.this, SearchActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        goToNavigationViewItem(item.getItemId());
-        closeDrawerLayout();
+        goToNavigationViewItem(item);
         return false;
     }
 
-    private void goToNavigationViewItem(int itemID) {
-        switch (itemID) {
+    private void goToNavigationViewItem(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menu_item_champion_list:
                 // do nothing
+                closeDrawerLayout();
                 break;
             case R.id.menu_item_collection_list:
                 startActivity(new Intent(ChampionListActivity.this, FavoritesActivity.class));
+                closeDrawerLayout();
                 break;
             case R.id.menu_item_wallpaper:
                 startActivity(new Intent(ChampionListActivity.this, SkinListActivity.class));
+                closeDrawerLayout();
                 break;
             case R.id.menu_item_settings:
                 startActivity(new Intent(ChampionListActivity.this, SettingsActivity.class));
+                closeDrawerLayout();
                 break;
             case R.id.menu_item_dayNight:
-                toggleDayNightMode();
+                mSwitchCompat.setChecked(!mSwitchCompat.isChecked());
+                setNightMode(!mSwitchCompat.isChecked());
                 break;
         }
     }
@@ -135,21 +160,6 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
     private void closeDrawerLayout() {
         if (isDrawerLayoutOpen())
             mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
-
-    private void toggleDayNightMode() {
-        int currentDayNightMode = AndroidUtils.getDayNightMode(this);
-        switch (currentDayNightMode) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                UserUtils.setNightMode(this, false);
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                UserUtils.setNightMode(this, true);
-                break;
-        }
     }
 
     @Override

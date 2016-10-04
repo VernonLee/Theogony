@@ -21,9 +21,9 @@ public abstract class RequestCallback extends Handler {
     /**
      * 在成功获取数据时调用
      *
-     * @param champions
+     * @param result
      */
-    public void onSuccess(ArrayList<Champion> champions) {
+    public void onSuccess(Object[] result) {
     }
 
     /**
@@ -37,7 +37,7 @@ public abstract class RequestCallback extends Handler {
     @Override
     public void handleMessage(Message msg) {
         if (msg.what == ChampionsRequester.SUCCESS) {
-            onSuccess((ArrayList<Champion>) msg.obj);
+            onSuccess((Object[])msg.obj);
         } else {
             onFailed(msg.arg1);
         }
