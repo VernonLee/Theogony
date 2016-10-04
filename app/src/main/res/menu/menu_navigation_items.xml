@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:id="@+id/grp1" android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+
         <item
             android:id="@+id/menu_item_champion_list"
             android:icon="@drawable/nav_ic_list"
@@ -20,11 +24,14 @@
         <item
             android:id="@+id/menu_item_dayNight"
             android:icon="@drawable/nav_ic_daynight"
-            android:title="@string/navigation_item_night_mode"/>
+            android:title="@string/navigation_item_night_mode"
+            app:actionLayout="@layout/action_view_switch"/>
 
     </group>
 
-    <group android:id="@+id/grp2" android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/menu_item_settings"

@@ -47,6 +47,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private String sLocalPrefKey, sCacheSizePrefKey, sAboutAppPrefKey,
                    mOSLPrefKey, mAppVersionPrefKey, mFeedbackPrefKey;
 
+    private ProgressDialog mDialog;
+
     // 请求联盟数据重试次数
     private int retryTimes = 3;
 
@@ -140,7 +142,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         final LocaleLibrary locale = LocaleLibrary.getInstance();
         // 选中的语言
         final int defaultLocaleIndex = 0;
-        final LocaleLibrary.Entry[] selectedLocale = {locale.get(defaultLocaleIndex)};
+        final LocaleLibrary.Entry[] selectedLocaleArr = {locale.get(defaultLocaleIndex)};
 
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.select_locale_dialog_title)
@@ -148,46 +150,55 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                selectedLocale[0] = locale.get(which);
-                                Log.i(TAG, "选择语言：" + which + " " + selectedLocale[0]);
+                                selectedLocaleArr[0] = locale.get(which);
+                                Log.i(TAG, "选择语言：" + which + " " + selectedLocaleArr[0]);
                             }
                         })
                 .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switchLocale(selectedLocale[0]);
+                        String selectedLocale = selectedLocaleArr[0].value;
+                        String localLocale = UserUtils.getLolStaticDataLocale(getActivity());
+                        if (!selectedLocale.equals(localLocale)) {
+                            mDialog = new ProgressDialog(getActivity());
+                            mDialog.setMessage("请求数据中...");
+                            mDialog.setCancelable(false);
+                            mDialog.show();
+                            switchLocale(selectedLocale);
+                        }
                     }
                 }).show();
     }
 
-    private void switchLocale(final LocaleLibrary.Entry locale) {
-        final ProgressDialog dialog = new ProgressDialog(getActivity());
-        dialog.setMessage("请求数据中...");
-        dialog.setCancelable(false);
-        dialog.show();
-
+    private void switchLocale(final String locale) {
         new ChampionsRequester().asyncRequest(locale, new RequestCallback() {
             @Override
-            public void onSuccess(ArrayList<Champion> champions) {
-                dialog.dismiss();
-                writeToDatabase(champions);
-                UserUtils.setLolStaticDataLocal(getActivity(), locale.value);
+            public void onSuccess(Object[] result) {
+                mDialog.dismiss();
+                String version = (String) result[0];
+                ArrayList<Champion> champions = (ArrayList<Champion>) result[1];
+                if (champions != null) {
+                    writeToDatabase(champions);
+                    UserUtils.setLolStaticDataLocal(getActivity(), locale);
+                    UserUtils.setLolStaticDataVerion(getActivity(), version);
+                    AndroidUtils.showToast(getActivity(), "语言切换成功");
+                }
             }
 
             @Override
             public void onFailed(int errCode) {
-                retry(dialog, locale);
+                retry(locale);
             }
         });
     }
 
-    private void retry(ProgressDialog dialog, LocaleLibrary.Entry locale) {
+    private void retry(String locale) {
         if (retryTimes > 0) {
             Log.d("xxx", "请求失败，第" + retryTimes +"次重试");
             switchLocale(locale);
             retryTimes--;
         } else {
-            dialog.dismiss();
+            mDialog.dismiss();
             AndroidUtils.showToast(getActivity(), "请求失败");
         }
     }

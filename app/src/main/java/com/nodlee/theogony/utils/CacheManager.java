@@ -1,6 +1,9 @@
 package com.nodlee.theogony.utils;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.nostra13.universalimageloader.utils.L;
 
 import java.io.File;
 
@@ -16,12 +19,22 @@ public class CacheManager {
      * @return
      */
     public static String getCacheSize(Context context) {
-        int size = -1;
-        File cacheFile = context.getExternalCacheDir();
-        if (cacheFile.exists()) {
-            size = (int) Math.ceil(getFileSize(cacheFile));
+
+        int externalCacheSize = -1;
+        File externalCacheDir = context.getExternalCacheDir();
+        if (externalCacheDir.exists()) {
+            externalCacheSize = (int) Math.ceil(getFileSize(externalCacheDir));
         }
-        return size > 0 ? String.format("%dM", size) : "";
+
+        int cacheSize = -1;
+        File cacheDir = context.getCacheDir();
+        if (cacheDir.exists()) {
+            cacheSize = (int) Math.ceil(getFileSize(cacheDir));
+        }
+
+        int totalSize = externalCacheSize + cacheSize;
+
+        return totalSize > 0 ? String.format("%dM", totalSize) : "";
     }
 
     /**
@@ -35,8 +48,9 @@ public class CacheManager {
         if (file.isDirectory()) {
             File[] children = file.listFiles();
             double size = 0;
-            for (File f : children)
+            for (File f : children) {
                 size += getFileSize(f);
+            }
             return size;
         } else {
             return (double) file.length() / 1024 / 1024;
@@ -65,7 +79,10 @@ public class CacheManager {
      * 清空缓存 sdcard中cache目录下
      */
     public static boolean clean(Context context) {
-        File rootFile = context.getExternalCacheDir();
-        return delete(rootFile);
+        File externalCacheDir = context.getExternalCacheDir();
+        File cacheDir = context.getCacheDir();
+        delete(externalCacheDir);
+        delete(cacheDir);
+        return true;
     }
 }

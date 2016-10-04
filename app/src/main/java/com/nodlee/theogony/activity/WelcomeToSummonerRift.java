@@ -19,7 +19,9 @@ import com.nodlee.amumu.champions.RequestCallback;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.db.ChampionManager;
 import com.nodlee.theogony.db.SkinManager;
+import com.nodlee.theogony.service.FetchDragonDataService;
 import com.nodlee.theogony.utils.AndroidUtils;
+import com.nodlee.theogony.utils.LogHelper;
 import com.nodlee.theogony.utils.UserUtils;
 
 import java.util.ArrayList;
@@ -48,18 +50,26 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
 
         mProcessMsgTv = (TextView) findViewById(R.id.txt_progress_msg);
 
-        // 恢复夜间/日间模式
-        if (UserUtils.isNightMode(this)) {
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
         // 检查是否第一次打开应用
         if (UserUtils.isFirstBlood(this)) {
             selectLocale();
         } else {
             startCountDown();
+
+            // 恢复夜间/日间模式
+            if (UserUtils.isNightMode(this)) {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+            // 启动数据检查更新服务
+            String locale = UserUtils.getLolStaticDataLocale(this);
+            String version = UserUtils.getLolStaticDataVersion(this);
+            Intent intent = new Intent(this, FetchDragonDataService.class);
+            intent.putExtra("locale", locale);
+            intent.putExtra("version", version);
+            startService(intent);
         }
     }
 
@@ -77,24 +87,29 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 selectedLocale[0] = locale.get(which);
-                                Log.i(TAG, "选择语言：" + which + " " + selectedLocale[0]);
+                                LogHelper.LOGD(TAG, "选择语言：" + which + " " + selectedLocale[0]);
                             }
                         })
                 .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startTask(selectedLocale[0]);
+                startTask(selectedLocale[0].value);
             }
         }).show();
     }
 
-    private void startTask(final LocaleLibrary.Entry locale) {
+    private void startTask(final String locale) {
         setProcessMsg("请求数据中...");
         new ChampionsRequester().asyncRequest(locale, new RequestCallback() {
             @Override
-            public void onSuccess(ArrayList<Champion> champions) {
-                writeToDatabase(champions);
-                UserUtils.setLolStaticDataLocal(WelcomeToSummonerRift.this, locale.value);
+            public void onSuccess(Object[] result) {
+                String dataVersion = (String) result[0];
+                ArrayList<Champion> champions = (ArrayList<Champion>) result[1];
+                if (champions != null) {
+                    writeToDatabase(champions);
+                    UserUtils.setLolStaticDataLocal(WelcomeToSummonerRift.this, locale);
+                    UserUtils.setLolStaticDataVerion(WelcomeToSummonerRift.this, dataVersion);
+                }
             }
 
             @Override
@@ -104,9 +119,9 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
         });
     }
 
-    private void retry(LocaleLibrary.Entry locale) {
+    private void retry(String locale) {
         if (retryTimes > 0) {
-            Log.d("xxx", "请求失败，第" + retryTimes +"次重试");
+            LogHelper.LOGD("xxx", "请求失败，第" + retryTimes +"次重试");
             startTask(locale);
             retryTimes--;
         } else {
