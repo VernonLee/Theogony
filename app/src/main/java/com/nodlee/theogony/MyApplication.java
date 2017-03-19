@@ -11,6 +11,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
+import io.realm.Realm;
+
 /**
  * Created by Vernon Lee on 15-11-19.
  */
@@ -19,7 +21,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        Realm.init(this);
         Amumu.init(this);
         initImageLoader(getApplicationContext());
     }

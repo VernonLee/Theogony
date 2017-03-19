@@ -15,7 +15,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.nodlee.amumu.util.HttpFetchr;
-import com.nodlee.theogony.activity.SkinActivity;
+import com.nodlee.theogony.ui.activity.SkinActivity;
 import com.nodlee.theogony.utils.AndroidUtils;
 
 import java.io.BufferedOutputStream;

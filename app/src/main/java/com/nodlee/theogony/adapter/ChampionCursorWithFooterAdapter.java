@@ -5,13 +5,10 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nodlee.theogony.R;
 import com.nodlee.amumu.bean.Champion;
-import com.nodlee.theogony.db.DatabaseOpenHelper;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

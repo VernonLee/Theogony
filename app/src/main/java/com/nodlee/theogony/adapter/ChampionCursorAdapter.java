@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.db.DatabaseOpenHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;

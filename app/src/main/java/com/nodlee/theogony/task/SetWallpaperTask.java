@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.nodlee.amumu.util.HttpFetchr;
-import com.nodlee.theogony.activity.SkinActivity;
+import com.nodlee.theogony.ui.activity.SkinActivity;
 import com.nodlee.theogony.utils.AndroidUtils;
 
 import java.io.IOException;

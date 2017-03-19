@@ -12,8 +12,7 @@ import com.nodlee.amumu.bean.Skin;
 import com.nodlee.amumu.champions.ChampionParser;
 import com.nodlee.amumu.champions.ChampionsRequester;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.db.ChampionManager;
-import com.nodlee.theogony.db.SkinManager;
+import com.nodlee.theogony.core.ChampionDataManager;
 import com.nodlee.theogony.utils.LogHelper;
 import com.nodlee.theogony.utils.UserUtils;
 
@@ -68,7 +67,7 @@ public class FetchDragonDataService extends IntentService {
             @Override
             public void run() {
                 ArrayList<Skin> skins = new ArrayList<Skin>();
-                ChampionManager.getInstance(getApplicationContext()).add(champions);
+                ChampionDataManager.getInstance(getApplicationContext()).add(champions);
                 for (Champion champion : champions) {
                     skins.addAll(champion.getSkins());
                 }
