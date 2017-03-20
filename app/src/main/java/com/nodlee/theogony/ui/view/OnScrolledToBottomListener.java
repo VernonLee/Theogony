@@ -1,10 +1,8 @@
-package com.nodlee.theogony.view;
+package com.nodlee.theogony.ui.view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 
 /**
  * 作者：nodlee

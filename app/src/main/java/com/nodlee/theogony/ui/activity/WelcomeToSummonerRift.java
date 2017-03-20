@@ -3,24 +3,23 @@ package com.nodlee.theogony.ui.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
+import android.text.TextUtils;
 import android.widget.TextView;
 
-import com.nodlee.amumu.util.LocaleLibrary;
-import com.nodlee.amumu.bean.Champion;
-import com.nodlee.amumu.bean.Skin;
-import com.nodlee.amumu.champions.ChampionsRequester;
-import com.nodlee.amumu.champions.RequestCallback;
+import com.nodlee.theogony.App;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.core.ChampionDataManager;
-import com.nodlee.theogony.service.FetchDragonDataService;
-import com.nodlee.theogony.utils.LogHelper;
-import com.nodlee.theogony.utils.UserUtils;
+import com.nodlee.theogony.task.InitDragonDataTask;
+import com.nodlee.theogony.utils.AndroidUtils;
+import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.utils.ThemeUtils;
 
-import java.util.ArrayList;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 /**
  * ////////////////////////////
@@ -30,140 +29,83 @@ import java.util.ArrayList;
  * Created by Vernon Lee on 15-11-27.
  */
 public class WelcomeToSummonerRift extends AppCompatActivity {
-    private static final String TAG = WelcomeToSummonerRift.class.getName();
-    private static final int TOTAL_MILLIS = 2500;
-    private static final int INTERVAL = 1000;
-
-    private TextView mProcessMsgTv;
-
-    // 重试次数
-    private int retryTimes = 3;
+    @BindView(R.id.txt_progress)
+    TextView mProcessTv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_to_summoner_rift);
+        ButterKnife.bind(this);
+    }
 
-        mProcessMsgTv = (TextView) findViewById(R.id.txt_progress_msg);
-
-        // 检查是否第一次打开应用
-        if (UserUtils.isFirstBlood(this)) {
-            selectLocale();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (RealmProvider.getInstance().isEmpty()) {
+            initDragonData();
         } else {
-            startCountDown();
+            startActivity(new Intent(this, ChampionListActivity.class));
+            finish();
+        }
+    }
 
-            // 恢复夜间/日间模式
-            if (UserUtils.isNightMode(this)) {
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkAppKey();
+        int mode = ThemeUtils.isNightMode(this) ? MODE_NIGHT_YES : MODE_NIGHT_NO;
+        getDelegate().setLocalNightMode(mode); // 回复日/夜间模式
+    }
+
+    public void checkAppKey() {
+        String appKey = AndroidUtils.getMetaData(this, App.META_DATA_APP_KEY);
+        if (TextUtils.isEmpty(appKey)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_title_warning)
+                    .setMessage(R.string.message_miss_app_key)
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            finish();
+                        }
+                    })
+                    .create().show();
+        }
+    }
+
+    private void initDragonData() {
+        String appKey = AndroidUtils.getMetaData(this, App.META_DATA_APP_KEY);
+        if (!TextUtils.isEmpty(appKey)) {
+            Bundle args = new Bundle();
+            args.putString(InitDragonDataTask.EXTRA_APP_KEY, appKey);
+            mTask.execute(args);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mTask != null && !mTask.isCancelled()) {
+            mTask.cancel(true);
+            mTask = null;
+        }
+    }
+
+    private InitDragonDataTask mTask = new InitDragonDataTask() {
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (success) {
+                startActivity(new Intent(WelcomeToSummonerRift.this, ChampionListActivity.class));
+                finish();
             } else {
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                AndroidUtils.showToast(WelcomeToSummonerRift.this, "检查网络连接重试");
             }
-
-            // 启动数据检查更新服务
-            String locale = UserUtils.getLolStaticDataLocale(this);
-            String version = UserUtils.getLolStaticDataVersion(this);
-            Intent intent = new Intent(this, FetchDragonDataService.class);
-            intent.putExtra("locale", locale);
-            intent.putExtra("version", version);
-            startService(intent);
         }
-    }
 
-    private void selectLocale() {
-        final LocaleLibrary locale = LocaleLibrary.getInstance();
-        // 选中的语言
-        final int defaultLocaleIndex = 0;
-        final LocaleLibrary.Entry[] selectedLocale = {locale.get(defaultLocaleIndex)};
-
-        new AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setTitle(R.string.select_locale_dialog_title)
-                .setSingleChoiceItems(locale.toKeyArray(), defaultLocaleIndex,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                selectedLocale[0] = locale.get(which);
-                                LogHelper.LOGD(TAG, "选择语言：" + which + " " + selectedLocale[0]);
-                            }
-                        })
-                .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startTask(selectedLocale[0].value);
-            }
-        }).show();
-    }
-
-    private void startTask(final String locale) {
-        setProcessMsg("请求数据中...");
-        new ChampionsRequester().asyncRequest(locale, new RequestCallback() {
-            @Override
-            public void onSuccess(Object[] result) {
-                String dataVersion = (String) result[0];
-                ArrayList<Champion> champions = (ArrayList<Champion>) result[1];
-                if (champions != null) {
-                    writeToDatabase(champions);
-                    UserUtils.setLolStaticDataLocal(WelcomeToSummonerRift.this, locale);
-                    UserUtils.setLolStaticDataVerion(WelcomeToSummonerRift.this, dataVersion);
-                }
-            }
-
-            @Override
-            public void onFailed(int errCode) {
-                retry(locale);
-            }
-        });
-    }
-
-    private void retry(String locale) {
-        if (retryTimes > 0) {
-            LogHelper.LOGD("xxx", "请求失败，第" + retryTimes +"次重试");
-            startTask(locale);
-            retryTimes--;
-        } else {
-            setProcessMsg("数据请求失败...");
-            welcomeToSummerRift();
+        @Override
+        protected void onProgressUpdate(String... values) {
+            mProcessTv.setText(values[0]);
         }
-    }
-
-    private void writeToDatabase(final ArrayList<Champion> champions) {
-        setProcessMsg("数据写入中...");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<Skin> skins = new ArrayList<Skin>();
-                ChampionDataManager.getInstance(WelcomeToSummonerRift.this).add(champions);
-                for (Champion champion : champions) {
-                    skins.addAll(champion.getSkins());
-                }
-                SkinManager.getInstance(WelcomeToSummonerRift.this).add(skins);
-                UserUtils.setFirstBlood(WelcomeToSummonerRift.this, false);
-                welcomeToSummerRift();
-            }
-        }).start();
-    }
-
-    private void startCountDown() {
-        CountDownTimer timer = new CountDownTimer(TOTAL_MILLIS, INTERVAL) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                // Do nothing...
-            }
-
-            @Override
-            public void onFinish() {
-                welcomeToSummerRift();
-            }
-        };
-        timer.start();
-    }
-
-    private void welcomeToSummerRift() {
-        startActivity(new Intent(this, ChampionListActivity.class));
-        finish();
-    }
-
-    private void setProcessMsg(String resId) {
-        mProcessMsgTv.setText(resId);
-    }
+    };
 }

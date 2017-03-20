@@ -14,11 +14,11 @@ import android.view.View;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ChampionCursorAdapter;
-import com.nodlee.theogony.adapter.OnItemClickedListener;
+import com.nodlee.theogony.ui.adapter.ChampionCursorAdapter;
+import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.ChampionsLoader;
-import com.nodlee.theogony.view.AutoFitRecyclerView;
-import com.nodlee.theogony.view.MarginDecoration;
+import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
+import com.nodlee.theogony.ui.view.MarginDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,7 +127,8 @@ public class SearchActivity extends BaseActivity implements OnItemClickedListene
         @Override
         public Loader onCreateLoader(int id, Bundle args) {
             String query = args.getString(EXTRA_QUERY);
-            return new ChampionsLoader(SearchActivity.this, ChampionsLoader.Query.KEYWORDS, query);
+            // return new ChampionsLoader(SearchActivity.this, ChampionsLoader.Query.KEYWORDS, query);
+            return null;
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.nodlee.theogony.adapter;
+package com.nodlee.theogony.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -41,12 +41,12 @@ public class ChampionCursorWithFooterAdapter extends ChampionCursorAdapter {
             int count = getItemCount() - 1;
             ((FooterViewHolder)viewHolder).mCountTv.setText(String.format("%d位", count));
         } else {
-            Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
-            if (champion != null) {
-                ViewHolder holder = (ViewHolder) viewHolder;
-                holder.nameTv.setText(champion.getName());
-                mImageLoader.displayImage(champion.getAvatar(), holder.avatarIv);
-            }
+//            Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
+//            if (champion != null) {
+//                ViewHolder holder = (ViewHolder) viewHolder;
+//                holder.nameTv.setText(champion.getName());
+//                mImageLoader.displayImage(champion.getAvatar(), holder.avatarIv);
+//            }
         }
     }
 

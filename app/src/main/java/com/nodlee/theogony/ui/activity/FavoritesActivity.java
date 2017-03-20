@@ -13,12 +13,12 @@ import android.view.View;
 
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ChampionCursorWithFooterAdapter;
-import com.nodlee.theogony.adapter.OnItemClickedListener;
+import com.nodlee.theogony.ui.adapter.ChampionCursorWithFooterAdapter;
+import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.FavoritesLoader;
 import com.nodlee.theogony.utils.Constants;
-import com.nodlee.theogony.view.AutoFitRecyclerView;
-import com.nodlee.theogony.view.MarginDecoration;
+import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
+import com.nodlee.theogony.ui.view.MarginDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,7 +80,8 @@ public class FavoritesActivity extends BaseActivity implements LoaderManager.Loa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new FavoritesLoader(FavoritesActivity.this);
+        // return new FavoritesLoader(FavoritesActivity.this);
+        return null;
     }
 
     @Override

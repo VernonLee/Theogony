@@ -57,24 +57,24 @@ public class ChampionDeserializer implements JsonDeserializer<Champion> {
         String allTips = toString(allTipsArray);
         String tags = toString(tagsArray);
 
-        Champion championRealm = new Champion();
-        championRealm.setId(id);
-        championRealm.setKey(key);
-        championRealm.setName(name);
-        championRealm.setTitle(title);
-        championRealm.setLore(lore);
-        championRealm.setBlurb(blurb);
-        championRealm.setPartype(partype);
-        championRealm.setInfo(infoRealm);
-        championRealm.setStats(statsRealm);
-        championRealm.setSpells(spells);
-        championRealm.setSkins(skins);
-        championRealm.setPassive(passiveRealm);
-        championRealm.setAllytipsc(allTips);
-        championRealm.setEnemytipsc(enemyTips);
-        championRealm.setTagsc(tags);
-        championRealm.setImage(image.getFull());
-        return championRealm;
+        Champion champion = new Champion();
+        champion.setId(id);
+        champion.setKey(key);
+        champion.setName(name);
+        champion.setTitle(title);
+        champion.setLore(lore);
+        champion.setBlurb(blurb);
+        champion.setPartype(partype);
+        champion.setInfo(infoRealm);
+        champion.setStats(statsRealm);
+        champion.setSpells(spells);
+        champion.setSkins(skins);
+        champion.setPassive(passiveRealm);
+        champion.setAllytipsc(allTips);
+        champion.setEnemytipsc(enemyTips);
+        champion.setTagsc(tags);
+        champion.setImage(image.getFull());
+        return champion;
     }
 
     private String toString(JsonArray array) {

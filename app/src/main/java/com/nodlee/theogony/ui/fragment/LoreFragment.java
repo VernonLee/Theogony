@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.bean.Champion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

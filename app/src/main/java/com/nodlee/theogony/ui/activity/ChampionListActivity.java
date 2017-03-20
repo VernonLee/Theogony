@@ -18,9 +18,9 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ViewPagerWithTitleAdapter;
+import com.nodlee.theogony.ui.adapter.ViewPagerWithTitleAdapter;
 import com.nodlee.theogony.ui.fragment.ChampionListFragment;
-import com.nodlee.theogony.utils.UserUtils;
+import com.nodlee.theogony.utils.ThemeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +76,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
                 setNightMode(isChecked);
             }
         });
-        mSwitchCompat.setChecked(UserUtils.isNightMode(this));
+        mSwitchCompat.setChecked(ThemeUtils.isNightMode(this));
     }
 
     private void setNightMode(final boolean isNightMode) {
@@ -85,7 +85,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
         } else {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        UserUtils.setNightMode(ChampionListActivity.this, isNightMode);
+        ThemeUtils.setNightMode(ChampionListActivity.this, isNightMode);
     }
 
     private void setupPager(ViewPager pager) {

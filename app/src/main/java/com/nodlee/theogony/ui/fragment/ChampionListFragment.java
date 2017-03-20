@@ -20,12 +20,12 @@ import android.view.ViewGroup;
 import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.ui.activity.ChampionActivity;
-import com.nodlee.theogony.adapter.ChampionCursorWithFooterAdapter;
-import com.nodlee.theogony.adapter.OnItemClickedListener;
+import com.nodlee.theogony.ui.adapter.ChampionCursorWithFooterAdapter;
+import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
 import com.nodlee.theogony.loader.ChampionsLoader;
 import com.nodlee.theogony.utils.Constants;
-import com.nodlee.theogony.view.AutoFitRecyclerView;
-import com.nodlee.theogony.view.MarginDecoration;
+import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
+import com.nodlee.theogony.ui.view.MarginDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,8 +119,9 @@ public class ChampionListFragment extends Fragment implements SwipeRefreshLayout
         @Override
         public Loader onCreateLoader(int id, Bundle args) {
             mRefreshView.setRefreshing(true);
-            String champTagKey = args.getString(EXTRA_TAG_KEY);
-            return new ChampionsLoader(getActivity(), ChampionsLoader.Query.TAGS, champTagKey);
+//            String champTagKey = args.getString(EXTRA_TAG_KEY);
+//            return new ChampionsLoader(getActivity(), ChampionsLoader.Query.TAGS, champTagKey);
+            return null;
         }
 
         @Override

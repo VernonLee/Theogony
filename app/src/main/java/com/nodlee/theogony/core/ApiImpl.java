@@ -14,6 +14,7 @@ import com.nodlee.theogony.gson.ChampionDeserializer;
 import com.nodlee.theogony.gson.PassiveDeserializer;
 import com.nodlee.theogony.gson.SkinDeserializer;
 import com.nodlee.theogony.gson.SpellDeserializer;
+import com.nodlee.theogony.utils.RealmProvider;
 
 import java.io.IOException;
 
@@ -29,6 +30,18 @@ import okhttp3.Response;
  */
 
 public class ApiImpl implements Api {
+
+    private static ApiImpl sApi;
+
+    private ApiImpl () {
+    }
+
+    public static ApiImpl getInstance() {
+        if (sApi == null) {
+            sApi = new ApiImpl();
+        }
+        return sApi;
+    }
 
     @Override
     public String loadDragonDataFromServer(String url) {
@@ -70,12 +83,17 @@ public class ApiImpl implements Api {
     public boolean writeToRealmDataBase(ChampionData championData) {
         if (championData == null) return false;
 
-        Realm realm = Realm.getDefaultInstance();
-        // 开始写入数据
-        realm.beginTransaction();
-        realm.copyToRealm(championData);
-        realm.commitTransaction();
-        return true;
+        try {
+            Realm realm = RealmProvider.getInstance().getRealm();
+            realm.beginTransaction();
+            realm.deleteAll();
+            realm.copyToRealm(championData);
+            realm.commitTransaction();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

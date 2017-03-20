@@ -16,6 +16,7 @@ public class ChampionData extends RealmObject {
     private String type;
     private String format;
     private String version;
+    private String languageCode;
     private RealmList<Champion> data;
 
     public String getType() {
@@ -50,11 +51,20 @@ public class ChampionData extends RealmObject {
         this.data = data;
     }
 
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    public void setLanguageCode(String languageCode) {
+        this.languageCode = languageCode;
+    }
+
     @Override
     public String toString() {
         return "type:" + type + "\n" +
                 "format:" + format + "\n" +
                 "version:" + version + "\n" +
+                "language code:" + languageCode +
                 "data size:" + (data == null ? 0 : data.size());
     }
 }

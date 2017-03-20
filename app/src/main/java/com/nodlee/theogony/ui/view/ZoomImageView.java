@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nodlee.theogony.view;
+package com.nodlee.theogony.ui.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

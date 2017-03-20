@@ -17,20 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nodlee.amumu.bean.Champion;
-import com.nodlee.amumu.bean.Skin;
 import com.nodlee.amumu.champions.ChampionsRequester;
 import com.nodlee.amumu.champions.RequestCallback;
 import com.nodlee.amumu.util.LocaleLibrary;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.ui.activity.AboutAppActivity;
 import com.nodlee.theogony.ui.activity.ChampionListActivity;
-import com.nodlee.theogony.core.ChampionDataManager;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.CacheManager;
-import com.nodlee.theogony.utils.UserUtils;
-import com.nodlee.theogony.view.LicenseDialog;
+import com.nodlee.theogony.utils.ThemeUtils;
+import com.nodlee.theogony.ui.view.LicenseDialog;
 
 import java.util.ArrayList;
+
+import static com.nodlee.theogony.utils.AndroidUtils.getCacheSize;
 
 /**
  * Created by Vernon Lee on 15-11-25.
@@ -87,13 +86,12 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String localeName = UserUtils.getLolStaticDataLocale(getActivity());
-        mLocalePref.setSummary(localeName);
+        // mLocalePref.setSummary(localeName);
 
         String appVersion = AndroidUtils.getAppVersion(getActivity());
         mAppVersionPref.setSummary(appVersion);
 
-        String cacheSize = CacheManager.getCacheSize(getActivity());
+        String cacheSize = getCacheSize(getActivity());
         mCacheSizePref.setSummary(cacheSize);
     }
 
@@ -131,8 +129,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     }
 
     private void cleanCache() {
-        boolean success = CacheManager.clean(getActivity());
-        String cacheSize = CacheManager.getCacheSize(getActivity());
+        boolean success = AndroidUtils.clean(getActivity());
+        String cacheSize = AndroidUtils.getCacheSize(getActivity());
         mCacheSizePref.setSummary(cacheSize);
         AndroidUtils.showToast(getActivity(), success ? "清除成功" : "清除失败");
     }
@@ -157,14 +155,13 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedLocale = selectedLocaleArr[0].value;
-                        String localLocale = UserUtils.getLolStaticDataLocale(getActivity());
-                        if (!selectedLocale.equals(localLocale)) {
-                            mDialog = new ProgressDialog(getActivity());
-                            mDialog.setMessage("请求数据中...");
-                            mDialog.setCancelable(false);
-                            mDialog.show();
-                            switchLocale(selectedLocale);
-                        }
+//                        if (!selectedLocale.equals(localLocale)) {
+//                            mDialog = new ProgressDialog(getActivity());
+//                            mDialog.setMessage("请求数据中...");
+//                            mDialog.setCancelable(false);
+//                            mDialog.show();
+//                            switchLocale(selectedLocale);
+//                        }
                     }
                 }).show();
     }
@@ -178,8 +175,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 ArrayList<Champion> champions = (ArrayList<Champion>) result[1];
                 if (champions != null) {
                     writeToDatabase(champions);
-                    UserUtils.setLolStaticDataLocal(getActivity(), locale);
-                    UserUtils.setLolStaticDataVerion(getActivity(), version);
                     AndroidUtils.showToast(getActivity(), "语言切换成功");
                 }
             }
@@ -203,18 +198,18 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     }
 
     private void writeToDatabase(final ArrayList<Champion> champions) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<Skin> skins = new ArrayList<Skin>();
-                ChampionDataManager.getInstance(getActivity()).add(champions);
-                for (Champion champion : champions) {
-                    skins.addAll(champion.getSkins());
-                }
-                SkinManager.getInstance(getActivity()).add(skins);
-                sendSwitchSuccessNotification(getActivity());
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ArrayList<Skin> skins = new ArrayList<Skin>();
+//                ChampionDataManager.getInstance(getActivity()).add(champions);
+//                for (Champion champion : champions) {
+//                    skins.addAll(champion.getSkins());
+//                }
+//                SkinManager.getInstance(getActivity()).add(skins);
+//                sendSwitchSuccessNotification(getActivity());
+//            }
+//        }).start();
     }
 
     private void sendSwitchSuccessNotification(Context context) {

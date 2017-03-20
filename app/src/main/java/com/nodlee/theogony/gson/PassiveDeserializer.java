@@ -28,11 +28,11 @@ public class PassiveDeserializer implements JsonDeserializer<Passive> {
         String sanitizedDescription = rootJsonObj.get("sanitizedDescription").getAsString();
         Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
 
-        Passive passiveRealm = new Passive();
-        passiveRealm.setName(name);
-        passiveRealm.setDescription(description);
-        passiveRealm.setSanitizedDescription(sanitizedDescription);
-        passiveRealm.setImage(image.getFull());
-        return passiveRealm;
+        Passive passive = new Passive();
+        passive.setName(name);
+        passive.setDescription(description);
+        passive.setSanitizedDescription(sanitizedDescription);
+        passive.setImage(image.getFull());
+        return passive;
     }
 }

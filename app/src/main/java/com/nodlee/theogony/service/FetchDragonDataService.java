@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nodlee.amumu.bean.Champion;
-import com.nodlee.amumu.bean.Skin;
 import com.nodlee.amumu.champions.ChampionParser;
 import com.nodlee.amumu.champions.ChampionsRequester;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.core.ChampionDataManager;
 import com.nodlee.theogony.utils.LogHelper;
-import com.nodlee.theogony.utils.UserUtils;
 
 import java.util.ArrayList;
 
@@ -24,10 +21,8 @@ import java.util.ArrayList;
  * 说明：源数据更新服务
  */
 public class FetchDragonDataService extends IntentService {
-    private static final String TAG = "FetchDragonDataService";
-
     public FetchDragonDataService() {
-        super(TAG);
+        super("FetchDragonDataService");
     }
 
     @Override
@@ -36,7 +31,7 @@ public class FetchDragonDataService extends IntentService {
         String oldVersion = intent.getStringExtra("version");
 
         if (TextUtils.isEmpty(locale)) {
-            LogHelper.LOGW(TAG, "更新失败, locale为空");
+            LogHelper.LOGW("更新失败, locale为空");
             return;
         }
 
@@ -45,7 +40,6 @@ public class FetchDragonDataService extends IntentService {
             String newVersion = parser.getVersion();
             if (newVersion != null && !newVersion.equals(oldVersion) && parser.getData() != null) {
                 writeToDatabase(parser.getData());
-                UserUtils.setLolStaticDataVerion(getApplicationContext(), newVersion);
                 sendNotification(newVersion);
             }
         }
@@ -63,16 +57,6 @@ public class FetchDragonDataService extends IntentService {
     }
 
     private void writeToDatabase(final ArrayList<Champion> champions) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<Skin> skins = new ArrayList<Skin>();
-                ChampionDataManager.getInstance(getApplicationContext()).add(champions);
-                for (Champion champion : champions) {
-                    skins.addAll(champion.getSkins());
-                }
-                SkinManager.getInstance(getApplicationContext()).add(skins);
-            }
-        }).start();
+
     }
 }

@@ -1,4 +1,4 @@
-package com.nodlee.theogony.view;
+package com.nodlee.theogony.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

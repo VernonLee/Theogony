@@ -62,10 +62,10 @@
         如果你喜欢这个APP或者想一起参与改进，欢迎联系我：1516lee@gmail.com
     </string>
 
-    <string name="warning_dialog_title">警告</string>
-    <string name="select_locale_dialog_title">选择语言</string>
+    <string name="dialog_title_warning">警告</string>
 
-    <string name="miss_app_key_message">APP_KEY丢失，无法正常运行应用</string>
+    <string name="select_locale_dialog_title">选择语言</string>
+    <string name="message_miss_app_key">APP_KEY丢失，无法正常运行应用</string>
 
     <!-- new strings -->
 

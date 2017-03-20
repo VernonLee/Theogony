@@ -1,4 +1,4 @@
-package com.nodlee.theogony.adapter;
+package com.nodlee.theogony.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -31,18 +31,18 @@ public class SkinCursorAdapter extends BaseCursorAdapter<SkinCursorAdapter.ViewH
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
-        Skin skin = ((DatabaseOpenHelper.SkinCursor) cursor).getSkin();
-        if (skin != null) {
-            viewHolder.nameIv.setText(skin.getName());
-            mImageLoader.displayImage(skin.getCover(), viewHolder.coverIv);
-        }
+//        Skin skin = ((DatabaseOpenHelper.SkinCursor) cursor).getSkin();
+//        if (skin != null) {
+//            viewHolder.nameIv.setText(skin.getName());
+//            mImageLoader.displayImage(skin.getCover(), viewHolder.coverIv);
+//        }
     }
 
     public Skin getItem(int position) {
-        DatabaseOpenHelper.SkinCursor cursor = (DatabaseOpenHelper.SkinCursor) getCursor();
-        if (cursor != null && cursor.moveToPosition(position)) {
-            return cursor.getSkin();
-        }
+//        DatabaseOpenHelper.SkinCursor cursor = (DatabaseOpenHelper.SkinCursor) getCursor();
+//        if (cursor != null && cursor.moveToPosition(position)) {
+//            return cursor.getSkin();
+//        }
         return null;
     }
 

@@ -36,7 +36,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txt_progress_msg"
+        android:id="@+id/txt_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

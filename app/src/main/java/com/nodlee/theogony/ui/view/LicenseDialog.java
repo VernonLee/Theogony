@@ -1,4 +1,4 @@
-package com.nodlee.theogony.view;
+package com.nodlee.theogony.ui.view;
 
 import android.app.AlertDialog;
 import android.content.Context;

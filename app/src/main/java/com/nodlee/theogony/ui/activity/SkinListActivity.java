@@ -12,12 +12,12 @@ import android.view.View;
 
 import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.OnItemClickedListener;
-import com.nodlee.theogony.adapter.SkinWithLoadMoreAdapter;
+import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
+import com.nodlee.theogony.ui.adapter.SkinWithLoadMoreAdapter;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.view.AutoFitRecyclerView;
-import com.nodlee.theogony.view.MarginDecoration;
-import com.nodlee.theogony.view.OnScrolledToBottomListener;
+import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
+import com.nodlee.theogony.ui.view.MarginDecoration;
+import com.nodlee.theogony.ui.view.OnScrolledToBottomListener;
 
 import java.util.ArrayList;
 
@@ -68,8 +68,8 @@ public class SkinListActivity extends BaseActivity implements OnItemClickedListe
             }
         });
 
-        totalPage = SkinManager.getInstance(this).getTotalPage();
-        mHandler.post(mRunnable);
+//        totalPage = SkinManager.getInstance(this).getTotalPage();
+//        mHandler.post(mRunnable);
     }
 
     private void loadMore() {
@@ -130,16 +130,16 @@ public class SkinListActivity extends BaseActivity implements OnItemClickedListe
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            DatabaseOpenHelper.SkinCursor cursor = SkinManager.getInstance(SkinListActivity.this).getSkins(currentPage);
-            if (cursor != null) {
-                ArrayList<Skin> skins = SkinManager.cursorToArrayList(cursor);
-                Message msg = new Message();
-                msg.what = MESSAGE_SUCCESS;
-                msg.obj = skins;
-                mHandler.sendMessage(msg);
-            } else {
-                mHandler.sendEmptyMessage(MESSAGE_FAILED);
-            }
+//            DatabaseOpenHelper.SkinCursor cursor = SkinManager.getInstance(SkinListActivity.this).getSkins(currentPage);
+//            if (cursor != null) {
+//                ArrayList<Skin> skins = SkinManager.cursorToArrayList(cursor);
+//                Message msg = new Message();
+//                msg.what = MESSAGE_SUCCESS;
+//                msg.obj = skins;
+//                mHandler.sendMessage(msg);
+//            } else {
+//                mHandler.sendEmptyMessage(MESSAGE_FAILED);
+//            }
         }
     };
 }

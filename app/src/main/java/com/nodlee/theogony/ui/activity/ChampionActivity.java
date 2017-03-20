@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.nodlee.amumu.bean.Champion;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.adapter.ViewPagerWithTitleAdapter;
+import com.nodlee.theogony.bean.Champion;
+import com.nodlee.theogony.ui.adapter.ViewPagerWithTitleAdapter;
 import com.nodlee.theogony.core.FavoritesManager;
 import com.nodlee.theogony.ui.fragment.LoreFragment;
 import com.nodlee.theogony.ui.fragment.SkinListFragment;
@@ -53,7 +53,7 @@ public class ChampionActivity extends BaseActivity implements AppBarLayout.OnOff
 
         mChampion = getChampion();
         if (mChampion != null) {
-            ImageLoader.getInstance().displayImage(mChampion.getAvatar(), mAvatarIv);
+            ImageLoader.getInstance().displayImage(mChampion.getImage(), mAvatarIv);
             mCollapsingToolbar.setTitle(String.format("%1$s-%2$s", mChampion.getName(), mChampion.getTitle()));
             mFavoriteBtn.setSelected(isCollected = isFavorite());
         }
@@ -104,7 +104,7 @@ public class ChampionActivity extends BaseActivity implements AppBarLayout.OnOff
 
     private boolean isFavorite() {
         if (mChampion != null) {
-            return FavoritesManager.getInstance(this).isFavorite(mChampion.getId());
+            return FavoritesManager.getInstance().isFavorite(mChampion);
         }
         return false;
     }
@@ -112,12 +112,12 @@ public class ChampionActivity extends BaseActivity implements AppBarLayout.OnOff
     private void setFavorite(boolean isFavorite) {
         if (mChampion == null) return;
 
-        FavoritesManager favoriteChampionManager = FavoritesManager.getInstance(this);
+        FavoritesManager manager = FavoritesManager.getInstance();
         if (isFavorite) {
-            favoriteChampionManager.add(mChampion);
+            manager.add(mChampion);
             mFavoriteBtn.setSelected(true);
         } else {
-            favoriteChampionManager.delete(mChampion);
+            manager.delete(mChampion);
             mFavoriteBtn.setSelected(false);
         }
 

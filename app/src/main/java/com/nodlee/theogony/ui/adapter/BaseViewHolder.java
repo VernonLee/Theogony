@@ -1,4 +1,4 @@
-package com.nodlee.theogony.adapter;
+package com.nodlee.theogony.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

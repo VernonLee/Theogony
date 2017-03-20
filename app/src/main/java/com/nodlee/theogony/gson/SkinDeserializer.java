@@ -26,13 +26,13 @@ public class SkinDeserializer implements JsonDeserializer<Skin> {
         int id = rootJsonObj.get("id").getAsInt();
         String name = rootJsonObj.get("name").getAsString();
         int num = rootJsonObj.get("num").getAsInt();
-        Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
+        // Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
 
-        Skin skinRealm = new Skin();
-        skinRealm.setId(id);
-        skinRealm.setName(name);
-        skinRealm.setNum(num);
-        skinRealm.setImage(image.getFull());
-        return skinRealm;
+        Skin skin = new Skin();
+        skin.setId(id);
+        skin.setName(name);
+        skin.setNum(num);
+        // skin.setImage(image.getFull());
+        return skin;
     }
 }

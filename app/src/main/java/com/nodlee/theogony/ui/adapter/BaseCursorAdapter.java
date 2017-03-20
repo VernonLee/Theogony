@@ -1,4 +1,4 @@
-package com.nodlee.theogony.adapter;
+package com.nodlee.theogony.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;

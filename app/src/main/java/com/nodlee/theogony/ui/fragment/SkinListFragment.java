@@ -15,12 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nodlee.amumu.bean.Champion;
 import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.ui.activity.SkinActivity;
-import com.nodlee.theogony.adapter.OnItemClickedListener;
-import com.nodlee.theogony.adapter.SkinCursorAdapter;
+import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
+import com.nodlee.theogony.ui.adapter.SkinCursorAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +94,8 @@ public class SkinListFragment extends Fragment implements OnItemClickedListener 
     private LoaderManager.LoaderCallbacks mLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader onCreateLoader(int id, Bundle args) {
-            return new SkinsLoader(getActivity(), mChampion.getId());
+            // return new SkinsLoader(getActivity(), mChampion.getId());
+            return null;
         }
 
         @Override

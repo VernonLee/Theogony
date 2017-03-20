@@ -36,4 +36,16 @@ public class FavoritesManager {
         }
         return champions;
     }
+
+    public boolean add(Champion champion) {
+        return true;
+    }
+
+    public boolean delete(Champion champion) {
+        return true;
+    }
+
+    public boolean isFavorite(Champion champion) {
+        return false;
+    }
 }

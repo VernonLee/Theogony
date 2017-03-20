@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.nodlee.theogony.view.AutoFitRecyclerView
+    <com.nodlee.theogony.ui.view.AutoFitRecyclerView
         android:id="@+id/recy_view_champions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

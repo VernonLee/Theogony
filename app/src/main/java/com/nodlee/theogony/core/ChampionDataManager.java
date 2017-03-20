@@ -3,6 +3,7 @@ package com.nodlee.theogony.core;
 
 import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.utils.RealmProvider;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ChampionDataManager {
     }
 
     public ChampionData get() {
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = RealmProvider.getInstance().getRealm();
         RealmResults<ChampionData> result = realm.where(ChampionData.class).findAll();
         if (result != null && result.size() > 0) {
             return result.get(result.size() - 1);

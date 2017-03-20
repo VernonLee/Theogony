@@ -51,8 +51,8 @@
         https://github.com/VernonLee/Theogony
     </string>
 
-    <string name="warning_dialog_title">Warning</string>
+    <string name="dialog_title_warning">Warning</string>
     <string name="select_locale_dialog_title">Select language</string>
 
-    <string name="miss_app_key_message">Missing APP_KEY</string>
+    <string name="message_miss_app_key">Missing APP_KEY</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.nodlee.theogony.bean;
 
+import java.io.Serializable;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -10,7 +12,7 @@ import io.realm.annotations.PrimaryKey;
  * 说明：英雄实体
  */
 
-public class Champion extends RealmObject {
+public class Champion extends RealmObject implements Serializable {
     @PrimaryKey
     private int id;
     private String key;

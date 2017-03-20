@@ -1,4 +1,4 @@
-package com.nodlee.theogony.adapter;
+package com.nodlee.theogony.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -36,19 +36,19 @@ public class ChampionCursorAdapter extends BaseCursorAdapter<BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(BaseViewHolder viewHolder, Cursor cursor) {
-        Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
-        if (champion != null) {
-            ViewHolder holder = (ViewHolder) viewHolder;
-            holder.nameTv.setText(champion.getName());
-            mImageLoader.displayImage(champion.getAvatar(), holder.avatarIv);
-        }
+//        Champion champion = ((DatabaseOpenHelper.ChampionCursor) cursor).getChampion();
+//        if (champion != null) {
+//            ViewHolder holder = (ViewHolder) viewHolder;
+//            holder.nameTv.setText(champion.getName());
+//            mImageLoader.displayImage(champion.getAvatar(), holder.avatarIv);
+//        }
     }
 
     public Champion getItem(int position) {
-        DatabaseOpenHelper.ChampionCursor cursor = (DatabaseOpenHelper.ChampionCursor) getCursor();
-        if (cursor != null && cursor.moveToPosition(position)) {
-            return cursor.getChampion();
-        }
+//        DatabaseOpenHelper.ChampionCursor cursor = (DatabaseOpenHelper.ChampionCursor) getCursor();
+//        if (cursor != null && cursor.moveToPosition(position)) {
+//            return cursor.getChampion();
+//        }
         return null;
     }
 
