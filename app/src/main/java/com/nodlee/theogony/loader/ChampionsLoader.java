@@ -1,17 +1,11 @@
 package com.nodlee.theogony.loader;
 
 import android.content.Context;
-import android.database.Cursor;
 
 import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.core.ChampionDataManager;
 import com.nodlee.theogony.core.ChampionManager;
 
 import java.util.List;
-
-import static android.R.attr.breadCrumbShortTitle;
-import static android.R.attr.tag;
-import static okhttp3.Protocol.get;
 
 /**
  * Created by Vernon Lee on 15-11-23.
@@ -35,9 +29,9 @@ public class ChampionsLoader extends DataLoader<List<Champion>> {
         ChampionManager manager = ChampionManager.getInstance();
         switch (mAction) {
             case TAG:
-                return manager.get(param);
+                return manager.queryByTag(param);
             case QUERY:
-                return manager.query(param);
+                return manager.queryByKeyWord(param);
             default:
                 return null;
         }

@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nodlee.amumu.bean.Skin;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.bean.Skin;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class SkinWithLoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private ImageLoader mImageLoader;
     private ArrayList<Skin> mSkins;
-    private OnItemClickedListener mOnItemClickedListener;
+    private ItemClickedListener mItemClickedListener;
 
     private boolean isLoading = false;
     private LoadMoreViewHolder mLoadMoreView;
@@ -37,8 +38,8 @@ public class SkinWithLoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.V
         mSkins = skins;
     }
 
-    public void setOnItemClickedListener(OnItemClickedListener listener) {
-        mOnItemClickedListener = listener;
+    public void setItemClickedListener(ItemClickedListener listener) {
+        mItemClickedListener = listener;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class SkinWithLoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.V
         } else {
             View contentView = LayoutInflater.from(parent.getContext())
                                .inflate(R.layout.grid_item_skin_small, parent, false);
-            return new SkinViewHolder(contentView, mOnItemClickedListener);
+            return new SkinClickableViewHolder(contentView, mItemClickedListener);
         }
     }
 
@@ -58,10 +59,10 @@ public class SkinWithLoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (holder instanceof LoadMoreViewHolder) {
             mLoadMoreView = (LoadMoreViewHolder) holder;
         } else {
-            SkinViewHolder viewHolder = (SkinViewHolder) holder;
+            SkinClickableViewHolder viewHolder = (SkinClickableViewHolder) holder;
             Skin skin = getItem(position);
             if (skin != null) {
-                mImageLoader.displayImage(skin.getCover(), viewHolder.coverIv);
+                mImageLoader.displayImage(skin.getImage(), viewHolder.coverIv);
                 viewHolder.nameIv.setText(skin.getName());
             }
         }

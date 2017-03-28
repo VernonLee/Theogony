@@ -1,5 +1,7 @@
 package com.nodlee.theogony.bean;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
@@ -11,32 +13,42 @@ public class Info extends RealmObject {
     private int magic;
     private int difficulty;
 
-    public int getAttack() {
-        return attack;
+    public Info() {
+    }
+
+    public Info(int attack, int defense, int magic, int difficulty) {
+        this.attack = attack;
+        this.defense = defense;
+        this.magic = magic;
+        this.difficulty = difficulty;
+    }
+
+    public String getAttack() {
+        return String.valueOf(attack);
     }
 
     public void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public int getDefense() {
-        return defense;
+    public String getDefense() {
+        return String.valueOf(defense);
     }
 
     public void setDefense(int defense) {
         this.defense = defense;
     }
 
-    public int getMagic() {
-        return magic;
+    public String getMagic() {
+        return String.valueOf(magic);
     }
 
     public void setMagic(int magic) {
         this.magic = magic;
     }
 
-    public int getDifficulty() {
-        return difficulty;
+    public String getDifficulty() {
+        return String.valueOf(difficulty);
     }
 
     public void setDifficulty(int difficulty) {

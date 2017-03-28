@@ -1,5 +1,7 @@
 package com.nodlee.theogony.bean;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 

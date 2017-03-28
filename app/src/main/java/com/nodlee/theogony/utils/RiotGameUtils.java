@@ -112,4 +112,23 @@ public class RiotGameUtils {
                 .build();
         return uri.toString();
     }
+
+    /**
+     * 创建英雄头像缩略图
+     * @param imageName
+     * @return
+     */
+    public static String createAvatarUrl(String imageName) {
+        if (TextUtils.isEmpty(imageName)) {
+            throw new IllegalArgumentException("imageName为空");
+        }
+
+        final String baseAvatarUrl = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/";
+        Uri uri = Uri.parse(baseAvatarUrl)
+                .buildUpon()
+                .appendPath(imageName)
+                .build();
+        return uri.toString();
+
+    }
 }

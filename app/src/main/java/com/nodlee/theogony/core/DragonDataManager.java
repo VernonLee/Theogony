@@ -1,11 +1,8 @@
 package com.nodlee.theogony.core;
 
 
-import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.utils.RealmProvider;
-
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -13,22 +10,22 @@ import io.realm.RealmResults;
 /**
  * Created by Vernon Lee on 15-11-22.
  */
-public class ChampionDataManager {
-    private static ChampionDataManager sManager;
+public class DragonDataManager {
+    private static DragonDataManager sManager;
 
-    public static ChampionDataManager getInstance() {
+    public static DragonDataManager getInstance() {
         if (sManager == null) {
-            sManager = new ChampionDataManager();
+            sManager = new DragonDataManager();
         }
         return sManager;
     }
 
-    private ChampionDataManager() {
+    private DragonDataManager() {
     }
 
-    public ChampionData get() {
+    public DragonData getDefault() {
         Realm realm = RealmProvider.getInstance().getRealm();
-        RealmResults<ChampionData> result = realm.where(ChampionData.class).findAll();
+        RealmResults<DragonData> result = realm.where(DragonData.class).findAll();
         if (result != null && result.size() > 0) {
             return result.get(result.size() - 1);
         }

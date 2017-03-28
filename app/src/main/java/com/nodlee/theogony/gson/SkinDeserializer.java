@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.nodlee.theogony.bean.Image;
 import com.nodlee.theogony.bean.Skin;
+import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.lang.reflect.Type;
 
@@ -26,13 +27,11 @@ public class SkinDeserializer implements JsonDeserializer<Skin> {
         int id = rootJsonObj.get("id").getAsInt();
         String name = rootJsonObj.get("name").getAsString();
         int num = rootJsonObj.get("num").getAsInt();
-        // Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
 
         Skin skin = new Skin();
         skin.setId(id);
         skin.setName(name);
         skin.setNum(num);
-        // skin.setImage(image.getFull());
         return skin;
     }
 }

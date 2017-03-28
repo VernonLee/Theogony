@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textSize="@dimen/image_preview_text_size"
+        android:textSize="@dimen/preview_image_text_size"
         android:textColor="@color/primary_text_default_dark"
         android:background="@color/tab_background"/>
 

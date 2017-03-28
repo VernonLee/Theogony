@@ -2,7 +2,7 @@ package com.nodlee.theogony.ui.adapter;
 
 import android.view.View;
 
-public interface OnItemClickedListener {
+public interface ItemClickedListener {
     /**
      * 在单元格被点击的时候调用
      *

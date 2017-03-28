@@ -4,19 +4,17 @@
     <color name="color_primary">#ff17181a</color>
     <color name="color_primary_dark">@android:color/black</color>
     <color name="window_background">#ff111214</color>
-
-    <color name="appbar_text_normal_color">#ff333333</color>
-    <color name="appbar_text_selected_color">@color/color_accent</color>
     <color name="appbar_shadow">#33000000</color>
 
     <color name="tab_background">#ff17181a</color>
     <color name="tab_normal_text_color">#ff666666</color>
 
     <color name="primary_text_default_light">#b3ffffff</color>
-    <color name="primary_text_default_dark"> #ff75777e</color>
+    <color name="primary_text_default_dark">#ff75777e</color>
     <color name="primary_text_disabled_dark">#4dffffff</color>
     <color name="secondary_text_default_dark">#b3ffffff</color>
     <color name="secondary_text_disabled_dark">#36ffffff</color>
+    <color name="secondary_text_dark">#ff999999</color>
 
     <color name="navigation_top_background">#ff212121</color>
     <color name="navigation_background">#ff17181a</color>
@@ -36,4 +34,10 @@
     <color name="list_item_disabled">#19000000</color>
 
     <color name="fab_btn_background">#ff17181a</color>
+    <color name="card_background">#e0000000</color>
+
+    <color name="view_attack_background">#ff444444</color>
+    <color name="view_defense_background">#ff444444</color>
+    <color name="view_magic_background">#ff444444</color>
+    <color name="view_difficulty_background">#ff444444</color>
 </resources>

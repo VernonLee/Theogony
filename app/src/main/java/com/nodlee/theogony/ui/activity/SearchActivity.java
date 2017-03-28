@@ -12,30 +12,32 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.nodlee.amumu.bean.Champion;
+import com.bumptech.glide.Glide;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.ui.adapter.ChampionCursorAdapter;
-import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
-import com.nodlee.theogony.loader.ChampionsLoader;
+import com.nodlee.theogony.bean.Champion;
+import com.nodlee.theogony.ui.adapter.ChampionAdapter;
+import com.nodlee.theogony.ui.adapter.ItemClickedListener;
 import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
 import com.nodlee.theogony.ui.view.MarginDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.nodlee.theogony.ui.activity.ChampionActivity.EXTRA_CHAMPION_ID;
+
 /**
  * Created by Vernon Lee on 15-12-10.
  */
-public class SearchActivity extends BaseActivity implements OnItemClickedListener {
+public class SearchActivity extends BaseActivity implements ItemClickedListener {
     private static final int LOADER_CHAMPIONS = 1;
-    private static final String EXTRA_QUERY = "query";
+    private static final String EXTRA_QUERY = "queryByKeyWord";
 
     @BindView(R.id.search_view)
     SearchView mSearchView;
     @BindView(R.id.recy_view_champions)
     AutoFitRecyclerView mChampionListRecyclerView;
 
-    private ChampionCursorAdapter mAdapter;
+    private ChampionAdapter mAdapter;
     private String mQuery = "";
 
     @Override
@@ -47,8 +49,8 @@ public class SearchActivity extends BaseActivity implements OnItemClickedListene
 
         setupSearchView();
 
-        mAdapter = new ChampionCursorAdapter(this, null);
-        mAdapter.setOnItemClickedListener(this);
+        mAdapter = new ChampionAdapter(Glide.with(this));
+        mAdapter.setItemClickListener(this);
         mChampionListRecyclerView.setHasFixedSize(true);
         mChampionListRecyclerView.addItemDecoration(new MarginDecoration(this));
         mChampionListRecyclerView.setAdapter(mAdapter);
@@ -70,7 +72,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickedListene
     public void onItemClicked(View view, int position) {
         Champion champion = mAdapter.getItem(position);
         Intent intent = new Intent(this, ChampionActivity.class);
-        intent.putExtra(ChampionActivity.EXTRA_CHAMPION, champion);
+        intent.putExtra(EXTRA_CHAMPION_ID, champion.getId());
         // 共享元素转场动画
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View avatarIv = view.findViewById(R.id.iv_avatar);
@@ -127,18 +129,18 @@ public class SearchActivity extends BaseActivity implements OnItemClickedListene
         @Override
         public Loader onCreateLoader(int id, Bundle args) {
             String query = args.getString(EXTRA_QUERY);
-            // return new ChampionsLoader(SearchActivity.this, ChampionsLoader.Query.KEYWORDS, query);
+            // return new ChampionsLoader(SearchActivity.this, ChampionsLoader.Query.KEYWORDS, queryByKeyWord);
             return null;
         }
 
         @Override
         public void onLoadFinished(Loader loader, Cursor cursor) {
-            mAdapter.swapCursor(cursor);
+           // mAdapter.swapCursor(cursor);
         }
 
         @Override
         public void onLoaderReset(Loader loader) {
-            mAdapter.swapCursor(null);
+           //  mAdapter.swapCursor(null);
         }
     };
 }

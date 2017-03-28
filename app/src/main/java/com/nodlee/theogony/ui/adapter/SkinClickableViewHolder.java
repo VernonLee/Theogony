@@ -9,23 +9,23 @@ import com.nodlee.theogony.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SkinViewHolder extends BaseViewHolder {
+public class SkinClickableViewHolder extends BaseClickableViewHolder {
     @BindView(R.id.img_skin_cover_small)
     ImageView coverIv;
     @BindView(R.id.txt_skin_name)
     TextView nameIv;
 
-    private OnItemClickedListener mOnItemClickedListener;
+    private ItemClickedListener mItemClickedListener;
 
-    public SkinViewHolder(View view, OnItemClickedListener clickedListener) {
+    public SkinClickableViewHolder(View view, ItemClickedListener clickedListener) {
         super(view);
         ButterKnife.bind(this, view);
-        mOnItemClickedListener = clickedListener;
+        mItemClickedListener = clickedListener;
     }
 
     @Override
     public void onClick(View v) {
-        if (mOnItemClickedListener != null)
-            mOnItemClickedListener.onItemClicked(v, getAdapterPosition());
+        if (mItemClickedListener != null)
+            mItemClickedListener.onItemClicked(v, getAdapterPosition());
     }
 }

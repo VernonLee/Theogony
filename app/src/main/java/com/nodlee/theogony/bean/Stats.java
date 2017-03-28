@@ -1,5 +1,7 @@
 package com.nodlee.theogony.bean;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
@@ -188,5 +190,20 @@ public class Stats extends RealmObject {
 
     public void setSpellblockperlevel(float spellblockperlevel) {
         this.spellblockperlevel = spellblockperlevel;
+    }
+
+    public String getAttr1() {
+        return "射程:" + attackrange + "\n" +
+               "攻击力:" + attackdamage + "(+" + attackdamageperlevel + "/级) \n" +
+               "生命值:" + hp + "(+" + hpperlevel + "/级) \n" +
+               "物理防御:" + armor + "(+" + armorperlevel + "/级) \n" +
+               "魔法抗性:" + spellblock + "(+" + spellblockperlevel + "/级)";
+    }
+
+    public String getAttr2() {
+        return "生命回复:" + hpregen + "(+" + hpregenperlevel + "/级) \n" +
+                "移动速度:" + movespeed + "\n" +
+                "法力值:" + mp + "(+" + mpperlevel + "/级) \n" +
+                "法力回复:" + mpregen + "(+" + mpregenperlevel + "/级) \n";
     }
 }

@@ -1,6 +1,6 @@
 package com.nodlee.theogony.core;
 
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
 
 /**
  * 作者：nodlee
@@ -21,18 +21,18 @@ public interface Api {
      * @param json
      * @return
      */
-    ChampionData parseJsonWithGson(String json);
+    DragonData parseJsonWithGson(String json);
 
     /**
      * 写入数据库
-     * @param championData
+     * @param dragonData
      */
-    boolean writeToRealmDataBase(ChampionData championData);
+    boolean writeToRealmDataBase(DragonData dragonData);
 
     /**
      * 更新数据库
-     * @param newChampionData
+     * @param newDragonData
      */
-    boolean updateRealmDataBase(ChampionData newChampionData);
+    boolean updateRealmDataBase(DragonData newDragonData);
 
 }

@@ -1,12 +1,20 @@
 package com.nodlee.theogony.core;
 
+import android.text.TextUtils;
+
 import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
+import com.nodlee.theogony.bean.Skin;
+import com.nodlee.theogony.bean.Spell;
+import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+
+import static io.realm.Realm.getDefaultInstance;
 
 /**
  * 作者：nodlee
@@ -28,49 +36,54 @@ public class ChampionManager {
     }
 
     public List<Champion> getAll() {
-        ChampionDataManager championDataManager = ChampionDataManager.getInstance();
-        ChampionData data = championDataManager.get();
-        if (data != null) {
-            return data.getData();
+        Realm realm = RealmProvider.getInstance().getRealm();
+        if (realm.isEmpty()) {
+            return null;
         }
-        return null;
+        RealmResults<Champion> results = realm.where(Champion.class).findAll();
+        return realm.copyFromRealm(results);
     }
 
     public Champion get(int id) {
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<Champion> results = realm.where(Champion.class)
-                .equalTo("id", id)
-                .findAll();
-        if (results != null && results.size() > 0) {
-            return results.get(0);
-        }
-        return null;
+        if (id <= 0) return null;
+        Realm realm = RealmProvider.getInstance().getRealm();
+        return realm.where(Champion.class).equalTo("id", id).findFirst();
     }
 
-    public List<Champion> get(String tag) {
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<Champion> results = realm.where(Champion.class)
-                .like("tagsc", tag)
-                .findAll();
-        if (results != null) {
-            return realm.copyFromRealm(results);
+    public List<Champion> queryByTag(String tag) {
+        if (TextUtils.isEmpty(tag)) {
+            return getAll();
         }
-        return null;
+        Realm realm = RealmProvider.getInstance().getRealm();
+        RealmResults<Champion> results = realm.where(Champion.class)
+                .contains("tagsc", tag)
+                .findAll();
+        return realm.copyFromRealm(results);
     }
 
-    public List<Champion> query(String query) {
-        Realm realm = Realm.getDefaultInstance();
+    public List<Champion> queryByKeyWord(String query) {
+        Realm realm = RealmProvider.getInstance().getRealm();
         RealmResults<Champion> results = realm.where(Champion.class)
                 .beginGroup()
-                .like("tagsc", query)
+                .contains("tagsc", query)
                 .or()
-                .like("name", query)
+                .contains("name", query)
                 .or()
-                .like("title", query)
+                .contains("title", query)
                 .findAll();
-        if (results != null) {
-            return realm.copyFromRealm(results);
+        return realm.copyFromRealm(results);
+    }
+
+    public Skin getDefaultSkin(int championId) {
+        Champion champion = get(championId);
+        if (champion == null)
+            return null;
+
+        List<Skin> skins = champion.getSkins();
+        if (skins.size() > 0) {
+            return skins.get(0);
         }
         return null;
     }
+
 }

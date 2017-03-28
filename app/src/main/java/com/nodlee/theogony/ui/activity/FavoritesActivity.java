@@ -11,17 +11,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.nodlee.amumu.bean.Champion;
+import com.bumptech.glide.Glide;
 import com.nodlee.theogony.R;
-import com.nodlee.theogony.ui.adapter.ChampionCursorWithFooterAdapter;
-import com.nodlee.theogony.ui.adapter.OnItemClickedListener;
-import com.nodlee.theogony.loader.FavoritesLoader;
+import com.nodlee.theogony.bean.Champion;
+import com.nodlee.theogony.ui.adapter.ChampionAdapter;
+import com.nodlee.theogony.ui.adapter.ItemClickedListener;
 import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
 import com.nodlee.theogony.ui.view.MarginDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.nodlee.theogony.ui.activity.ChampionActivity.EXTRA_CHAMPION_ID;
 
 /**
  * Created by Vernon Lee on 15-11-25.
@@ -32,7 +34,7 @@ public class FavoritesActivity extends BaseActivity implements LoaderManager.Loa
     @BindView(R.id.recy_view_favorite_champions)
     AutoFitRecyclerView mFavoriteChampionsRecyView;
 
-    private ChampionCursorWithFooterAdapter mAdapter;
+    private ChampionAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,14 @@ public class FavoritesActivity extends BaseActivity implements LoaderManager.Loa
 
         getToolbar(R.drawable.ic_arrow_back, null);
 
-        mAdapter = new ChampionCursorWithFooterAdapter(this, null);
-        mAdapter.setOnItemClickedListener(new OnItemClickedListener() {
+        mAdapter = new ChampionAdapter(Glide.with(this));
+        mAdapter.setItemClickListener(new ItemClickedListener() {
             @Override
             public void onItemClicked(View view, int position) {
                 Champion champion = mAdapter.getItem(position);
                 if (champion != null) {
                     Intent intent = new Intent(FavoritesActivity.this, ChampionActivity.class);
-                    intent.putExtra(ChampionActivity.EXTRA_CHAMPION, champion);
+                    intent.putExtra(EXTRA_CHAMPION_ID, champion.getId());
                     startActivity(intent);
                 }
             }
@@ -86,12 +88,12 @@ public class FavoritesActivity extends BaseActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        mAdapter.swapCursor(cursor);
+        // mAdapter.swapCursor(cursor);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
+        // mAdapter.swapCursor(null);
     }
 
     private ContentObserver mObserver = new ContentObserver(new Handler()) {

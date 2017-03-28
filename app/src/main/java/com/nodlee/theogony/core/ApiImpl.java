@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.bean.Passive;
 import com.nodlee.theogony.bean.Skin;
 import com.nodlee.theogony.bean.Spell;
@@ -59,11 +59,11 @@ public class ApiImpl implements Api {
     }
 
     @Override
-    public ChampionData parseJsonWithGson(String json) {
+    public DragonData parseJsonWithGson(String json) {
         if (TextUtils.isEmpty(json)) return null;
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(ChampionData.class, new ChampionDataDeserializer())
+                .registerTypeAdapter(DragonData.class, new ChampionDataDeserializer())
                 .registerTypeAdapter(Champion.class, new ChampionDeserializer())
                 .registerTypeAdapter(Passive.class, new PassiveDeserializer())
                 .registerTypeAdapter(Skin.class, new SkinDeserializer())
@@ -71,8 +71,8 @@ public class ApiImpl implements Api {
                 .create();
 
         try {
-            ChampionData championData = gson.fromJson(json, ChampionData.class);
-            return championData;
+            DragonData dragonData = gson.fromJson(json, DragonData.class);
+            return dragonData;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,14 +80,14 @@ public class ApiImpl implements Api {
     }
 
     @Override
-    public boolean writeToRealmDataBase(ChampionData championData) {
-        if (championData == null) return false;
+    public boolean writeToRealmDataBase(DragonData dragonData) {
+        if (dragonData == null) return false;
 
         try {
             Realm realm = RealmProvider.getInstance().getRealm();
             realm.beginTransaction();
             realm.deleteAll();
-            realm.copyToRealm(championData);
+            realm.copyToRealm(dragonData);
             realm.commitTransaction();
             return true;
         } catch (Exception e) {
@@ -97,7 +97,7 @@ public class ApiImpl implements Api {
     }
 
     @Override
-    public boolean updateRealmDataBase(ChampionData newChampionData) {
+    public boolean updateRealmDataBase(DragonData newDragonData) {
         return false;
     }
 }

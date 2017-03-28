@@ -28,10 +28,12 @@ ext {
             appcompatV7Version : "24.2.0",
             recyclerviewVersion: "24.2.0",
             designVersion      : "24.2.0",
+            cardViewVersion    : "24.2.0",
             butterKnifeVersion : "8.4.0",
             gsonVersion        : "2.8.0",
             okhttpVersion      : "3.6.0",
-            powerMock          : "1.6.2",
+            powerMockVersion   : "1.6.2",
+            glideVersion       : "3.7.0",
     ]
 }
 

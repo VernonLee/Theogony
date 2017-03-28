@@ -2,6 +2,7 @@ package com.nodlee.theogony.core;
 
 import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.bean.Favorites;
+import com.nodlee.theogony.utils.RealmProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class FavoritesManager {
     }
 
     public List<Champion> getAll() {
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = RealmProvider.getInstance().getRealm();
         RealmResults<Favorites> results = realm.where(Favorites.class).findAll();
         if (results == null) return null;
 
@@ -41,7 +42,7 @@ public class FavoritesManager {
         return true;
     }
 
-    public boolean delete(Champion champion) {
+    public boolean remove(Champion champion) {
         return true;
     }
 

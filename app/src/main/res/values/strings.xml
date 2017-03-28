@@ -77,9 +77,27 @@
     <string name="navigation_item_settings">设置</string>
     <string name="navigation_item_exit_to_app">退出应用</string>
 
-    <string name="viewpager_title_lore">英雄故事</string>
-    <string name="viewpager_title_skins">图片墙</string>
 
     <string name="shared_element_name_avatar">avatar</string>
     <string name="shared_element_name_skin_cover">skin_cover</string>
+
+    <!--vp = viewpager-->
+    <string name="vp_title_lore">英雄故事</string>
+    <string name="vp_title_skins">皮肤插画</string>
+    <string name="vp_title_basic_info">基本信息</string>
+    <string name="vp_title_spells">技能介绍</string>
+
+    <string name="title_desc">简介</string>
+    <string name="title_tags">类型</string>
+    <string name="title_stats">属性</string>
+    <string name="title_information_chart">英雄解读</string>
+    <string name="title_lore">背景故事</string>
+    <string name="title_passive">被动</string>
+    <string name="title_spells">技能</string>
+
+    <string name="title_attack">物理攻击</string>
+    <string name="title_defense">防御能力</string>
+    <string name="title_magic">魔法攻击</string>
+    <string name="title_difficulty">上手难度</string>
+
 </resources>

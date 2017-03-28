@@ -7,13 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.nodlee.amumu.bean.Champion;
-import com.nodlee.amumu.champions.ChampionParser;
-import com.nodlee.amumu.champions.ChampionsRequester;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.utils.LogHelper;
 
 import java.util.ArrayList;
+
 
 /**
  * 作者：nodlee
@@ -35,14 +34,7 @@ public class FetchDragonDataService extends IntentService {
             return;
         }
 
-        ChampionParser parser = new ChampionsRequester().syncRequest(locale);
-        if (parser != null) {
-            String newVersion = parser.getVersion();
-            if (newVersion != null && !newVersion.equals(oldVersion) && parser.getData() != null) {
-                writeToDatabase(parser.getData());
-                sendNotification(newVersion);
-            }
-        }
+
     }
 
     private void sendNotification(String version) {

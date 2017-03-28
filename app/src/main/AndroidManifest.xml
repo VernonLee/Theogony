@@ -16,8 +16,8 @@
 
         <activity android:name=".ui.activity.WelcomeToSummonerRift">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -27,10 +27,6 @@
             android:label=""/>
 
         <activity android:name=".ui.activity.ChampionActivity"/>
-
-        <activity
-            android:name=".ui.activity.SkinListActivity"
-            android:label="@string/navigation_item_skin_list"/>
 
         <activity android:name=".ui.activity.SkinActivity"/>
 

@@ -2,7 +2,7 @@ package com.nodlee.theogony.core;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.utils.RealmProvider;
 
 import org.junit.After;
@@ -51,18 +51,18 @@ public class ApiImplTest {
         String gradonDataString = mApi.loadDragonDataFromServer(gradonDataUrl);
         assertTrue(gradonDataString != null && gradonDataString.length() > 100);
 
-        ChampionData championData = mApi.parseJsonWithGson(gradonDataString);
-        assertTrue(championData != null);
-        assertTrue(championData.getVersion() != null);
-        assertTrue(championData.getData().size() > 10);
+        DragonData dragonData = mApi.parseJsonWithGson(gradonDataString);
+        assertTrue(dragonData != null);
+        assertTrue(dragonData.getVersion() != null);
+        assertTrue(dragonData.getData().size() > 10);
     }
 
     @Test
     public void writeToRealmDataBase() throws Exception {
         String gradonDataUrl = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?locale=zh_TW&champData=all&api_key=e0af5cdf-caab-44c2-a692-dea1d712f8ab";
         String gradonDataString = mApi.loadDragonDataFromServer(gradonDataUrl);
-        ChampionData championData = mApi.parseJsonWithGson(gradonDataString);
-        boolean success = mApi.writeToRealmDataBase(championData);
+        DragonData dragonData = mApi.parseJsonWithGson(gradonDataString);
+        boolean success = mApi.writeToRealmDataBase(dragonData);
         assertTrue(success);
     }
 

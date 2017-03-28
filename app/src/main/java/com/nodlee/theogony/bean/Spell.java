@@ -1,5 +1,6 @@
 package com.nodlee.theogony.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.realm.RealmList;

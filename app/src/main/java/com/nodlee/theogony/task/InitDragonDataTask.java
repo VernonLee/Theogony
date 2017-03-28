@@ -3,14 +3,12 @@ package com.nodlee.theogony.task;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.core.ApiImpl;
+import com.nodlee.theogony.core.DragonDataManager;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.LogHelper;
-import com.nodlee.theogony.utils.RealmProvider;
 import com.nodlee.theogony.utils.RiotGameUtils;
-
-import io.realm.Realm;
 
 /**
  * 作者：nodlee
@@ -63,8 +61,8 @@ public class InitDragonDataTask extends AsyncTask<Bundle, String, Boolean> {
         // 第二阶段
         publishProgress("解析数据...");
 
-        ChampionData championData = impl.parseJsonWithGson(jsonResult);
-        if (championData == null) {
+        DragonData dragonData = impl.parseJsonWithGson(jsonResult);
+        if (dragonData == null) {
             LogHelper.LOGW("championData为空");
             return false;
         }
@@ -72,14 +70,10 @@ public class InitDragonDataTask extends AsyncTask<Bundle, String, Boolean> {
         // 第三阶段
         publishProgress("写入数据...");
 
-        boolean success = impl.writeToRealmDataBase(championData);
+        dragonData.setLanguageCode(languageCode);
+
+        boolean success = impl.writeToRealmDataBase(dragonData);
         LogHelper.LOGW("数据写入：" + (success ? "成功" : "失败"));
-        if (success) {
-            Realm realm = RealmProvider.getInstance().getRealm();
-            realm.beginTransaction();
-            championData.setLanguageCode(languageCode);
-            realm.commitTransaction();
-        }
 
         // 统计三个阶段耗时
         LogHelper.LOGD("耗时总计：" + (System.currentTimeMillis() - start) + "ms");

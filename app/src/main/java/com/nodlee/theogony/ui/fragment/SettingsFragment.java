@@ -16,15 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nodlee.amumu.bean.Champion;
-import com.nodlee.amumu.champions.ChampionsRequester;
-import com.nodlee.amumu.champions.RequestCallback;
-import com.nodlee.amumu.util.LocaleLibrary;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.ui.activity.AboutAppActivity;
 import com.nodlee.theogony.ui.activity.ChampionListActivity;
 import com.nodlee.theogony.utils.AndroidUtils;
-import com.nodlee.theogony.utils.ThemeUtils;
 import com.nodlee.theogony.ui.view.LicenseDialog;
 
 import java.util.ArrayList;
@@ -136,25 +132,25 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     }
 
     private void selectLocale() {
-        final LocaleLibrary locale = LocaleLibrary.getInstance();
-        // 选中的语言
-        final int defaultLocaleIndex = 0;
-        final LocaleLibrary.Entry[] selectedLocaleArr = {locale.get(defaultLocaleIndex)};
+//        final LocaleLibrary locale = LocaleLibrary.getInstance();
+//        // 选中的语言
+//        final int defaultLocaleIndex = 0;
+//        final LocaleLibrary.Entry[] selectedLocaleArr = {locale.getDefault(defaultLocaleIndex)};
 
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.select_locale_dialog_title)
-                .setSingleChoiceItems(locale.toKeyArray(), defaultLocaleIndex,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                selectedLocaleArr[0] = locale.get(which);
-                                Log.i(TAG, "选择语言：" + which + " " + selectedLocaleArr[0]);
-                            }
-                        })
-                .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String selectedLocale = selectedLocaleArr[0].value;
+//        new AlertDialog.Builder(getActivity())
+//                .setTitle(R.string.select_locale_dialog_title)
+//                .setSingleChoiceItems(locale.toKeyArray(), defaultLocaleIndex,
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                selectedLocaleArr[0] = locale.getDefault(which);
+//                                Log.i(TAG, "选择语言：" + which + " " + selectedLocaleArr[0]);
+//                            }
+//                        })
+//                .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String selectedLocale = selectedLocaleArr[0].value;
 //                        if (!selectedLocale.equals(localLocale)) {
 //                            mDialog = new ProgressDialog(getActivity());
 //                            mDialog.setMessage("请求数据中...");
@@ -163,27 +159,27 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 //                            switchLocale(selectedLocale);
 //                        }
                     }
-                }).show();
-    }
+//                }).show();
+//    }
 
     private void switchLocale(final String locale) {
-        new ChampionsRequester().asyncRequest(locale, new RequestCallback() {
-            @Override
-            public void onSuccess(Object[] result) {
-                mDialog.dismiss();
-                String version = (String) result[0];
-                ArrayList<Champion> champions = (ArrayList<Champion>) result[1];
-                if (champions != null) {
-                    writeToDatabase(champions);
-                    AndroidUtils.showToast(getActivity(), "语言切换成功");
-                }
-            }
-
-            @Override
-            public void onFailed(int errCode) {
-                retry(locale);
-            }
-        });
+//        new ChampionsRequester().asyncRequest(locale, new RequestCallback() {
+//            @Override
+//            public void onSuccess(Object[] result) {
+//                mDialog.dismiss();
+//                String version = (String) result[0];
+//                ArrayList<Champion> champions = (ArrayList<Champion>) result[1];
+//                if (champions != null) {
+//                    writeToDatabase(champions);
+//                    AndroidUtils.showToast(getActivity(), "语言切换成功");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(int errCode) {
+//                retry(locale);
+//            }
+//        });
     }
 
     private void retry(String locale) {
@@ -202,7 +198,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 //            @Override
 //            public void run() {
 //                ArrayList<Skin> skins = new ArrayList<Skin>();
-//                ChampionDataManager.getInstance(getActivity()).add(champions);
+//                DragonDataManager.getInstance(getActivity()).add(champions);
 //                for (Champion champion : champions) {
 //                    skins.addAll(champion.getSkins());
 //                }

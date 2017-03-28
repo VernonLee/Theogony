@@ -1,7 +1,12 @@
 package com.nodlee.theogony.bean;
 
-import java.io.Serializable;
+import android.text.Html;
+import android.text.Spanned;
 
+import java.io.Serializable;
+import java.util.List;
+
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -27,8 +32,8 @@ public class Champion extends RealmObject implements Serializable {
     private String partype;
     private Info info;
     private Stats stats;
-    private RealmList<Spell> spells;
     private Passive passive;
+    private RealmList<Spell> spells;
     private RealmList<Skin> skins;
 
     public Passive getPassive() {
@@ -95,16 +100,8 @@ public class Champion extends RealmObject implements Serializable {
         this.title = title;
     }
 
-    public RealmList<Skin> getSkins() {
-        return skins;
-    }
-
-    public void setSkins(RealmList<Skin> skins) {
-        this.skins = skins;
-    }
-
-    public String getLore() {
-        return lore;
+    public Spanned getLore() {
+        return Html.fromHtml(lore);
     }
 
     public void setLore(String lore) {
@@ -151,11 +148,23 @@ public class Champion extends RealmObject implements Serializable {
         this.spells = spells;
     }
 
+    public RealmList<Skin> getSkins() {
+        return skins;
+    }
+
+    public void setSkins(RealmList<Skin> skins) {
+        this.skins = skins;
+    }
+
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDesc() {
+        return name + "，江湖人称" + title;
     }
 }

@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.nodlee.amumu.util.HttpFetchr;
 import com.nodlee.theogony.ui.activity.SkinActivity;
 import com.nodlee.theogony.utils.AndroidUtils;
 
@@ -32,25 +31,25 @@ public class SetWallpaperTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... params) {
-        try {
+//        try {
             // 图片地址urlSpec
-            Uri urlSpec = Uri.parse(params[0]);
-            byte[] dataBytes = new HttpFetchr().getUrlBytes(urlSpec);
-            if (dataBytes == null) {
-                return false;
-            }
-
-            Bitmap wallPaperBitmap = BitmapFactory.decodeByteArray(dataBytes, 0, dataBytes.length);
-            if (wallPaperBitmap != null) {
-                WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-                wallpaperManager.setBitmap(wallPaperBitmap);
-
-            }
+//            Uri urlSpec = Uri.parse(params[0]);
+//            byte[] dataBytes = new HttpFetchr().getUrlBytes(urlSpec);
+//            if (dataBytes == null) {
+//                return false;
+//            }
+//
+//            Bitmap wallPaperBitmap = BitmapFactory.decodeByteArray(dataBytes, 0, dataBytes.length);
+//            if (wallPaperBitmap != null) {
+//                WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+//                wallpaperManager.setBitmap(wallPaperBitmap);
+//
+//            }
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
     }
 
     @Override

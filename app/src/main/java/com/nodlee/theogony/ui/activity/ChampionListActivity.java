@@ -132,10 +132,6 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
                 startActivity(new Intent(ChampionListActivity.this, FavoritesActivity.class));
                 closeDrawerLayout();
                 break;
-            case R.id.menu_item_wallpaper:
-                startActivity(new Intent(ChampionListActivity.this, SkinListActivity.class));
-                closeDrawerLayout();
-                break;
             case R.id.menu_item_settings:
                 startActivity(new Intent(ChampionListActivity.this, SettingsActivity.class));
                 closeDrawerLayout();

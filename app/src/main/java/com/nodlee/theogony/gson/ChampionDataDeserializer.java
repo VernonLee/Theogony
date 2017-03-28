@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.ChampionData;
+import com.nodlee.theogony.bean.DragonData;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -20,10 +20,10 @@ import io.realm.RealmList;
  * 说明：
  */
 
-public class ChampionDataDeserializer implements JsonDeserializer<ChampionData> {
+public class ChampionDataDeserializer implements JsonDeserializer<DragonData> {
 
     @Override
-    public ChampionData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public DragonData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         if (json.isJsonNull()) return null;
 
         JsonObject jsonObject = json.getAsJsonObject();
@@ -38,11 +38,11 @@ public class ChampionDataDeserializer implements JsonDeserializer<ChampionData> 
             dataList.add(champion);
         }
 
-        ChampionData championData = new ChampionData();
-        championData.setType(typeElement.getAsString());
-        championData.setFormat(formatElement.getAsString());
-        championData.setVersion(versionElement.getAsString());
-        championData.setData(dataList);
-        return championData;
+        DragonData dragonData = new DragonData();
+        dragonData.setType(typeElement.getAsString());
+        dragonData.setFormat(formatElement.getAsString());
+        dragonData.setVersion(versionElement.getAsString());
+        dragonData.setData(dataList);
+        return dragonData;
     }
 }

@@ -4,9 +4,6 @@
     <color name="color_primary">#fffdfdfd</color>
     <color name="color_primary_dark">#ffd1d1d1</color>
     <color name="window_background">#ffefefef</color>
-
-    <color name="appbar_text_normal_color">#ff333333</color>
-    <color name="appbar_text_selected_color">@color/color_accent</color>
     <color name="appbar_shadow">#33000000</color>
 
     <color name="tab_background">#fffdfdfd</color>
@@ -37,5 +34,12 @@
     <color name="list_item_disabled">#19000000</color>
 
     <color name="fab_btn_background">@android:color/white</color>
+    <color name="card_title_background">#f7f9fb</color>
+    <color name="card_background">#ffffff</color>
+
+    <color name="view_attack_background">#5da3f6</color>
+    <color name="view_defense_background">#66d138</color>
+    <color name="view_magic_background">#e800a8</color>
+    <color name="view_difficulty_background">#e8a223</color>
 
 </resources>

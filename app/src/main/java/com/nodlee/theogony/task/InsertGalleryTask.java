@@ -14,7 +14,6 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.nodlee.amumu.util.HttpFetchr;
 import com.nodlee.theogony.ui.activity.SkinActivity;
 import com.nodlee.theogony.utils.AndroidUtils;
 
@@ -47,15 +46,15 @@ public class InsertGalleryTask extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... params) {
         try {
             // 图片地址urlSpec
-            Uri urlSpec = Uri.parse(params[0]);
-            byte[] dataBytes = new HttpFetchr().getUrlBytes(urlSpec);
-            if (dataBytes == null) {
-                return false;
-            }
-
-            Bitmap mCoverBitmap = BitmapFactory.decodeByteArray(dataBytes, 0, dataBytes.length);
-            String title = String.valueOf(new Date().getTime());
-            insertGallery(mCoverBitmap, title, title);
+//            Uri urlSpec = Uri.parse(params[0]);
+//            byte[] dataBytes = new HttpFetchr().getUrlBytes(urlSpec);
+//            if (dataBytes == null) {
+//                return false;
+//            }
+//
+//            Bitmap mCoverBitmap = BitmapFactory.decodeByteArray(dataBytes, 0, dataBytes.length);
+//            String title = String.valueOf(new Date().getTime());
+//            insertGallery(mCoverBitmap, title, title);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

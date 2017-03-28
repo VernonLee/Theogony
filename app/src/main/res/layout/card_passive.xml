@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="passive"
+            type="com.nodlee.theogony.bean.Passive"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/card_elevation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/card_background">
+
+            <TextView
+                android:id="@+id/txt_card_title_information_cart"
+                style="@style/CardTitle"
+                android:text="@string/title_passive"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_passive_image"
+                    android:layout_width="@dimen/spell_image_width"
+                    android:layout_height="@dimen/spell_image_height"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/img_spell_demo"/>
+
+                <TextView
+                    android:id="@+id/txt_spell_name"
+                    style="@style/SpellName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/iv_passive_image"
+                    android:paddingLeft="8dp"
+                    android:text="@{passive.getName()}"/>
+
+                <TextView
+                    android:id="@+id/txt_spell_desc"
+                    style="@style/CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/txt_spell_name"
+                    android:layout_below="@id/txt_spell_name"
+                    android:paddingLeft="8dp"
+                    android:text="@{passive.getSanitizedDescription()}"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

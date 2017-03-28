@@ -10,12 +10,27 @@
     <dimen name="navigation_width">302dp</dimen> <!--296-->
     <dimen name="navigation_max_width">320dp</dimen>
 
-    <dimen name="image_preview_menu_text_size">12sp</dimen>
-    <dimen name="image_preview_text_size">18sp</dimen>
+    <dimen name="preview_image_menu_text_size">12sp</dimen>
+    <dimen name="preview_image_text_size">18sp</dimen>
     <dimen name="image_small_size">75dp</dimen>
     <dimen name="image_large_size">204dp</dimen>
+    <dimen name="head_image_width">90dp</dimen>
+    <dimen name="head_image_height">90dp</dimen>
+    <dimen name="skin_image_height">215dp</dimen>
+    <dimen name="spell_image_width">48dp</dimen>
+    <dimen name="spell_image_height">48dp</dimen>
 
-    <dimen name="item_margin">2dp</dimen>
-    <dimen name="padding_normal">16dp</dimen>
-    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_max_height">150dp</dimen>
+    <dimen name="card_min_height">300dp</dimen>
+    <dimen name="card_title_text_size">18sp</dimen>
+    <dimen name="card_title_height">30dp</dimen>
+
+    <dimen name="decoration_margin">2dp</dimen>
+
 </resources>

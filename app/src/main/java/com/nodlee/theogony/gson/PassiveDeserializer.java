@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.nodlee.theogony.bean.Image;
 import com.nodlee.theogony.bean.Passive;
+import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.lang.reflect.Type;
 
@@ -27,12 +28,13 @@ public class PassiveDeserializer implements JsonDeserializer<Passive> {
         String description = rootJsonObj.get("description").getAsString();
         String sanitizedDescription = rootJsonObj.get("sanitizedDescription").getAsString();
         Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
+        String passiveImage = RiotGameUtils.createPassiveImageUrl(image.getFull());
 
         Passive passive = new Passive();
         passive.setName(name);
         passive.setDescription(description);
         passive.setSanitizedDescription(sanitizedDescription);
-        passive.setImage(image.getFull());
+        passive.setImage(passiveImage);
         return passive;
     }
 }

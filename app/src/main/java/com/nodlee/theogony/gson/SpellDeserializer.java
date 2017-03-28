@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nodlee.theogony.bean.Image;
 import com.nodlee.theogony.bean.Spell;
 import com.nodlee.theogony.bean.Var;
+import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.lang.reflect.Type;
 
@@ -30,13 +31,14 @@ public class SpellDeserializer implements JsonDeserializer<Spell> {
         String name = rootJsonObj.get("name").getAsString();
         String description = rootJsonObj.get("description").getAsString();
         String sanitizedDescription = rootJsonObj.get("sanitizedDescription").getAsString();
-        Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
         int maxrank = rootJsonObj.get("maxrank").getAsInt();
         String costBurn = rootJsonObj.get("costBurn").getAsString();
         String cooldownBurn = rootJsonObj.get("cooldownBurn").getAsString();
         RealmList<Var> vars = context.deserialize(rootJsonObj.get("vars"), new TypeToken<RealmList<Var>>(){}.getType());
         String rangeBurn = rootJsonObj.get("rangeBurn").getAsString();
         String key = rootJsonObj.get("key").getAsString();
+        Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
+        String spellImage = RiotGameUtils.createSpellImageUrl(image.getFull());
 
         String costType = null; // 亚索没有costtype
         if (rootJsonObj.has("costType")) {
@@ -61,7 +63,7 @@ public class SpellDeserializer implements JsonDeserializer<Spell> {
         spell.setSanitizedDescription(sanitizedDescription);
         spell.setTooltip(tooltip);
         spell.setSanitizedTooltip(sanitizedTooltip);
-        spell.setImage(image.getFull());
+        spell.setImage(spellImage);
         spell.setResource(resource);
         spell.setMaxrank(maxrank);
         spell.setCostType(costType);

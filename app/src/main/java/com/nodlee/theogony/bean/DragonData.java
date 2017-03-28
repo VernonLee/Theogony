@@ -12,7 +12,7 @@ import io.realm.RealmObject;
  * 说明：
  */
 
-public class ChampionData extends RealmObject {
+public class DragonData extends RealmObject {
     private String type;
     private String format;
     private String version;

@@ -1,5 +1,7 @@
 package com.nodlee.theogony.bean;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
@@ -8,7 +10,7 @@ import io.realm.RealmObject;
  * 说明：皮肤实体
  */
 
-public class Skin extends RealmObject {
+public class Skin extends RealmObject implements Serializable {
     private int id;
     private String name;
     private int num;

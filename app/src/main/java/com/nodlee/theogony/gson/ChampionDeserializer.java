@@ -14,9 +14,13 @@ import com.nodlee.theogony.bean.Passive;
 import com.nodlee.theogony.bean.Skin;
 import com.nodlee.theogony.bean.Spell;
 import com.nodlee.theogony.bean.Stats;
+import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 
 /**
@@ -44,11 +48,8 @@ public class ChampionDeserializer implements JsonDeserializer<Champion> {
 
         Info infoRealm = context.deserialize(rootJsonObj.get("info"), Info.class);
         Stats statsRealm = context.deserialize(rootJsonObj.get("stats"), Stats.class);
-        RealmList<Spell> spells = context.deserialize(rootJsonObj.get("spells"), new TypeToken<RealmList<Spell>>(){}.getType());
-        RealmList<Skin> skins = context.deserialize(rootJsonObj.get("skins"), new TypeToken<RealmList<Skin>>(){}.getType());
         Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
         Passive passiveRealm = context.deserialize(rootJsonObj.get("passive"), Passive.class);
-
         JsonArray allTipsArray = rootJsonObj.get("allytips").getAsJsonArray();
         JsonArray enemyTipsArray = rootJsonObj.get("enemytips").getAsJsonArray();
         JsonArray tagsArray = rootJsonObj.get("tags").getAsJsonArray();
@@ -56,6 +57,13 @@ public class ChampionDeserializer implements JsonDeserializer<Champion> {
         String enemyTips = toString(enemyTipsArray);
         String allTips = toString(allTipsArray);
         String tags = toString(tagsArray);
+        String avatarUrl = RiotGameUtils.createAvatarUrl(image.getFull());
+
+        RealmList<Spell> spells = context.deserialize(rootJsonObj.get("spells"),
+                new TypeToken<RealmList<Spell>>() {}.getType());
+        RealmList<Skin> skins = context.deserialize(rootJsonObj.get("skins"),
+                new TypeToken<RealmList<Skin>>() {}.getType());
+        formatSkins(key, title, skins);
 
         Champion champion = new Champion();
         champion.setId(id);
@@ -73,7 +81,7 @@ public class ChampionDeserializer implements JsonDeserializer<Champion> {
         champion.setAllytipsc(allTips);
         champion.setEnemytipsc(enemyTips);
         champion.setTagsc(tags);
-        champion.setImage(image.getFull());
+        champion.setImage(avatarUrl);
         return champion;
     }
 
@@ -91,5 +99,19 @@ public class ChampionDeserializer implements JsonDeserializer<Champion> {
                 builder.append(element).append(SEPARATOR);
         }
         return builder.toString();
+    }
+
+    public void formatSkins(String key, String title, List<Skin> skins) {
+        if (skins == null)
+            return;
+
+        for (Skin skin : skins) {
+            String imageUrl = RiotGameUtils.createSkinImageUrl(key, skin.getNum());
+            skin.setImage(imageUrl);
+
+            if (skin.getName().equals("default")) {
+                skin.setName(title);
+            }
+        }
     }
 }

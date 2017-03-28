@@ -3,7 +3,6 @@ package com.nodlee.theogony;
 import android.app.Application;
 import android.content.Context;
 
-import com.nodlee.amumu.champions.Amumu;
 import com.nodlee.theogony.utils.RealmProvider;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -12,7 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
-import io.realm.Realm;
 
 /**
  * Created by Vernon Lee on 15-11-19.

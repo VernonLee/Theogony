@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="info"
+            type="com.nodlee.theogony.bean.Info"/>
+    </data>
+
+    <merge>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:background="@color/view_magic_background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="@dimen/padding_8"
+                android:text="@{info.getMagic()}"
+                android:textColor="@color/primary_text_default_light"
+                android:textSize="47sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:text="@string/title_magic"
+                android:textColor="@color/primary_text_default_light"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+    </merge>
+
+</layout>
