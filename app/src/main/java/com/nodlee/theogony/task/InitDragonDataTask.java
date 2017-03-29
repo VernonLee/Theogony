@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.core.ApiImpl;
-import com.nodlee.theogony.core.DragonDataManager;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.LogHelper;
 import com.nodlee.theogony.utils.RiotGameUtils;
@@ -52,7 +51,7 @@ public class InitDragonDataTask extends AsyncTask<Bundle, String, Boolean> {
         // 第一阶段
         publishProgress("初始化...");
 
-        String jsonResult = impl.loadDragonDataFromServer(dragonDataUrl);
+        String jsonResult = impl.request(dragonDataUrl);
         if (jsonResult == null) {
             LogHelper.LOGW("jsonResult为空");
             return false;
@@ -71,6 +70,7 @@ public class InitDragonDataTask extends AsyncTask<Bundle, String, Boolean> {
         publishProgress("写入数据...");
 
         dragonData.setLanguageCode(languageCode);
+        dragonData.setOutDate(false);
 
         boolean success = impl.writeToRealmDataBase(dragonData);
         LogHelper.LOGW("数据写入：" + (success ? "成功" : "失败"));

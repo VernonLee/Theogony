@@ -35,6 +35,23 @@ public class RiotGameUtils {
     }
 
     /**
+     * 创建数据源版本检查URL
+     * @param appKey
+     * @return
+     */
+    public static String createVersionCheckUrl(String appKey) {
+        if (TextUtils.isEmpty(appKey)) {
+            throw new IllegalArgumentException("languageCode或APPKEY为空");
+        }
+        final String baseVersionCheckUrl = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/versions";
+        Uri uri = Uri.parse(baseVersionCheckUrl)
+                .buildUpon()
+                .appendQueryParameter("api_key", appKey)
+                .build();
+        return uri.toString();
+    }
+
+    /**
      * 创建被动技能图片URL
      *
      * @return

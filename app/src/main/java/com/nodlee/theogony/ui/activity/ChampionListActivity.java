@@ -12,14 +12,20 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.nodlee.theogony.App;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.task.DragonDataWatcher;
+import com.nodlee.theogony.task.InitDragonDataTask;
 import com.nodlee.theogony.ui.adapter.ViewPagerWithTitleAdapter;
 import com.nodlee.theogony.ui.fragment.ChampionListFragment;
+import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.ThemeUtils;
 
 import butterknife.BindView;
@@ -44,6 +50,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_champion_list);
         ButterKnife.bind(this);
+        startVersionCheckTask();
 
         mToolbar = getToolbar(0, null);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -91,7 +98,7 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
     private void setupPager(ViewPager pager) {
         Resources res = getResources();
         String[] championTags = res.getStringArray(R.array.championTags);
-        String[]championTagKeys = res.getStringArray(R.array.championTagKeys);
+        String[] championTagKeys = res.getStringArray(R.array.championTagKeys);
 
         ViewPagerWithTitleAdapter adapter = new ViewPagerWithTitleAdapter(getSupportFragmentManager());
         for (int i = 0; i < championTags.length; i++) {
@@ -165,5 +172,13 @@ public class ChampionListActivity extends BaseActivity implements NavigationView
         } else {
             super.onBackPressed();
         }
+    }
+
+    /**
+     * 启动数据版本检查任务
+     */
+    private void startVersionCheckTask() {
+        String appKey = AndroidUtils.getMetaData(this, App.META_DATA_APP_KEY);
+        new DragonDataWatcher().execute(appKey);
     }
 }

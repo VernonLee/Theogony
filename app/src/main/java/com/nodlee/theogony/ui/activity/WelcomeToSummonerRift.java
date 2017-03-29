@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.nodlee.theogony.App;
 import com.nodlee.theogony.R;
+import com.nodlee.theogony.core.DragonDataManager;
+import com.nodlee.theogony.task.DragonDataWatcher;
 import com.nodlee.theogony.task.InitDragonDataTask;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.RealmProvider;
@@ -42,7 +44,9 @@ public class WelcomeToSummonerRift extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (RealmProvider.getInstance().isEmpty()) {
+        boolean emptyDataBase = RealmProvider.getInstance().isEmpty();
+        boolean outDate = DragonDataManager.getInstance().isOutDate();
+        if (emptyDataBase || outDate) {
             initDragonData();
         } else {
             startActivity(new Intent(this, ChampionListActivity.class));

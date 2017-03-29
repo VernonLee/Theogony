@@ -18,6 +18,7 @@ public class DragonData extends RealmObject {
     private String version;
     private String languageCode;
     private RealmList<Champion> data;
+    private boolean isOutDate; // 数据过时，即有新版本数据可更新
 
     public String getType() {
         return type;
@@ -57,6 +58,14 @@ public class DragonData extends RealmObject {
 
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
+    }
+
+    public boolean isOutDate() {
+        return isOutDate;
+    }
+
+    public void setOutDate(boolean outDate) {
+        isOutDate = outDate;
     }
 
     @Override

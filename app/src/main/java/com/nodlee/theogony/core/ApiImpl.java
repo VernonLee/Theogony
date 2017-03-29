@@ -23,6 +23,7 @@ import io.realm.Realm;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.internal.http.HttpCodec;
 
 /**
  * 作者：nodlee
@@ -34,7 +35,7 @@ public class ApiImpl implements Api {
 
     private static ApiImpl sApi;
 
-    private ApiImpl () {
+    private ApiImpl() {
     }
 
     public static ApiImpl getInstance() {
@@ -45,14 +46,15 @@ public class ApiImpl implements Api {
     }
 
     @Override
-    public String loadDragonDataFromServer(String url) {
+    public String request(String url) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            LogHelper.LOGD("请求响应，Code:" + response.code());
+            return response.code() == 200 ? response.body().string() : null;
         } catch (IOException e) {
             e.printStackTrace();
         }

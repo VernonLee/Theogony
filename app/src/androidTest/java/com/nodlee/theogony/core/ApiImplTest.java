@@ -41,14 +41,14 @@ public class ApiImplTest {
     @Test
     public void loadDragonDataFromServer() throws Exception {
         String baiduUrl = "http://baidu.com/";
-        String baiduString = mApi.loadDragonDataFromServer(baiduUrl);
+        String baiduString = mApi.request(baiduUrl);
         assertTrue(baiduString != null);
     }
 
     @Test
     public void parseJsonWithGson() throws Exception {
         String gradonDataUrl = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?locale=zh_TW&champData=all&api_key=e0af5cdf-caab-44c2-a692-dea1d712f8ab";
-        String gradonDataString = mApi.loadDragonDataFromServer(gradonDataUrl);
+        String gradonDataString = mApi.request(gradonDataUrl);
         assertTrue(gradonDataString != null && gradonDataString.length() > 100);
 
         DragonData dragonData = mApi.parseJsonWithGson(gradonDataString);
@@ -60,7 +60,7 @@ public class ApiImplTest {
     @Test
     public void writeToRealmDataBase() throws Exception {
         String gradonDataUrl = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?locale=zh_TW&champData=all&api_key=e0af5cdf-caab-44c2-a692-dea1d712f8ab";
-        String gradonDataString = mApi.loadDragonDataFromServer(gradonDataUrl);
+        String gradonDataString = mApi.request(gradonDataUrl);
         DragonData dragonData = mApi.parseJsonWithGson(gradonDataString);
         boolean success = mApi.writeToRealmDataBase(dragonData);
         assertTrue(success);

@@ -14,7 +14,7 @@ public interface Api {
      * 从服务器加载数据
      * @param url
      */
-    String loadDragonDataFromServer(String url);
+    String request(String url);
 
     /**
      * 解析JSON字符串
