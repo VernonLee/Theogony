@@ -27,6 +27,7 @@ ext {
     dependencies = [
             appcompatV7Version : "24.2.0",
             recyclerviewVersion: "24.2.0",
+            preferenceV7Version: "24.2.0",
             designVersion      : "24.2.0",
             cardViewVersion    : "24.2.0",
             butterKnifeVersion : "8.4.0",

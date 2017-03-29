@@ -36,8 +36,7 @@
 
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:label="@string/settings_title"
-            android:theme="@style/AppTheme.Settings" />
+            android:label="@string/settings_title"/>
 
         <activity
             android:name=".ui.activity.AboutAppActivity"

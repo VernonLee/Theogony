@@ -42,4 +42,7 @@
     <color name="view_magic_background">#e800a8</color>
     <color name="view_difficulty_background">#e8a223</color>
 
+    <color name="setting_item_normal">#fffdfdfd</color>
+    <color name="setting_item_pressed">#55fdfdfd</color>
+
 </resources>

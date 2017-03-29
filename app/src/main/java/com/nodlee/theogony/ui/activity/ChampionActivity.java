@@ -98,11 +98,6 @@ public class ChampionActivity extends BaseActivity implements AppBarLayout.OnOff
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        final int scrollRange = appBarLayout.getTotalScrollRange();
-        // 头像渐变动画
-        final float alphaFactor = (float) (scrollRange - Math.abs(verticalOffset)) / scrollRange;
-        // mAvatarIv.setAlpha(alphaFactor);
-        // 浮动按钮位移动画
         mFavoriteBtn.setTranslationY(Math.abs(verticalOffset));
     }
 

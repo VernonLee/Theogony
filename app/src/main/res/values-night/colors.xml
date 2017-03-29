@@ -40,4 +40,7 @@
     <color name="view_defense_background">#ff444444</color>
     <color name="view_magic_background">#ff444444</color>
     <color name="view_difficulty_background">#ff444444</color>
+
+    <color name="setting_item_normal">#ff17181a</color>
+    <color name="setting_item_pressed">#ff444444</color>
 </resources>

@@ -38,7 +38,7 @@ public class LicenseDialog {
 
         mDialog = new AlertDialog.Builder(context)
                   .setView(mContainer)
-                  .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                  .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dismiss();

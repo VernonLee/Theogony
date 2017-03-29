@@ -33,14 +33,14 @@
     <string name="search_hint"></string>
     <string name="switch_success_notification_title"></string>
 
-    <string name="pref_group_title_static_data">Data Source</string>
+    <string name="group_title_static_data">Data Source</string>
     <string name="pref_key_locale">locale</string>
-    <string name="pref_title_locale">Language</string>
+    <string name="title_locale">Language</string>
     <string name="pref_key_data_version">ddragon_data_version</string>
     <string name="pref_title_version">Version</string>
-    <string name="pref_group_title_about">About</string>
+    <string name="group_title_about">About</string>
     <string name="pref_key_about_app">about_app</string>
-    <string name="pref_title_about_app">About</string>
+    <string name="title_about_app">About</string>
 
     <string name="about_app_message">
         Theogony is an encyclopedia app about heroes.

@@ -33,22 +33,17 @@
     <string name="search_hint">请输入英雄名称</string>
     <string name="switch_success_notification_title">语言切换成功</string>
 
-    <string name="pref_group_title_static_data">数据</string>
-    <string name="pref_key_locale">locale</string>
-    <string name="pref_key_cache_size">cache_size</string>
-    <string name="pref_title_locale">切换语言</string>
-    <string name="pref_title_cache_size">缓存</string>
+    <string name="group_title_static_data">数据</string>
+    <string name="title_locale">切换语言</string>
+    <string name="title_cache_size">缓存</string>
+    <string name="title_dragon_data_version">数据版本</string>
 
-    <string name="pref_group_title_about">关于</string>
-    <string name="pref_key_about_app">about_app</string>
-    <string name="pref_key_open_source_license">osl</string>
-    <string name="pref_key_app_version">app_version</string>
-    <string name="pref_title_about_app">关于应用</string>
-    <string name="pref_title_open_source_license">开源许可证</string>
-    <string name="pref_title_app_version">版本</string>
+    <string name="group_title_about">关于</string>
+    <string name="title_about_app">关于应用</string>
+    <string name="title_open_source_license">开源许可证</string>
+    <string name="title_app_version">应用版本</string>
 
-    <string name="pref_key_feedback">feedback</string>
-    <string name="pref_title_feedback">意见反馈</string>
+    <string name="title_feedback">意见反馈</string>
 
     <string name="about_app_message">
         &#160;&#160;英雄谱(Theogony)是一款和英雄联盟有关的应用，
@@ -59,7 +54,9 @@
     </string>
 
     <string name="feedback_message">
-        如果你喜欢这个APP或者想一起参与改进，欢迎联系我：1516lee@gmail.com
+        如果想一起参与改进，欢迎联系我：\n
+        邮箱：1516lee@gmail.com \n
+        微信：575931201
     </string>
 
     <string name="dialog_title_warning">警告</string>

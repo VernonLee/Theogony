@@ -26,19 +26,6 @@
         <item name="android:textColor">@color/primary_text_default_dark</item>
     </style>
 
-    <style name="AppTheme.Settings">
-        <item name="android:preferenceCategoryStyle">@style/PreferenceCategory</item>
-        <item name="android:preferenceStyle">@style/Preference</item>
-    </style>
-
-    <style name="PreferenceCategory">
-        <item name="android:layout">@layout/preference_category</item>
-    </style>
-
-    <style name="Preference">
-        <item name="android:layout">@layout/preference</item>
-    </style>
-
     <style name="TabLayout" parent="@style/Widget.Design.TabLayout">
         <item name="tabGravity">center</item>
         <item name="tabMode">scrollable</item>
@@ -110,10 +97,12 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/color_primary</item>
+        <item name="android:background">@drawable/bg_setting_item</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
     </style>
 
     <style name="SettingsGroupTitleTv">
