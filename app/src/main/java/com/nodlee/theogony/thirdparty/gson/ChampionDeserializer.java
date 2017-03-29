@@ -1,4 +1,4 @@
-package com.nodlee.theogony.gson;
+package com.nodlee.theogony.thirdparty.gson;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -14,13 +14,11 @@ import com.nodlee.theogony.bean.Passive;
 import com.nodlee.theogony.bean.Skin;
 import com.nodlee.theogony.bean.Spell;
 import com.nodlee.theogony.bean.Stats;
-import com.nodlee.theogony.utils.RealmProvider;
 import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmList;
 
 /**

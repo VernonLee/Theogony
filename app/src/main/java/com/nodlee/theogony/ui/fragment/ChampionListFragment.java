@@ -69,7 +69,7 @@ public class ChampionListFragment extends Fragment implements SwipeRefreshLayout
 
         mRefreshView.setOnRefreshListener(this);
         mRefreshView.setColorSchemeResources(R.color.color_accent);
-        mAdapter = new ChampionAdapter(Glide.with(this));
+        mAdapter = new ChampionAdapter(Glide.with(this), null);
         mAdapter.setItemClickListener(this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
@@ -97,7 +97,6 @@ public class ChampionListFragment extends Fragment implements SwipeRefreshLayout
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getLoaderManager().initLoader(CHAMPIONS_LOADER_ID, getArguments(), mLoaderCallback);
-        getActivity().getContentResolver().registerContentObserver(Constants.Champions.CONTENT_URI, true, mObserver);
     }
 
     @Override
@@ -130,21 +129,9 @@ public class ChampionListFragment extends Fragment implements SwipeRefreshLayout
         }
     };
 
-    private ContentObserver mObserver = new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            Loader loader = getLoaderManager().getLoader(CHAMPIONS_LOADER_ID);
-            if (loader != null) {
-                loader.forceLoad();
-            }
-        }
-    };
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
-        getActivity().getContentResolver().unregisterContentObserver(mObserver);
     }
 }

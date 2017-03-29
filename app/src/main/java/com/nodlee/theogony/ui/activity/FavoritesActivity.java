@@ -2,7 +2,6 @@ package com.nodlee.theogony.ui.activity;
 
 import android.content.Intent;
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
@@ -14,25 +13,31 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.bean.Champion;
+import com.nodlee.theogony.core.FavoritesManager;
+import com.nodlee.theogony.loader.FavoritesLoader;
 import com.nodlee.theogony.ui.adapter.ChampionAdapter;
 import com.nodlee.theogony.ui.adapter.ItemClickedListener;
 import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
 import com.nodlee.theogony.ui.view.MarginDecoration;
+import com.nodlee.theogony.utils.LogHelper;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.R.attr.data;
 import static com.nodlee.theogony.ui.activity.ChampionActivity.EXTRA_CHAMPION_ID;
 
 /**
  * Created by Vernon Lee on 15-11-25.
  */
-public class FavoritesActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class FavoritesActivity extends BaseActivity implements ItemClickedListener {
     private static final int LOADER_FAVORITE_CHAMPIONS = 4;
 
     @BindView(R.id.recy_view_favorite_champions)
-    AutoFitRecyclerView mFavoriteChampionsRecyView;
+    AutoFitRecyclerView mRecyclerView;
 
     private ChampionAdapter mAdapter;
 
@@ -41,74 +46,51 @@ public class FavoritesActivity extends BaseActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
         ButterKnife.bind(this);
-
         getToolbar(R.drawable.ic_arrow_back, null);
 
-        mAdapter = new ChampionAdapter(Glide.with(this));
-        mAdapter.setItemClickListener(new ItemClickedListener() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                Champion champion = mAdapter.getItem(position);
-                if (champion != null) {
-                    Intent intent = new Intent(FavoritesActivity.this, ChampionActivity.class);
-                    intent.putExtra(EXTRA_CHAMPION_ID, champion.getId());
-                    startActivity(intent);
-                }
-            }
-        });
-        mFavoriteChampionsRecyView.setHasFixedSize(true);
-        mFavoriteChampionsRecyView.addItemDecoration(new MarginDecoration(this));
-        mFavoriteChampionsRecyView.setAdapter(mAdapter);
+        mAdapter = new ChampionAdapter(Glide.with(this), null);
+        mAdapter.setItemClickListener(this);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new MarginDecoration(this));
+        mRecyclerView.setAdapter(mAdapter);
 
-        getSupportLoaderManager().initLoader(LOADER_FAVORITE_CHAMPIONS, null, this);
-        getContentResolver().registerContentObserver(Constants.Favorite.CONTENT_URI, true, mObserver);
+        getSupportLoaderManager().initLoader(LOADER_FAVORITE_CHAMPIONS, null, mLoaderCallbacks);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
+    protected void onResume() {
+        super.onResume();
+        Loader loader = getSupportLoaderManager().getLoader(LOADER_FAVORITE_CHAMPIONS);
+        if (loader != null) {
+            loader.forceLoad();
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // return new FavoritesLoader(FavoritesActivity.this);
-        return null;
+    public void onItemClicked(View view, int position) {
+        Champion champion = mAdapter.getItem(position);
+        Intent intent = new Intent(FavoritesActivity.this, ChampionActivity.class);
+        intent.putExtra(EXTRA_CHAMPION_ID, champion.getId());
+        startActivity(intent);
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        // mAdapter.swapCursor(cursor);
-    }
+    LoaderManager.LoaderCallbacks mLoaderCallbacks = new LoaderManager.LoaderCallbacks<List<Champion>>() {
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        // mAdapter.swapCursor(null);
-    }
-
-    private ContentObserver mObserver = new ContentObserver(new Handler()) {
         @Override
-        public void onChange(boolean selfChange) {
-            Loader<Cursor> loader = getSupportLoaderManager().getLoader(LOADER_FAVORITE_CHAMPIONS);
-            if (loader != null) {
-                loader.forceLoad();
-            }
+        public Loader<List<Champion>> onCreateLoader(int id, Bundle args) {
+            return new FavoritesLoader(FavoritesActivity.this);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<Champion>> loader, final List<Champion> data) {
+            mAdapter.setData(data);
+            mAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<Champion>> loader) {
+            // do nothing
         }
     };
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getContentResolver().unregisterContentObserver(mObserver);
-    }
 }

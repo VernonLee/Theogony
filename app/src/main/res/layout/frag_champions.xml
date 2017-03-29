@@ -7,13 +7,8 @@
 
     <com.nodlee.theogony.ui.view.AutoFitRecyclerView
         android:id="@+id/recy_view_champions"
+        style="@style/RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="5dp"
-        android:columnWidth="103dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"/>
+        android:layout_height="match_parent"/>
 
 </android.support.v4.widget.SwipeRefreshLayout>

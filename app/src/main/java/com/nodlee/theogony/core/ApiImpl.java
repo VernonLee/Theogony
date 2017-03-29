@@ -9,11 +9,12 @@ import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.bean.Passive;
 import com.nodlee.theogony.bean.Skin;
 import com.nodlee.theogony.bean.Spell;
-import com.nodlee.theogony.gson.ChampionDataDeserializer;
-import com.nodlee.theogony.gson.ChampionDeserializer;
-import com.nodlee.theogony.gson.PassiveDeserializer;
-import com.nodlee.theogony.gson.SkinDeserializer;
-import com.nodlee.theogony.gson.SpellDeserializer;
+import com.nodlee.theogony.thirdparty.gson.ChampionDataDeserializer;
+import com.nodlee.theogony.thirdparty.gson.ChampionDeserializer;
+import com.nodlee.theogony.thirdparty.gson.PassiveDeserializer;
+import com.nodlee.theogony.thirdparty.gson.SkinDeserializer;
+import com.nodlee.theogony.thirdparty.gson.SpellDeserializer;
+import com.nodlee.theogony.utils.LogHelper;
 import com.nodlee.theogony.utils.RealmProvider;
 
 import java.io.IOException;
@@ -83,15 +84,17 @@ public class ApiImpl implements Api {
     public boolean writeToRealmDataBase(DragonData dragonData) {
         if (dragonData == null) return false;
 
+        Realm realm = RealmProvider.getInstance().getRealm();
         try {
-            Realm realm = RealmProvider.getInstance().getRealm();
             realm.beginTransaction();
             realm.deleteAll();
             realm.copyToRealm(dragonData);
             realm.commitTransaction();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LogHelper.LOGW("数据写入失败：" + e);
+        } finally {
+            realm.close();
         }
         return false;
     }

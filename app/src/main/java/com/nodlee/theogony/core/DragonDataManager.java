@@ -25,10 +25,11 @@ public class DragonDataManager {
 
     public DragonData getDefault() {
         Realm realm = RealmProvider.getInstance().getRealm();
-        RealmResults<DragonData> result = realm.where(DragonData.class).findAll();
-        if (result != null && result.size() > 0) {
-            return result.get(result.size() - 1);
+        try {
+            DragonData result = realm.where(DragonData.class).findFirst();
+            return result;
+        } finally {
+            realm.close();
         }
-        return null;
     }
 }

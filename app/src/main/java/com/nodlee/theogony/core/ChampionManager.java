@@ -14,6 +14,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static android.R.attr.tag;
 import static io.realm.Realm.getDefaultInstance;
 
 /**
@@ -37,17 +38,24 @@ public class ChampionManager {
 
     public List<Champion> getAll() {
         Realm realm = RealmProvider.getInstance().getRealm();
-        if (realm.isEmpty()) {
-            return null;
+        try {
+            RealmResults<Champion> results = realm
+                    .where(Champion.class).findAll();
+            return realm.copyFromRealm(results);
+        } finally {
+            realm.close();
         }
-        RealmResults<Champion> results = realm.where(Champion.class).findAll();
-        return realm.copyFromRealm(results);
     }
 
     public Champion get(int id) {
         if (id <= 0) return null;
         Realm realm = RealmProvider.getInstance().getRealm();
-        return realm.where(Champion.class).equalTo("id", id).findFirst();
+        try {
+            return realm.where(Champion.class)
+                    .equalTo("id", id).findFirst();
+        } finally {
+            realm.close();
+        }
     }
 
     public List<Champion> queryByTag(String tag) {
@@ -55,35 +63,29 @@ public class ChampionManager {
             return getAll();
         }
         Realm realm = RealmProvider.getInstance().getRealm();
-        RealmResults<Champion> results = realm.where(Champion.class)
-                .contains("tagsc", tag)
-                .findAll();
-        return realm.copyFromRealm(results);
+        try {
+            RealmResults<Champion> results = realm
+                    .where(Champion.class).contains("tagsc", tag).findAll();
+            return realm.copyFromRealm(results);
+        } finally {
+            realm.close();
+        }
     }
 
     public List<Champion> queryByKeyWord(String query) {
         Realm realm = RealmProvider.getInstance().getRealm();
-        RealmResults<Champion> results = realm.where(Champion.class)
-                .beginGroup()
-                .contains("tagsc", query)
-                .or()
-                .contains("name", query)
-                .or()
-                .contains("title", query)
-                .findAll();
-        return realm.copyFromRealm(results);
-    }
-
-    public Skin getDefaultSkin(int championId) {
-        Champion champion = get(championId);
-        if (champion == null)
-            return null;
-
-        List<Skin> skins = champion.getSkins();
-        if (skins.size() > 0) {
-            return skins.get(0);
+        try {
+            RealmResults<Champion> results = realm.where(Champion.class)
+                    .beginGroup()
+                    .contains("tagsc", query)
+                    .or()
+                    .contains("name", query)
+                    .or()
+                    .contains("title", query)
+                    .findAll();
+            return realm.copyFromRealm(results);
+        } finally {
+            realm.close();
         }
-        return null;
     }
-
 }

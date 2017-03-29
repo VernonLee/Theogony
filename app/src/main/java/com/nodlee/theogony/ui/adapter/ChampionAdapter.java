@@ -1,6 +1,5 @@
 package com.nodlee.theogony.ui.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import com.bumptech.glide.RequestManager;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.bean.Champion;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,12 +20,12 @@ import butterknife.ButterKnife;
  * 时间：16/8/26
  * 说明：
  */
-public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ClickableViewHolder> {
+public class ChampionAdapter extends BaseAdapter<Champion, ChampionAdapter.ClickableViewHolder> {
     private RequestManager glide;
     private ItemClickedListener mItemClickedListener;
-    private List<Champion> mChampions = new ArrayList<>();
 
-    public ChampionAdapter(RequestManager glide) {
+    public ChampionAdapter(RequestManager glide, List<Champion> data) {
+        super(data);
         this.glide = glide;
     }
 
@@ -40,10 +38,8 @@ public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.Clicka
     @Override
     public void onBindViewHolder(ClickableViewHolder holder, int position) {
         Champion champion = getItem(position);
-        if (champion != null) {
-            holder.nameTv.setText(champion.getName());
-            loadImage(glide, holder.avatarIv, champion.getImage());
-        }
+        holder.nameTv.setText(champion.getName());
+        loadImage(glide, holder.avatarIv, champion.getImage());
     }
 
     /**
@@ -63,28 +59,10 @@ public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.Clicka
                 .into(imageView);
     }
 
-    @Override
-    public int getItemCount() {
-        return mChampions.size();
-    }
-
-    public Champion getItem(int position) {
-        if (position < mChampions.size()) {
-            return mChampions.get(position);
-        }
-        return null;
-    }
-
     public void setItemClickListener(ItemClickedListener listener) {
         this.mItemClickedListener = listener;
     }
 
-    public void setData(List<Champion> champions) {
-        if (champions != null) {
-            mChampions.clear();
-            mChampions.addAll(champions);
-        }
-    }
 
     public class ClickableViewHolder extends BaseClickableViewHolder {
         @BindView(R.id.iv_avatar)

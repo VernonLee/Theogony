@@ -49,7 +49,7 @@ public class SearchActivity extends BaseActivity implements ItemClickedListener 
 
         setupSearchView();
 
-        mAdapter = new ChampionAdapter(Glide.with(this));
+        mAdapter = new ChampionAdapter(Glide.with(this), null);
         mAdapter.setItemClickListener(this);
         mChampionListRecyclerView.setHasFixedSize(true);
         mChampionListRecyclerView.addItemDecoration(new MarginDecoration(this));

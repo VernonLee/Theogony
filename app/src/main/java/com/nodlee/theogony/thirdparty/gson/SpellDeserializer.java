@@ -1,4 +1,4 @@
-package com.nodlee.theogony.gson;
+package com.nodlee.theogony.thirdparty.gson;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
