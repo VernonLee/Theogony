@@ -43,4 +43,6 @@
 
     <color name="setting_item_normal">#ff17181a</color>
     <color name="setting_item_pressed">#ff444444</color>
+
+    <color name="empty_view_content_text_color">#36ffffff</color>
 </resources>

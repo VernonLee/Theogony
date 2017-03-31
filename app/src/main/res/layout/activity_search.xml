@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         style="@style/AppBarLayout"
@@ -26,15 +26,25 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.nodlee.theogony.ui.view.AutoFitRecyclerView
-        android:id="@+id/recy_view_champions"
+    <RelativeLayout
+        android:id="@+id/view_switcher_champions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        android:columnWidth="118dp"/>
+        android:layout_height="match_parent">
+
+        <com.nodlee.theogony.ui.view.AutoFitRecyclerView
+            android:id="@+id/recy_view_champions"
+            style="@style/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/view_not_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/EmptyViewContent"
+            android:text="@string/msg_not_found"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

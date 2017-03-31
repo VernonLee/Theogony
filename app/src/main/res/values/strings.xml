@@ -45,6 +45,9 @@
 
     <string name="title_feedback">意见反馈</string>
 
+    <string name="msg_empty_favorites">收藏夹为空</string>
+    <string name="msg_not_found">未找到相关记录</string>
+
     <string name="about_app_message">
         &#160;&#160;英雄谱(Theogony)是一款和英雄联盟有关的应用，
         在这里既可以阅读英雄们的背景故事也可以欣赏精美的插画。\n\n
@@ -73,7 +76,6 @@
     <string name="navigation_item_day_mode">白天模式</string>
     <string name="navigation_item_settings">设置</string>
     <string name="navigation_item_exit_to_app">退出应用</string>
-
 
     <string name="shared_element_name_avatar">avatar</string>
     <string name="shared_element_name_skin_cover">skin_cover</string>

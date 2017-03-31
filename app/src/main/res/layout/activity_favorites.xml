@@ -29,11 +29,27 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.nodlee.theogony.ui.view.AutoFitRecyclerView
-        android:id="@+id/recy_view_favorite_champions"
-        style="@style/RecyclerView"
+    <RelativeLayout
+        android:id="@+id/view_switcher_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.nodlee.theogony.ui.view.AutoFitRecyclerView
+            android:id="@+id/recy_view_favorite_champions"
+            style="@style/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/view_empty_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/EmptyViewContent"
+            android:text="@string/msg_empty_favorites"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

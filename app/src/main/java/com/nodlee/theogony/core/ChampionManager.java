@@ -77,11 +77,10 @@ public class ChampionManager {
         try {
             RealmResults<Champion> results = realm.where(Champion.class)
                     .beginGroup()
-                    .contains("tagsc", query)
-                    .or()
                     .contains("name", query)
                     .or()
                     .contains("title", query)
+                    .endGroup()
                     .findAll();
             return realm.copyFromRealm(results);
         } finally {

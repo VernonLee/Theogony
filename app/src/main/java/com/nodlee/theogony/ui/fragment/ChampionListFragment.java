@@ -82,15 +82,7 @@ public class ChampionListFragment extends Fragment implements SwipeRefreshLayout
         Champion champion = mAdapter.getItem(position);
         Intent intent = new Intent(getActivity(), ChampionActivity.class);
         intent.putExtra(EXTRA_CHAMPION_ID, champion.getId());
-        // 共享元素转场动画
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View avatarIv = itemView.findViewById(R.id.iv_avatar);
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                    getActivity(), avatarIv, getString(R.string.shared_element_name_avatar));
-            startActivity(intent, options.toBundle());
-        } else {
-            startActivity(intent);
-        }
+        startActivity(intent);
     }
 
     @Override

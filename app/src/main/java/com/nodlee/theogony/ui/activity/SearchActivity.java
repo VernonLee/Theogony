@@ -1,24 +1,23 @@
 package com.nodlee.theogony.ui.activity;
 
-import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.content.Intent;
-import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.bean.Champion;
+import com.nodlee.theogony.loader.ChampionsLoader;
 import com.nodlee.theogony.ui.adapter.ChampionAdapter;
 import com.nodlee.theogony.ui.adapter.ItemClickedListener;
 import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
 import com.nodlee.theogony.ui.view.MarginDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,17 +27,17 @@ import static com.nodlee.theogony.ui.activity.ChampionActivity.EXTRA_CHAMPION_ID
 /**
  * Created by Vernon Lee on 15-12-10.
  */
-public class SearchActivity extends BaseActivity implements ItemClickedListener {
+public class SearchActivity extends BaseActivity implements ItemClickedListener, SearchView.OnQueryTextListener {
     private static final int LOADER_CHAMPIONS = 1;
-    private static final String EXTRA_QUERY = "queryByKeyWord";
 
     @BindView(R.id.search_view)
     SearchView mSearchView;
     @BindView(R.id.recy_view_champions)
     AutoFitRecyclerView mChampionListRecyclerView;
+    @BindView(R.id.view_not_found)
+    View mNotFoundView;
 
     private ChampionAdapter mAdapter;
-    private String mQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class SearchActivity extends BaseActivity implements ItemClickedListener 
         ButterKnife.bind(this);
         getToolbar(R.drawable.ic_arrow_back, null);
 
-        setupSearchView();
+        setupSearchView(mSearchView);
 
         mAdapter = new ChampionAdapter(Glide.with(this), null);
         mAdapter.setItemClickListener(this);
@@ -56,15 +55,38 @@ public class SearchActivity extends BaseActivity implements ItemClickedListener 
         mChampionListRecyclerView.setAdapter(mAdapter);
     }
 
+    private void setupSearchView(final SearchView searchView) {
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconified(false); // xml中设置不起作用
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mSearchView.clearFocus();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        search(newText);
+        return false;
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent.hasExtra(SearchManager.QUERY)) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            if (!TextUtils.isEmpty(query)) {
-                search(query);
-                mSearchView.setQuery(query, false);
-            }
+            search(query);
+            mSearchView.setQuery(query, false);
         }
     }
 
@@ -73,74 +95,40 @@ public class SearchActivity extends BaseActivity implements ItemClickedListener 
         Champion champion = mAdapter.getItem(position);
         Intent intent = new Intent(this, ChampionActivity.class);
         intent.putExtra(EXTRA_CHAMPION_ID, champion.getId());
-        // 共享元素转场动画
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View avatarIv = view.findViewById(R.id.iv_avatar);
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                    this, avatarIv, getString(R.string.shared_element_name_avatar));
-            startActivity(intent, options.toBundle());
-        } else {
-            startActivity(intent);
-        }
-    }
-
-    private void setupSearchView() {
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        mSearchView.setIconified(false); // xml中设置不起作用
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                mSearchView.clearFocus();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                search(s);
-                return true;
-            }
-        });
-        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                return true;
-            }
-        });
+        startActivity(intent);
     }
 
     private void search(String query) {
-        if (TextUtils.isEmpty(query)) {
-            return;
-        }
-
-        Bundle args = new Bundle();
-        args.putString(EXTRA_QUERY, query);
-        if (TextUtils.equals(mQuery, query)) {
-            getSupportLoaderManager().initLoader(LOADER_CHAMPIONS, args, mLoaderCallbacks);
-        } else {
+        if (query != null && query.trim().length() > 0) {
+            Bundle args = new Bundle();
+            args.putString("extra_query", query);
             getSupportLoaderManager().restartLoader(LOADER_CHAMPIONS, args, mLoaderCallbacks);
         }
-
-        mQuery = query;
     }
 
-    private LoaderManager.LoaderCallbacks mLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
+    private LoaderManager.LoaderCallbacks mLoaderCallbacks = new LoaderManager.LoaderCallbacks<List<Champion>>() {
         @Override
         public Loader onCreateLoader(int id, Bundle args) {
-            String query = args.getString(EXTRA_QUERY);
-            // return new ChampionsLoader(SearchActivity.this, ChampionsLoader.Query.KEYWORDS, queryByKeyWord);
-            return null;
+            String query = args.getString("extra_query");
+            return new ChampionsLoader(SearchActivity.this, ChampionsLoader.Action.QUERY, query);
         }
 
         @Override
-        public void onLoadFinished(Loader loader, Cursor cursor) {
-           // mAdapter.swapCursor(cursor);
+        public void onLoadFinished(Loader<List<Champion>> loader, List<Champion> data) {
+            if (data.size() == 0) {
+                mChampionListRecyclerView.setVisibility(View.INVISIBLE);
+                mNotFoundView.setVisibility(View.VISIBLE);
+            } else {
+                mChampionListRecyclerView.setVisibility(View.VISIBLE);
+                mNotFoundView.setVisibility(View.INVISIBLE);
+            }
+            mAdapter.setData(data);
+            mAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void onLoaderReset(Loader loader) {
-           //  mAdapter.swapCursor(null);
+            //  Do Nothing
         }
     };
 }

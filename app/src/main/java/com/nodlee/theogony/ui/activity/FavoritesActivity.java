@@ -1,33 +1,26 @@
 package com.nodlee.theogony.ui.activity;
 
 import android.content.Intent;
-import android.database.ContentObserver;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.core.FavoritesManager;
 import com.nodlee.theogony.loader.FavoritesLoader;
 import com.nodlee.theogony.ui.adapter.ChampionAdapter;
 import com.nodlee.theogony.ui.adapter.ItemClickedListener;
-import com.nodlee.theogony.utils.Constants;
 import com.nodlee.theogony.ui.view.AutoFitRecyclerView;
 import com.nodlee.theogony.ui.view.MarginDecoration;
-import com.nodlee.theogony.utils.LogHelper;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.R.attr.data;
 import static com.nodlee.theogony.ui.activity.ChampionActivity.EXTRA_CHAMPION_ID;
 
 /**
@@ -38,6 +31,8 @@ public class FavoritesActivity extends BaseActivity implements ItemClickedListen
 
     @BindView(R.id.recy_view_favorite_champions)
     AutoFitRecyclerView mRecyclerView;
+    @BindView(R.id.view_empty_favorites)
+    View mEmptyView;
 
     private ChampionAdapter mAdapter;
 
@@ -83,6 +78,13 @@ public class FavoritesActivity extends BaseActivity implements ItemClickedListen
 
         @Override
         public void onLoadFinished(Loader<List<Champion>> loader, final List<Champion> data) {
+            if (data.size() == 0) {
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mEmptyView.setVisibility(View.VISIBLE);
+            } else {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mEmptyView.setVisibility(View.INVISIBLE);
+            }
             mAdapter.setData(data);
             mAdapter.notifyDataSetChanged();
         }
