@@ -16,10 +16,7 @@ public class DragonDataWatcherTest {
     @Test
     public void doInBackground() throws Exception {
         String appKey = "e0af5cdf-caab-44c2-a692-dea1d712f8ab";
-        Bundle args = new Bundle();
-        args.putString("app_key", appKey);
-        args.putString("version", "");
-        new DragonDataWatcher().execute(args);
+        new DragonDataWatcher().execute(appKey);
     }
 
 }

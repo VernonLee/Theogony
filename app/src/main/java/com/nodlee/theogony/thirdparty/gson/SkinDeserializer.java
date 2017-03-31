@@ -9,6 +9,8 @@ import com.nodlee.theogony.bean.Skin;
 
 import java.lang.reflect.Type;
 
+import static com.nodlee.theogony.thirdparty.gson.SafetyGSONParser.*;
+
 /**
  * 作者：nodlee
  * 时间：2017/3/17
@@ -22,14 +24,10 @@ public class SkinDeserializer implements JsonDeserializer<Skin> {
         if (json.isJsonNull()) return null;
 
         JsonObject rootJsonObj = json.getAsJsonObject();
-        int id = rootJsonObj.get("id").getAsInt();
-        String name = rootJsonObj.get("name").getAsString();
-        int num = rootJsonObj.get("num").getAsInt();
+        int id      = getInt(rootJsonObj, "id");
+        String name = getString(rootJsonObj, "name");
+        int num     = getInt(rootJsonObj, "num");
 
-        Skin skin = new Skin();
-        skin.setId(id);
-        skin.setName(name);
-        skin.setNum(num);
-        return skin;
+        return new Skin(id, name, num);
     }
 }

@@ -11,6 +11,9 @@ import com.nodlee.theogony.utils.RiotGameUtils;
 
 import java.lang.reflect.Type;
 
+import static com.nodlee.theogony.thirdparty.gson.SafetyGSONParser.getString;
+import static com.nodlee.theogony.thirdparty.gson.SafetyGSONParser.getType;
+
 /**
  * 作者：nodlee
  * 时间：2017/3/17
@@ -24,17 +27,16 @@ public class PassiveDeserializer implements JsonDeserializer<Passive> {
         if (json.isJsonNull()) return null;
 
         JsonObject rootJsonObj = json.getAsJsonObject();
-        String name = rootJsonObj.get("name").getAsString();
-        String description = rootJsonObj.get("description").getAsString();
-        String sanitizedDescription = rootJsonObj.get("sanitizedDescription").getAsString();
-        Image image = context.deserialize(rootJsonObj.get("image"), Image.class);
-        String passiveImage = RiotGameUtils.createPassiveImageUrl(image.getFull());
+        String name                 = getString(rootJsonObj, "name");
+        String description          = getString(rootJsonObj, "description");
+        String sanitizedDescription = getString(rootJsonObj, "sanitizedDescription");
+        Image image                 = getType(context, rootJsonObj, "image", Image.class);
 
-        Passive passive = new Passive();
-        passive.setName(name);
-        passive.setDescription(description);
-        passive.setSanitizedDescription(sanitizedDescription);
-        passive.setImage(passiveImage);
-        return passive;
+        String passiveImage = null;
+        if (image != null) {
+           passiveImage =  RiotGameUtils.createPassiveImageUrl(image.getFull());
+        }
+
+        return new Passive(name, description, sanitizedDescription, passiveImage);
     }
 }

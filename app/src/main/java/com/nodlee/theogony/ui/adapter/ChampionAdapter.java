@@ -53,9 +53,8 @@ public class ChampionAdapter extends BaseAdapter<Champion, ChampionAdapter.Click
     private void loadImage(RequestManager glide, ImageView imageView, String url) {
         glide.load(url)
                 .crossFade()
-                .error(R.drawable.img_default_avatar)
-                .fallback(R.drawable.img_default_avatar)
                 .fitCenter()
+                .placeholder(R.drawable.img_default_head)
                 .into(imageView);
     }
 

@@ -55,7 +55,9 @@ public class SpellListFragment extends BaseFragment {
         Champion champion = ChampionManager.getInstance().get(championId);
         Passive passive = champion.getPassive();
         binder.setPassive(passive);
-        Glide.with(this).load(passive.getImage()).into(mPassiveImageIv);
+        Glide.with(this).load(passive.getImage())
+                .placeholder(R.drawable.img_default_spell)
+                .into(mPassiveImageIv);
 
         SpellAdapter adapter = new SpellAdapter(Glide.with(this), champion.getSpells());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

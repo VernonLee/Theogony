@@ -36,6 +36,32 @@ public class Champion extends RealmObject implements Serializable {
     private RealmList<Spell> spells;
     private RealmList<Skin> skins;
 
+    public Champion() {
+    }
+
+    public Champion(int id, String key, String name, String title,
+                    String image, String lore, String blurb,
+                    String enemytipsc, String allytipsc, String tagsc,
+                    String partype, Info info, Stats stats, Passive passive,
+                    RealmList<Spell> spells, RealmList<Skin> skins) {
+        this.id = id;
+        this.key = key;
+        this.name = name;
+        this.title = title;
+        this.image = image;
+        this.lore = lore;
+        this.blurb = blurb;
+        this.enemytipsc = enemytipsc;
+        this.allytipsc = allytipsc;
+        this.tagsc = tagsc;
+        this.partype = partype;
+        this.info = info;
+        this.stats = stats;
+        this.passive = passive;
+        this.spells = spells;
+        this.skins = skins;
+    }
+
     public Passive getPassive() {
         return passive;
     }

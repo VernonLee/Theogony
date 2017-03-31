@@ -1,6 +1,7 @@
 package com.nodlee.theogony;
 
 import com.nodlee.theogony.task.DragonDataWatcherTest;
+import com.nodlee.theogony.thirdparty.gson.SpellDeserializerTest;
 import com.nodlee.theogony.ui.activity.WelcomeToSummonerRiftTest;
 
 import org.junit.runner.RunWith;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 //        RiotGameUtilsTest.class
 //        WelcomeToSummonerRiftTest.class,
-        DragonDataWatcherTest.class
+//        DragonDataWatcherTest.class
+          SpellDeserializerTest.class
 })
 public class TestSuite {
 }

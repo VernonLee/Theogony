@@ -17,6 +17,15 @@ public class Var extends RealmObject {
     @Ignore
     private float[] coeff;
 
+    public Var() {
+    }
+
+    public Var(String key, String link, float[] coeff) {
+        this.key = key;
+        this.link = link;
+        this.coeff = coeff;
+    }
+
     public String getKey() {
         return key;
     }

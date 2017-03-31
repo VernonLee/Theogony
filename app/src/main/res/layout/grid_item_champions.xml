@@ -11,7 +11,7 @@
         android:layout_width="@dimen/head_image_width"
         android:layout_height="@dimen/head_image_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_default_avatar"
+        android:src="@drawable/img_default_skin"
         android:transitionName="@string/shared_element_name_avatar"
         android:contentDescription="@string/app_name"/>
 

@@ -49,8 +49,7 @@ public class SpellAdapter extends BaseAdapter<Spell, SpellAdapter.ViewHolder> {
         glide.load(url)
                 .crossFade()
                 .fitCenter()
-                .error(R.drawable.img_default_avatar)
-                .fallback(R.drawable.img_default_avatar)
+                .placeholder(R.drawable.img_default_spell)
                 .into(imageView);
     }
 

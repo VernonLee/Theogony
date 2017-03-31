@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:scaleType="centerInside"
-            android:src="@drawable/img_default_avatar"
+            android:src="@drawable/img_default_skin"
             android:transitionName="@string/shared_element_name_skin_cover"/>
 
     </RelativeLayout>

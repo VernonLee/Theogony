@@ -65,12 +65,11 @@ public class InitDragonDataTask extends AsyncTask<Bundle, String, Boolean> {
             LogHelper.LOGW("championData为空");
             return false;
         }
+        dragonData.setLanguageCode(languageCode);
+        dragonData.setOutDate(false);
 
         // 第三阶段
         publishProgress("写入数据...");
-
-        dragonData.setLanguageCode(languageCode);
-        dragonData.setOutDate(false);
 
         boolean success = impl.writeToRealmDataBase(dragonData);
         LogHelper.LOGW("数据写入：" + (success ? "成功" : "失败"));

@@ -1,5 +1,8 @@
 package com.nodlee.theogony.bean;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,14 +14,18 @@ import io.realm.annotations.Ignore;
  * 作者：nodlee
  * 时间：2017/3/15
  * 说明：技能实体
+ * 备注：
+ *     亚索没有costType
+ *     没有costtype也就没有resource
+ *     德莱文e技能没有伤害计算，仅刷新技能CD
+ *     没有tooltip也就没有sanitizedTooltip
  */
 
 public class Spell extends RealmObject {
     private String name;
     private String description;
     private String sanitizedDescription;
-    @Ignore
-    private String tooltip; // 含有html标签，解析出错
+    private String tooltip;
     private String sanitizedTooltip;
     // private LevelTipRealm leveltip;
     private String image;
@@ -39,6 +46,29 @@ public class Spell extends RealmObject {
     private int[] range;
     private String rangeBurn;
     private String key;
+
+    public Spell() {
+    }
+
+    public Spell(String name, String description, String sanitizedDescription,
+                 String tooltip, String sanitizedTooltip, String image, String resource,
+                 int maxrank, String costType, String costBurn, String cooldownBurn,
+                 RealmList<Var> vars, String rangeBurn, String key) {
+        this.name = name;
+        this.description = description;
+        this.sanitizedDescription = sanitizedDescription;
+        this.tooltip = tooltip;
+        this.sanitizedTooltip = sanitizedTooltip;
+        this.image = image;
+        this.resource = resource;
+        this.maxrank = maxrank;
+        this.costType = costType;
+        this.costBurn = costBurn;
+        this.cooldownBurn = cooldownBurn;
+        this.vars = vars;
+        this.rangeBurn = rangeBurn;
+        this.key = key;
+    }
 
     public String getName() {
         return name;
@@ -64,8 +94,8 @@ public class Spell extends RealmObject {
         this.sanitizedDescription = sanitizedDescription;
     }
 
-    public String getTooltip() {
-        return tooltip;
+    public Spanned getTooltip() {
+        return Html.fromHtml(tooltip);
     }
 
     public void setTooltip(String tooltip) {
@@ -183,5 +213,13 @@ public class Spell extends RealmObject {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCostInfo() {
+        return costType != null && costType.equals("无消耗") ? costType : costBurn + costType;
+    }
+
+    public String getCoolDownInfo() {
+        return cooldownBurn + "秒";
     }
 }

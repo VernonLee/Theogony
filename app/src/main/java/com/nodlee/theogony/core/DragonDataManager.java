@@ -51,7 +51,7 @@ public class DragonDataManager {
         Realm realm = RealmProvider.getInstance().getRealm();
         try {
             DragonData result = realm.where(DragonData.class).findFirst();
-            return result.isOutDate();
+            return result != null && result.isOutDate();
         } finally {
             realm.close();
         }
@@ -61,7 +61,7 @@ public class DragonDataManager {
         Realm realm = RealmProvider.getInstance().getRealm();
         try {
             DragonData result = realm.where(DragonData.class).findFirst();
-            return result.getVersion();
+            return result != null ? result.getVersion() : null;
         } finally {
             realm.close();
         }

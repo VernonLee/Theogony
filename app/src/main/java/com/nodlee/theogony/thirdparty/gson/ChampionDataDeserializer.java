@@ -13,7 +13,7 @@ import java.util.Map;
 
 import io.realm.RealmList;
 
-
+import static com.nodlee.theogony.thirdparty.gson.SafetyGSONParser.*;
 /**
  * 作者：nodlee
  * 时间：2017/3/16
@@ -26,23 +26,20 @@ public class ChampionDataDeserializer implements JsonDeserializer<DragonData> {
     public DragonData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         if (json.isJsonNull()) return null;
 
-        JsonObject jsonObject = json.getAsJsonObject();
-        JsonElement typeElement = jsonObject.get("type");
-        JsonElement formatElement = jsonObject.get("format");
-        JsonElement versionElement = jsonObject.get("version");
-        JsonObject dataObj = jsonObject.get("data").getAsJsonObject();
+        JsonObject rootObject = json.getAsJsonObject();
+        String type                 = getString(rootObject, "type");
+        String format               = getString(rootObject, "format");
+        String version              = getString(rootObject, "version");
+        JsonObject championsJsonObj = getJsonObject(rootObject, "data");
 
-        RealmList<Champion> dataList = new RealmList();
-        for (Map.Entry<String, JsonElement> entry : dataObj.entrySet()) {
-            Champion champion = context.deserialize(entry.getValue(), Champion.class);
-            dataList.add(champion);
+        RealmList<Champion> championList = new RealmList();
+        if (championsJsonObj != null) {
+            for (Map.Entry<String, JsonElement> entry : championsJsonObj.entrySet()) {
+                Champion champion = context.deserialize(entry.getValue(), Champion.class);
+                championList.add(champion);
+            }
         }
 
-        DragonData dragonData = new DragonData();
-        dragonData.setType(typeElement.getAsString());
-        dragonData.setFormat(formatElement.getAsString());
-        dragonData.setVersion(versionElement.getAsString());
-        dragonData.setData(dataList);
-        return dragonData;
+        return new DragonData(type, format, version, championList);
     }
 }

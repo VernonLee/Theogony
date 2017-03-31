@@ -12,7 +12,7 @@
         android:layout_height="@dimen/skin_image_height"
         android:background="@color/card_background"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_default_avatar"
+        android:src="@drawable/img_default_skin"
         android:transitionName="@string/shared_element_name_skin_cover"/>
 
     <TextView

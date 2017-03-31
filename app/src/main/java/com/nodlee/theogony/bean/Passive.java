@@ -1,5 +1,8 @@
 package com.nodlee.theogony.bean;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import java.io.Serializable;
 
 import io.realm.RealmObject;
@@ -15,6 +18,16 @@ public class Passive extends RealmObject {
     private String description;
     private String sanitizedDescription;
     private String image;
+
+    public Passive() {
+    }
+
+    public Passive(String name, String description, String sanitizedDescription, String image) {
+        this.name = name;
+        this.description = description;
+        this.sanitizedDescription = sanitizedDescription;
+        this.image = image;
+    }
 
     public String getName() {
         return name;
@@ -32,8 +45,8 @@ public class Passive extends RealmObject {
         this.description = description;
     }
 
-    public String getSanitizedDescription() {
-        return sanitizedDescription;
+    public Spanned getSanitizedDescription() {
+        return Html.fromHtml(sanitizedDescription);
     }
 
     public void setSanitizedDescription(String sanitizedDescription) {

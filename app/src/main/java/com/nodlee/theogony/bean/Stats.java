@@ -193,17 +193,17 @@ public class Stats extends RealmObject {
     }
 
     public String getAttr1() {
-        return "射程:" + attackrange + "\n" +
-               "攻击力:" + attackdamage + "(+" + attackdamageperlevel + "/级) \n" +
-               "生命值:" + hp + "(+" + hpperlevel + "/级) \n" +
-               "物理防御:" + armor + "(+" + armorperlevel + "/级) \n" +
-               "魔法抗性:" + spellblock + "(+" + spellblockperlevel + "/级)";
+        return "射        程:"     + attackrange   + "\n" +
+               "攻  击  力:"    + attackdamage + (attackdamageperlevel != 0 ? "(+" + attackdamageperlevel + "/级)" : "") + "\n" +
+               "生  命  值:"    + hp           + (hpperlevel != 0 ? "(+" + hpperlevel + "/级) " : "")                    + "\n" +
+               "物理防御:"  + armor        + (armorperlevel != 0 ? "(+" + armorperlevel + "/级)" : "")                + "\n" +
+               "魔法抗性:"  + spellblock   + (spellblockperlevel != 0 ? "(+" + spellblockperlevel + "/级)" : "");
     }
 
     public String getAttr2() {
-        return "生命回复:" + hpregen + "(+" + hpregenperlevel + "/级) \n" +
-                "移动速度:" + movespeed + "\n" +
-                "法力值:" + mp + "(+" + mpperlevel + "/级) \n" +
-                "法力回复:" + mpregen + "(+" + mpregenperlevel + "/级) \n";
+        return "生命回复:"   + hpregen + (hpregenperlevel != 0 ? "(+" + hpregenperlevel + "/级) " : "") + "\n" +
+               "移动速度:"  + movespeed + "\n" +
+               "法  力  值:"    + mp + (mpperlevel != 0 ? "(+" + mpperlevel + "/级)" : "") + "\n" +
+               "法力回复:"  + mpregen + (mpregenperlevel != 0 ? "(+" + mpregenperlevel + "/级)" : "");
     }
 }

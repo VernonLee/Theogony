@@ -20,6 +20,16 @@ public class DragonData extends RealmObject {
     private RealmList<Champion> data;
     private boolean isOutDate; // 数据过时，即有新版本数据可更新
 
+    public DragonData() {
+    }
+
+    public DragonData(String type, String format, String version, RealmList<Champion> data) {
+        this.type = type;
+        this.format = format;
+        this.version = version;
+        this.data = data;
+    }
+
     public String getType() {
         return type;
     }

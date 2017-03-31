@@ -47,10 +47,8 @@ public class SkinAdapter extends BaseAdapter<Skin, SkinAdapter.ViewHolder> {
     private void loadImage(RequestManager glide, ImageView imageView, String url) {
         glide.load(url)
                 .thumbnail(0.1f)
-                .crossFade()
                 .fitCenter()
-                .error(R.drawable.img_default_avatar)
-                .fallback(R.drawable.img_default_avatar)
+                .placeholder(R.drawable.img_default_skin)
                 .into(imageView);
     }
 

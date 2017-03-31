@@ -38,6 +38,7 @@
                     android:id="@+id/iv_passive_image"
                     android:layout_width="@dimen/spell_image_width"
                     android:layout_height="@dimen/spell_image_height"
+                    android:paddingTop="3dp"
                     android:layout_alignParentLeft="true"
                     android:src="@drawable/img_spell_demo"/>
 

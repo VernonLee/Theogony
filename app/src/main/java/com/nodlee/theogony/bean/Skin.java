@@ -16,6 +16,15 @@ public class Skin extends RealmObject implements Serializable {
     private int num;
     private String image;
 
+    public Skin() {
+    }
+
+    public Skin(int id, String name, int num) {
+        this.id = id;
+        this.name = name;
+        this.num = num;
+    }
+
     public String getImage() {
         return image;
     }
