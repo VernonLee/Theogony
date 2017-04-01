@@ -1,4 +1,4 @@
-package com.nodlee.theogony.utils;
+package com.nodlee.theogony.thirdparty.realm;
 
 import android.content.Context;
 
