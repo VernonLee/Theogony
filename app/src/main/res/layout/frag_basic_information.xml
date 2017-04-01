@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="champion"
+            type="com.nodlee.theogony.bean.Champion"/>
+        <variable
+            name="info"
+            type="com.nodlee.theogony.bean.Info"/>
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_8"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/card_information_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            bind:champion="@{champion}"
+            bind:info="@{info}"/>
+
+        <include
+            layout="@layout/card_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            bind:champion="@{champion}"/>
+
+        <include
+            layout="@layout/card_lore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            bind:champion="@{champion}"/>
+
+    </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

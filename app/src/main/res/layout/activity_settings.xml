@@ -20,9 +20,178 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/frag_container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@color/window_background"/>
+
+        <TextView
+            style="@style/SettingsGroupTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/group_title_static_data"/>
+
+        <LinearLayout
+            android:id="@+id/view_locale"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_locale"/>
+
+            <TextView
+                android:id="@+id/txt_locale"
+                style="@style/SettingsSummaryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_dragon_data_version"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_dragon_data_version"/>
+
+            <TextView
+                android:id="@+id/txt_dragon_data_version"
+                style="@style/SettingsSummaryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_cache_size"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_cache_size"/>
+
+            <TextView
+                android:id="@+id/txt_cache_size"
+                style="@style/SettingsSummaryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@color/window_background"/>
+
+        <TextView
+            style="@style/SettingsGroupTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/group_title_about"/>
+
+        <LinearLayout
+            android:id="@+id/view_open_source_license"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_open_source_license"/>
+
+            <TextView
+                android:id="@+id/txt_open_source_license"
+                style="@style/SettingsSummaryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MIT"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_app_version"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_app_version"/>
+
+            <TextView
+                android:id="@+id/txt_app_version"
+                style="@style/SettingsSummaryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_about_app"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_about_app"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@color/window_background"/>
+
+        <RelativeLayout
+            android:id="@+id/view_feedback"
+            style="@style/SettingsItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SettingsTitleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_feedback"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

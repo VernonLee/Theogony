@@ -7,16 +7,16 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="172dp"
-        style="@style/AppBarLayout">
+        android:layout_height="172dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:collapsedTitleTextAppearance="@style/CollapsedTitleTextAppearance"
             app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
-            app:collapsedTitleTextAppearance="@style/CollapsedTitleTextAppearance">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -29,16 +29,27 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.nodlee.theogony.view.AutoFitRecyclerView
-        android:id="@+id/recy_view_favorite_champions"
+    <RelativeLayout
+        android:id="@+id/view_switcher_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="118dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.nodlee.theogony.ui.view.AutoFitRecyclerView
+            android:id="@+id/recy_view_favorite_champions"
+            style="@style/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/view_empty_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/EmptyViewContent"
+            android:text="@string/msg_empty_favorites"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -17,11 +17,6 @@
             android:title="@string/navigation_item_collection_list"/>
 
         <item
-            android:id="@+id/menu_item_wallpaper"
-            android:icon="@drawable/nav_ic_wallpaper"
-            android:title="@string/navigation_item_skin_list"/>
-
-        <item
             android:id="@+id/menu_item_dayNight"
             android:icon="@drawable/nav_ic_daynight"
             android:title="@string/navigation_item_night_mode"

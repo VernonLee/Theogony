@@ -3,86 +3,84 @@ package com.nodlee.theogony.utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.nostra13.universalimageloader.utils.L;
-
 import java.io.File;
 
 /**
  * 作者：nodlee
- * 时间：16/8/16
+ * 时间：2017/3/29
  * 说明：
  */
+
 public class CacheManager {
 
-    /**
-     * 获取缓存大小
-     * @return
-     */
-    public static String getCacheSize(Context context) {
-
-        int externalCacheSize = -1;
-        File externalCacheDir = context.getExternalCacheDir();
-        if (externalCacheDir.exists()) {
-            externalCacheSize = (int) Math.ceil(getFileSize(externalCacheDir));
-        }
-
-        int cacheSize = -1;
-        File cacheDir = context.getCacheDir();
-        if (cacheDir.exists()) {
-            cacheSize = (int) Math.ceil(getFileSize(cacheDir));
-        }
-
-        int totalSize = externalCacheSize + cacheSize;
-
-        return totalSize > 0 ? String.format("%dM", totalSize) : "";
+    private static File getImageCacheDir(Context context) {
+        return context.getCacheDir();
     }
 
-    /**
-     * 获取目录尺寸，单位：M
-     * @param file
-     * @return
-     */
-    private static double getFileSize(File file) {
-        if (!file.exists()) return 0;
+    public static double getCacheSize(Context context) {
+        if (context == null) return 0;
 
-        if (file.isDirectory()) {
-            File[] children = file.listFiles();
-            double size = 0;
-            for (File f : children) {
-                size += getFileSize(f);
+        File cacheDir = getImageCacheDir(context);
+        return FileManager.getDirSize(cacheDir);
+    }
+
+    public static void cleanCache(Context context) {
+        File file = getImageCacheDir(context);
+        if (file != null && file.exists()) {
+            FileManager.cleanFile(file);
+        }
+    }
+
+    private static class FileManager {
+
+        private static double getDirSize(File directory) {
+            if (directory == null) {
+                return 0;
             }
-            return size;
-        } else {
-            return (double) file.length() / 1024 / 1024;
-        }
-    }
-
-    /**
-     * 删除目录下面所有文件
-     * @param file
-     */
-    private static boolean delete(File file) {
-        if (!file.exists()) return false;
-
-        if (file.isDirectory()) {
-            File[] childFiles = file.listFiles();
-            for (File file1 : childFiles) {
-                delete(file1);
+            if (!directory.exists()) {
+                Log.d("xxx", "文件夹不存在:" + directory.getPath());
+                return 0;
             }
-        } else {
-           file.delete();
-        }
-        return true;
-    }
 
-    /**
-     * 清空缓存 sdcard中cache目录下
-     */
-    public static boolean clean(Context context) {
-        File externalCacheDir = context.getExternalCacheDir();
-        File cacheDir = context.getCacheDir();
-        delete(externalCacheDir);
-        delete(cacheDir);
-        return true;
+            if (directory.isDirectory()) {
+                File[] children = directory.listFiles();
+                double size = 0;
+                for (File f : children)
+                    size += getDirSize(f);
+                return size;
+            } else {
+                double size = (double) directory.length() / 1024 / 1024; // M为单位
+                return size;
+            }
+        }
+
+        private static void cleanFile(File directory) {
+            if (directory == null || !directory.exists()) {
+                return;
+            }
+            if (!directory.exists() || directory.isFile()) {
+                Log.d("xxx", "文件夹不存在或不是文件夹:" + directory.getPath());
+                return;
+            }
+
+            Log.d("xxx", "清空文件夹：" + directory.getAbsolutePath());
+
+            File[] directoryFiles = directory.listFiles();
+            for (File f : directoryFiles) {
+                if (f.isFile()) {
+                    Log.d("xxx", "删除：" + f.getAbsolutePath());
+                    f.delete();
+                }
+
+                if (f.isDirectory()) {
+                    File[] files = f.listFiles();
+                    if (files.length == 0) {
+                        f.delete();
+                    } else {
+                        cleanFile(f);
+                    }
+                }
+            }
+        }
     }
 }

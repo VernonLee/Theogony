@@ -1,9 +1,9 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorAccent">@color/color_accent</item>
-        <item name="android:colorPrimary">@color/color_primary</item>
-        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 
@@ -24,19 +24,6 @@
 
     <style name="CollapsedTitleTextAppearance" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textColor">@color/primary_text_default_dark</item>
-    </style>
-
-    <style name="AppTheme.Settings">
-        <item name="android:preferenceCategoryStyle">@style/PreferenceCategory</item>
-        <item name="android:preferenceStyle">@style/Preference</item>
-    </style>
-
-    <style name="PreferenceCategory">
-        <item name="android:layout">@layout/preference_category</item>
-    </style>
-
-    <style name="Preference">
-        <item name="android:layout">@layout/preference</item>
     </style>
 
     <style name="TabLayout" parent="@style/Widget.Design.TabLayout">
@@ -65,7 +52,7 @@
     </style>
 
     <style name="AppBarLayout" parent="Widget.Design.AppBarLayout">
-        <item name="android:elevation">@dimen/design_appbar_elevation</item>
+        <item name="elevation">@dimen/design_appbar_elevation</item>
         <item name="android:shadowColor">@color/appbar_shadow</item>
         <item name="android:background">@color/tab_background</item>
     </style>
@@ -80,7 +67,7 @@
 
     <style name="FabBtn" parent="Widget.Design.FloatingActionButton">
         <item name="fabSize">normal</item>
-        <item name="android:elevation">6dp</item>
+        <item name="elevation">6dp</item>
     </style>
 
     <style name="FloatingActionMenuItemText">
@@ -110,10 +97,12 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/color_primary</item>
+        <item name="android:background">@drawable/bg_setting_item</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
     </style>
 
     <style name="SettingsGroupTitleTv">
@@ -155,4 +144,43 @@
         <item name="android:padding">12dp</item>
         <item name="android:lineSpacingMultiplier">1.5</item>
     </style>
+
+    <style name="SpellName">
+        <item name="android:textColor">@color/secondary_text_default_dark</item>
+        <item name="android:textSize">@dimen/card_title_text_size</item>
+    </style>
+
+    <style name="CardTitle">
+        <item name="android:textColor">@color/tab_normal_text_color</item>
+        <item name="android:textSize">@dimen/card_title_text_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/card_title_height</item>
+        <item name="android:drawableLeft">@drawable/ic_red_vertical_line</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="CardContent">
+        <item name="android:textColor">@color/secondary_text_disabled_dark</item>
+        <item name="android:textSize">@dimen/body</item>
+    </style>
+
+    <style name="RecyclerView">
+        <item name="android:paddingLeft">@dimen/padding_8</item>
+        <item name="android:paddingRight">@dimen/padding_8</item>
+        <item name="android:paddingTop">@dimen/padding_8</item>
+        <item name="android:columnWidth">103dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+    </style>
+
+    <style name="EmptyViewContent">
+        <item name="android:drawableTop">@drawable/ic_empty</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">150dp</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/empty_view_content_text_color</item>
+    </style>
+
 </resources>

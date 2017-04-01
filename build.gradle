@@ -1,15 +1,11 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath "io.realm:realm-gradle-plugin:3.0.0"
     }
 }
 
@@ -18,6 +14,28 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
     }
+}
+
+ext {
+    android = [
+            compileSdkVersion: 24,
+            buildToolsVersion: "24.0.2",
+            minSdkVersion    : 17,
+            targetSdkVersion : 24
+    ]
+
+    dependencies = [
+            appcompatV7Version : "24.2.0",
+            recyclerviewVersion: "24.2.0",
+            preferenceV7Version: "24.2.0",
+            designVersion      : "24.2.0",
+            cardViewVersion    : "24.2.0",
+            butterKnifeVersion : "8.4.0",
+            gsonVersion        : "2.8.0",
+            okhttpVersion      : "3.6.0",
+            powerMockVersion   : "1.6.2",
+            glideVersion       : "3.7.0",
+    ]
 }
 
 task clean(type: Delete) {

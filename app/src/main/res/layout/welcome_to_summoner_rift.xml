@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <View
         android:id="@+id/view_anchor"
         android:layout_width="1px"
         android:layout_height="1px"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:text="T h e o g o n y"
             android:textColor="@color/color_accent"
             android:textSize="35sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -32,16 +32,16 @@
             android:gravity="center"
             android:text="- 品味英雄故事 -"
             android:textColor="@color/secondary_text_default_dark"
-            android:textSize="@dimen/title" />
+            android:textSize="@dimen/title"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_progress_msg"
+    <TextSwitcher
+        android:id="@+id/txt_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/secondary_text_dark"
-        android:textSize="@dimen/caption" />
+        android:clickable="true"/>
+
 </RelativeLayout>

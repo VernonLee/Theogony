@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/view_appbar"
@@ -16,23 +16,14 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="172dp"
-            app:expandedTitleGravity="center"
-            app:expandedTitleTextAppearance="@style/MediumTextAppearance"
-            app:expandedTitleMarginTop="135dp"
+            android:layout_height="128dp"
+            app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="86dp"
-                android:layout_height="86dp"
-                android:layout_marginTop="35dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_default_avatar"
-                android:transitionName="@string/shared_element_name_avatar"
-                app:civ_border_color="#333"
-                app:civ_border_width="2dp"/>
+            <ImageView
+                android:id="@+id/iv_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -47,8 +38,8 @@
             style="@style/TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabGravity="fill"/>
+            app:tabGravity="fill"
+            app:tabMode="fixed"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -63,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/margin_normal"
+        android:layout_margin="@dimen/margin_16"
         android:clickable="true"
         android:src="@drawable/favorite_selector"
         android:tint="@color/color_accent"

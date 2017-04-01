@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_normal">
+    android:padding="@dimen/padding_16">
 
     <ProgressBar
         android:id="@+id/progress_fetch_data"
@@ -12,7 +12,7 @@
         android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/txt_progress_msg"
+        android:id="@+id/txt_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/body"
