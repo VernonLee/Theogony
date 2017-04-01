@@ -13,7 +13,9 @@ import com.nodlee.theogony.utils.AndroidUtils;
 
 import java.io.IOException;
 
-public class SetWallpaperTask extends AsyncTask<String, Void, Boolean> {
+import static android.R.attr.bitmap;
+
+public class SetWallpaperTask extends AsyncTask<Bitmap, Void, Boolean> {
     private Context mContext;
     private ProgressDialog mProgressDialog;
 
@@ -30,26 +32,18 @@ public class SetWallpaperTask extends AsyncTask<String, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
-//        try {
-            // 图片地址urlSpec
-//            Uri urlSpec = Uri.parse(params[0]);
-//            byte[] dataBytes = new HttpFetchr().getUrlBytes(urlSpec);
-//            if (dataBytes == null) {
-//                return false;
-//            }
-//
-//            Bitmap wallPaperBitmap = BitmapFactory.decodeByteArray(dataBytes, 0, dataBytes.length);
-//            if (wallPaperBitmap != null) {
-//                WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-//                wallpaperManager.setBitmap(wallPaperBitmap);
-//
-//            }
-            return true;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
+    protected Boolean doInBackground(Bitmap... params) {
+        Bitmap bitmap = params[0];
+        try {
+            if (bitmap != null) {
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+                wallpaperManager.setBitmap(bitmap);
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

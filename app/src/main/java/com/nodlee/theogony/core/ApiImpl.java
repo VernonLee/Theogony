@@ -18,6 +18,7 @@ import com.nodlee.theogony.utils.LogHelper;
 import com.nodlee.theogony.utils.RealmProvider;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 import okhttp3.OkHttpClient;
@@ -48,6 +49,7 @@ public class ApiImpl implements Api {
     @Override
     public String request(String url) {
         OkHttpClient client = new OkHttpClient();
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();

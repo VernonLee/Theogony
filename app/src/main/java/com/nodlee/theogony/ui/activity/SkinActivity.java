@@ -2,6 +2,7 @@ package com.nodlee.theogony.ui.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,12 +10,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.nodlee.theogony.R;
 import com.nodlee.theogony.bean.Skin;
 import com.nodlee.theogony.core.SkinManager;
 import com.nodlee.theogony.task.InsertGalleryTask;
 import com.nodlee.theogony.task.SetWallpaperTask;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +33,7 @@ public class SkinActivity extends BaseActivity {
     @BindView(R.id.iv_cover)
     PhotoView mCoverIv;
 
-    private Skin mSkin;
+    private static Bitmap mBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +41,25 @@ public class SkinActivity extends BaseActivity {
         setContentView(R.layout.activity_skin);
         ButterKnife.bind(this);
         getToolbar(R.drawable.ic_arrow_back, null);
+
         init();
     }
 
     private void init() {
-        if (!getIntent().hasExtra(EXTRA_SKIN_ID))
-            return;
-
         int skinID = getIntent().getIntExtra(EXTRA_SKIN_ID, -1);
         Skin skin = SkinManager.getInstance().get(skinID);
         if (skin != null) {
             mNameTv.setText(skin.getName());
-            Glide.with(this).load(skin.getImage()).thumbnail(0.1f).into(mCoverIv);
-            mSkin = skin;
+            Glide.with(this)
+                    .load(skin.getImage())
+                    .asBitmap()
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            mBitmap = resource;
+                            mCoverIv.setImageBitmap(resource);
+                        }
+                    });
         }
     }
 
@@ -72,52 +80,60 @@ public class SkinActivity extends BaseActivity {
                 }
                 break;
             case R.id.menu_item_wallpaper:
-                setWallPaper(mSkin);
+                setWallPaper(mBitmap);
                 break;
             case R.id.menu_item_download:
-                downLoad(mSkin);
+                 downLoad(mBitmap);
                 break;
         }
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mBitmap != null) {
+            mBitmap.recycle();
+            mBitmap = null;
+        }
+    }
+
     /**
      * 设置皮肤为桌面壁纸
      *
-     * @param skin
+     * @param bitmap
      */
-    private void setWallPaper(final Skin skin) {
-        if (skin == null) return;
+    private void setWallPaper(final Bitmap bitmap) {
+        if (bitmap == null) return;
 
         new AlertDialog.Builder(this)
-                .setMessage("要设置为壁纸吗?")
-                .setNegativeButton(R.string.cancel_button, null)
-                .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new SetWallpaperTask(SkinActivity.this)
-                                .execute(skin.getImage());
-                    }
-                }).create().show();
+            .setMessage("要设置为壁纸吗?")
+            .setNegativeButton(R.string.cancel_button, null)
+            .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    new SetWallpaperTask(SkinActivity.this).execute(bitmap);
+                }
+            }).create().show();
     }
 
     /**
      * 下载皮肤到本地相册
      *
-     * @param skin
+     * @param bitmap
      */
-    private void downLoad(final Skin skin) {
-        if (skin == null) return;
+    private void downLoad(final Bitmap bitmap) {
+        if (bitmap == null) return;
 
         new AlertDialog.Builder(this)
-                .setMessage("要下载到手机吗?")
-                .setNegativeButton(R.string.cancel_button, null)
-                .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new InsertGalleryTask(SkinActivity.this)
-                                .execute(skin.getImage());
-                    }
-                }).create().show();
+            .setMessage("要下载到手机吗?")
+            .setNegativeButton(R.string.cancel_button, null)
+            .setPositiveButton(R.string.okay_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    new InsertGalleryTask(SkinActivity.this)
+                            .execute(bitmap);
+                }
+            }).create().show();
     }
 }
