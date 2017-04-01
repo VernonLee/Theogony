@@ -2,7 +2,7 @@ package com.nodlee.theogony.core;
 
 import com.nodlee.theogony.bean.Champion;
 import com.nodlee.theogony.bean.Skin;
-import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.thirdparty.realm.RealmProvider;
 
 import java.util.List;
 

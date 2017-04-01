@@ -3,7 +3,7 @@ package com.nodlee.theogony.core;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.nodlee.theogony.bean.DragonData;
-import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.thirdparty.realm.RealmProvider;
 
 import org.junit.After;
 import org.junit.Before;

@@ -39,7 +39,6 @@ dependencies {
     compile "com.android.support:design:${rootProject.ext.dependencies.designVersion}"
     compile "com.android.support:recyclerview-v7:${rootProject.ext.dependencies.recyclerviewVersion}"
     compile "com.android.support:cardview-v7:${rootProject.ext.dependencies.cardViewVersion}"
-    compile "com.android.support:preference-v7:${rootProject.ext.dependencies.preferenceV7Version}"
 
     apt "com.jakewharton:butterknife-compiler:${rootProject.ext.dependencies.butterKnifeVersion}"
     compile "com.jakewharton:butterknife:${rootProject.ext.dependencies.butterKnifeVersion}"

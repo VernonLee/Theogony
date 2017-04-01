@@ -1,32 +1,32 @@
-###英雄谱(Theogony)
+## 英雄联盟中文维基
 ----------------------
 
-####介绍
+### 介绍
 
-英雄谱是一款关于[英雄联盟](http://na.leagueoflegends.com/)中英雄百科的App。主要由以下功能： 
-
-* 浏览英雄背景故事
-* 浏览英雄所有的插画
-* 支持插画下载
-* 设置插画为桌面壁纸
+英雄联盟中文维基，又叫英雄谱，英文名称Theogony。是一款关于[英雄联盟][1]中英雄百科的App。具有浏览英雄基础属性、对局能力、技能伤害、背景故事以及所有皮肤插画功能，并且支持下载皮肤插画和设置桌面壁纸。应用内数据来源为英雄联盟北美服务器，和其他区域比较，具有准确性高，实时性强等优势。LOLER们通过该应用可预先了解新版本变化情况，提前做好上分准备。
 
 <a href="https://play.google.com/store/apps/details?id=com.nodlee.theogony&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" height="64" width="204"/></a>
 
-####应用截图
-|                                   |                                        |                                      |                                |                                    |
-|:---------------------------------:|:--------------------------------------:|:------------------------------------:|:------------------------------:|:----------------------------------:|
-|![welcome](screenshot/welcome.png) | ![champions](screenshot/champions.png) | ![champion](screenshot/champion.png) | ![skins](screenshot/skins.png) | ![skin](screenshot/skin.png) |
+### 开源库
 
-####关于APP_KEY
-APP_KEY是由拳头公司提供，属于非公开的。所以为了保证应用的正常使用，使用者需移步[拳头开发者中心](https://developer.riotgames.com/)拿到测试APP_KEY，加到Constants RIOT_APP_KEY中。
+|名称|职责|
+|:--|:--|
+[ButterKnife][2]|处理View绑定
+[Gson][3]|处理JSON解析，反序列对象。
+[OkHttp][4]|处理网络请求
+[Glide][5]|处理图片加载
+[Realm][6]|处理数据存储
+[BataBind][7]| 处理View和实体绑定
 
-####感谢
+### 更新记录
 
-[CursorRecyclerViewAdapter](https://gist.github.com/skyfishjy/443b7448f59be978bc59) -skyfishjy  
-[PhotoView](https://github.com/chrisbanes/PhotoView) -chrisbanes  
-[Android-Universal-Image-Loader](https://github.com/nostra13/Android-Universal-Image-Loader) -nostra13  
+2.0.0
 
-####License
+* 重构基础框架，提炼业务，分层处理。
+* 英雄详情改版，更全面，详细的数据展示
+
+
+### License
 
 ```
 The MIT License (MIT)
@@ -51,3 +51,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+[1]: http://na.leagueoflegends.com
+[2]: https://github.com/JakeWharton/butterknife
+[3]: https://github.com/google/gson
+[4]: https://github.com/square/okhttp
+[5]: https://github.com/bumptech/glide
+[6]: https://realm.io/
+[7]: https://developer.android.com/topic/libraries/data-binding/index.htmlgit

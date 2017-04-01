@@ -15,16 +15,14 @@ import com.nodlee.theogony.thirdparty.gson.PassiveDeserializer;
 import com.nodlee.theogony.thirdparty.gson.SkinDeserializer;
 import com.nodlee.theogony.thirdparty.gson.SpellDeserializer;
 import com.nodlee.theogony.utils.LogHelper;
-import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.thirdparty.realm.RealmProvider;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.internal.http.HttpCodec;
 
 /**
  * 作者：nodlee

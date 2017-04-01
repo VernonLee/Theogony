@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -20,7 +19,7 @@ import com.nodlee.theogony.core.ApiImpl;
 import com.nodlee.theogony.core.DragonDataManager;
 import com.nodlee.theogony.utils.AndroidUtils;
 import com.nodlee.theogony.utils.LogHelper;
-import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.thirdparty.realm.RealmProvider;
 import com.nodlee.theogony.utils.RiotGameUtils;
 import com.nodlee.theogony.utils.ThemeUtils;
 

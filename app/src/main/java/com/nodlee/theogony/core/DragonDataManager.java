@@ -3,10 +3,9 @@ package com.nodlee.theogony.core;
 
 import com.nodlee.theogony.bean.DragonData;
 import com.nodlee.theogony.utils.LogHelper;
-import com.nodlee.theogony.utils.RealmProvider;
+import com.nodlee.theogony.thirdparty.realm.RealmProvider;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by Vernon Lee on 15-11-22.

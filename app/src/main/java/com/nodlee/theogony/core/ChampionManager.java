@@ -3,19 +3,12 @@ package com.nodlee.theogony.core;
 import android.text.TextUtils;
 
 import com.nodlee.theogony.bean.Champion;
-import com.nodlee.theogony.bean.DragonData;
-import com.nodlee.theogony.bean.Skin;
-import com.nodlee.theogony.bean.Spell;
-import com.nodlee.theogony.utils.RealmProvider;
-import com.nodlee.theogony.utils.RiotGameUtils;
+import com.nodlee.theogony.thirdparty.realm.RealmProvider;
 
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-
-import static android.R.attr.tag;
-import static io.realm.Realm.getDefaultInstance;
 
 /**
  * 作者：nodlee
